@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Livre index{% endblock %}
+
+{% block body %}
+    <h1>Livre index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre_francais</th>
+                <th>Titre_original</th>
+                <th>Couverture</th>
+                <th>Synopsis</th>
+                <th>Pays_origine</th>
+                <th>Date_publication_france</th>
+                <th>Date_publication_pays_origine</th>
+                <th>ISBN</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for livre in livres %}
+            <tr>
+                <td>{{ livre.id }}</td>
+                <td>{{ livre.titreFrancais }}</td>
+                <td>{{ livre.titreOriginal }}</td>
+                <td>{{ livre.couverture }}</td>
+                <td>{{ livre.synopsis }}</td>
+                <td>{{ livre.paysOrigine }}</td>
+                <td>{{ livre.datePublicationFrance ? livre.datePublicationFrance|date('Y-m-d') : '' }}</td>
+                <td>{{ livre.datePublicationPaysOrigine ? livre.datePublicationPaysOrigine|date('Y-m-d') : '' }}</td>
+                <td>{{ livre.ISBN }}</td>
+                <td>
+                    <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>
+                    <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_livre_new') }}">Create new</a>
+{% endblock %}

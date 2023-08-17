@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album index{% endblock %}
+
+{% block body %}
+    <h1>Album index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre_francais</th>
+                <th>Titre_original</th>
+                <th>Affiche</th>
+                <th>Pays_origine</th>
+                <th>Track</th>
+                <th>Single</th>
+                <th>Date_enregistrement</th>
+                <th>Date_sortie_france</th>
+                <th>Date_sortie_pays_origine</th>
+                <th>Label</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for album in albums %}
+            <tr>
+                <td>{{ album.id }}</td>
+                <td>{{ album.titreFrancais }}</td>
+                <td>{{ album.titreOriginal }}</td>
+                <td>{{ album.affiche }}</td>
+                <td>{{ album.paysOrigine }}</td>
+                <td>{{ album.track }}</td>
+                <td>{{ album.single }}</td>
+                <td>{{ album.dateEnregistrement ? album.dateEnregistrement|date('Y-m-d') : '' }}</td>
+                <td>{{ album.dateSortieFrance ? album.dateSortieFrance|date('Y-m-d') : '' }}</td>
+                <td>{{ album.dateSortiePaysOrigine ? album.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+                <td>{{ album.label }}</td>
+                <td>
+                    <a href="{{ path('app_admin_album_show', {'id': album.id}) }}">show</a>
+                    <a href="{{ path('app_admin_album_edit', {'id': album.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_album_new') }}">Create new</a>
+{% endblock %}

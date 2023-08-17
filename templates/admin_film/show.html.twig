@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Film{% endblock %}
+
+{% block body %}
+    <h1>Film</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ film.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre_francais</th>
+                <td>{{ film.titreFrancais }}</td>
+            </tr>
+            <tr>
+                <th>Titre_original</th>
+                <td>{{ film.titreOriginal }}</td>
+            </tr>
+            <tr>
+                <th>Affiche</th>
+                <td>{{ film.affiche }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Synopsis</th>
+                <td>{{ film.synopsis }}</td>
+            </tr>
+            <tr>
+                <th>Pays_origine</th>
+                <td>{{ film.paysOrigine }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie_france</th>
+                <td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie_pays_origine</th>
+                <td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Bandes_annonces_teasers</th>
+                <td>{{ film.bandesAnnoncesTeasers }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_film_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
+
+    {{ include('admin_film/_delete_form.html.twig') }}
+{% endblock %}

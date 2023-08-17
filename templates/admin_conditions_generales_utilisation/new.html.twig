@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ConditionsGeneralesUtilisation{% endblock %}
+
+{% block body %}
+    <h1>Create new ConditionsGeneralesUtilisation</h1>
+
+    {{ include('admin_conditions_generales_utilisation/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_conditions_generales_utilisation_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Film index{% endblock %}
+
+{% block body %}
+    <h1>Film index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre_francais</th>
+                <th>Titre_original</th>
+                <th>Affiche</th>
+                <th>Duree</th>
+                <th>Synopsis</th>
+                <th>Pays_origine</th>
+                <th>Date_sortie_france</th>
+                <th>Date_sortie_pays_origine</th>
+                <th>Bandes_annonces_teasers</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for film in films %}
+            <tr>
+                <td>{{ film.id }}</td>
+                <td>{{ film.titreFrancais }}</td>
+                <td>{{ film.titreOriginal }}</td>
+                <td>{{ film.affiche }}</td>
+                <td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
+                <td>{{ film.synopsis }}</td>
+                <td>{{ film.paysOrigine }}</td>
+                <td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
+                <td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+                <td>{{ film.bandesAnnoncesTeasers }}</td>
+                <td>
+                    <a href="{{ path('app_admin_film_show', {'id': film.id}) }}">show</a>
+                    <a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_film_new') }}">Create new</a>
+{% endblock %}

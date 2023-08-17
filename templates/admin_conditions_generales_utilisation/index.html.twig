@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ConditionsGeneralesUtilisation index{% endblock %}
+
+{% block body %}
+    <h1>ConditionsGeneralesUtilisation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Introduction</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for conditions_generales_utilisation in conditions_generales_utilisations %}
+            <tr>
+                <td>{{ conditions_generales_utilisation.id }}</td>
+                <td>{{ conditions_generales_utilisation.titre }}</td>
+                <td>{{ conditions_generales_utilisation.introduction }}</td>
+                <td>{{ conditions_generales_utilisation.description }}</td>
+                <td>
+                    <a href="{{ path('app_admin_conditions_generales_utilisation_show', {'id': conditions_generales_utilisation.id}) }}">show</a>
+                    <a href="{{ path('app_admin_conditions_generales_utilisation_edit', {'id': conditions_generales_utilisation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_conditions_generales_utilisation_new') }}">Create new</a>
+{% endblock %}

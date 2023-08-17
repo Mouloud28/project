@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Album{% endblock %}
+
+{% block body %}
+    <h1>Album</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ album.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre_francais</th>
+                <td>{{ album.titreFrancais }}</td>
+            </tr>
+            <tr>
+                <th>Titre_original</th>
+                <td>{{ album.titreOriginal }}</td>
+            </tr>
+            <tr>
+                <th>Affiche</th>
+                <td>{{ album.affiche }}</td>
+            </tr>
+            <tr>
+                <th>Pays_origine</th>
+                <td>{{ album.paysOrigine }}</td>
+            </tr>
+            <tr>
+                <th>Track</th>
+                <td>{{ album.track }}</td>
+            </tr>
+            <tr>
+                <th>Single</th>
+                <td>{{ album.single }}</td>
+            </tr>
+            <tr>
+                <th>Date_enregistrement</th>
+                <td>{{ album.dateEnregistrement ? album.dateEnregistrement|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie_france</th>
+                <td>{{ album.dateSortieFrance ? album.dateSortieFrance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_sortie_pays_origine</th>
+                <td>{{ album.dateSortiePaysOrigine ? album.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Label</th>
+                <td>{{ album.label }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_album_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_album_edit', {'id': album.id}) }}">edit</a>
+
+    {{ include('admin_album/_delete_form.html.twig') }}
+{% endblock %}

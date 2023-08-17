@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie index{% endblock %}
+
+{% block body %}
+    <h1>Serie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre_francais</th>
+                <th>Titre_original</th>
+                <th>Affiche</th>
+                <th>Duree</th>
+                <th>Synopsis</th>
+                <th>Pays_origine</th>
+                <th>Date_diffusion_france</th>
+                <th>Date_diffusion_pays_origine</th>
+                <th>Bandes_annonces_teasers</th>
+                <th>Nombre_saisons</th>
+                <th>Statut</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for serie in series %}
+            <tr>
+                <td>{{ serie.id }}</td>
+                <td>{{ serie.titreFrancais }}</td>
+                <td>{{ serie.titreOriginal }}</td>
+                <td>{{ serie.affiche }}</td>
+                <td>{{ serie.duree ? serie.duree|date('H:i:s') : '' }}</td>
+                <td>{{ serie.synopsis }}</td>
+                <td>{{ serie.paysOrigine }}</td>
+                <td>{{ serie.dateDiffusionFrance ? serie.dateDiffusionFrance|date('Y-m-d') : '' }}</td>
+                <td>{{ serie.dateDiffusionPaysOrigine ? serie.dateDiffusionPaysOrigine|date('Y-m-d') : '' }}</td>
+                <td>{{ serie.bandesAnnoncesTeasers }}</td>
+                <td>{{ serie.nombreSaisons }}</td>
+                <td>{{ serie.statut }}</td>
+                <td>
+                    <a href="{{ path('app_admin_serie_show', {'id': serie.id}) }}">show</a>
+                    <a href="{{ path('app_admin_serie_edit', {'id': serie.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="13">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_serie_new') }}">Create new</a>
+{% endblock %}

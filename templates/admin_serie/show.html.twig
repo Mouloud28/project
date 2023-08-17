@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie{% endblock %}
+
+{% block body %}
+    <h1>Serie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ serie.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre_francais</th>
+                <td>{{ serie.titreFrancais }}</td>
+            </tr>
+            <tr>
+                <th>Titre_original</th>
+                <td>{{ serie.titreOriginal }}</td>
+            </tr>
+            <tr>
+                <th>Affiche</th>
+                <td>{{ serie.affiche }}</td>
+            </tr>
+            <tr>
+                <th>Duree</th>
+                <td>{{ serie.duree ? serie.duree|date('H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Synopsis</th>
+                <td>{{ serie.synopsis }}</td>
+            </tr>
+            <tr>
+                <th>Pays_origine</th>
+                <td>{{ serie.paysOrigine }}</td>
+            </tr>
+            <tr>
+                <th>Date_diffusion_france</th>
+                <td>{{ serie.dateDiffusionFrance ? serie.dateDiffusionFrance|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_diffusion_pays_origine</th>
+                <td>{{ serie.dateDiffusionPaysOrigine ? serie.dateDiffusionPaysOrigine|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Bandes_annonces_teasers</th>
+                <td>{{ serie.bandesAnnoncesTeasers }}</td>
+            </tr>
+            <tr>
+                <th>Nombre_saisons</th>
+                <td>{{ serie.nombreSaisons }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ serie.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_admin_serie_index') }}">back to list</a>
+
+    <a href="{{ path('app_admin_serie_edit', {'id': serie.id}) }}">edit</a>
+
+    {{ include('admin_serie/_delete_form.html.twig') }}
+{% endblock %}
