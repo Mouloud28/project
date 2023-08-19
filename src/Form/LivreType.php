@@ -6,6 +6,7 @@ use App\Entity\Livre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class LivreType extends AbstractType
 {
@@ -15,6 +16,7 @@ class LivreType extends AbstractType
             ->add('titre_francais')
             ->add('titre_original')
             ->add('couverture')
+            ->add('imageFile', FileType::class, ['label' => 'Image'])
             ->add('synopsis')
             ->add('pays_origine')
             ->add('date_publication_france')
