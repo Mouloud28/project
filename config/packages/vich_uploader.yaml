@@ -1,0 +1,40 @@
+vich_uploader:
+    db_driver: orm
+
+    metadata:
+        type: attribute
+
+    mappings:
+        albums:
+            uri_prefix: /images/Albums
+            upload_destination: '%kernel.project_dir%/public/images/Albums'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        articles:
+            uri_prefix: /images/Articles
+            upload_destination: '%kernel.project_dir%/public/images/Articles'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        artistes:
+            uri_prefix: /images/Artistes
+            upload_destination: '%kernel.project_dir%/public/images/Artistes'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        categories:
+            uri_prefix: /images/Categories
+            upload_destination: '%kernel.project_dir%/public/images/Categories'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        films:
+            uri_prefix: /images/Films
+            upload_destination: '%kernel.project_dir%/public/images/Films'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        livres:
+            uri_prefix: /images/Livres
+            upload_destination: '%kernel.project_dir%/public/images/Livres'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        series:
+            uri_prefix: /images/Series
+            upload_destination: '%kernel.project_dir%/public/images/Series'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        users:
+            uri_prefix: /images/Users
+            upload_destination: '%kernel.project_dir%/public/images/Users'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+
