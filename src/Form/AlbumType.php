@@ -22,6 +22,7 @@ class AlbumType extends AbstractType
             ->add('date_sortie_france')
             ->add('date_sortie_pays_origine')
             ->add('label')
+            ->remove('updatedAt')
         ;
     }
 

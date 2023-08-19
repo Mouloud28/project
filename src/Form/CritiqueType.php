@@ -14,6 +14,7 @@ class CritiqueType extends AbstractType
         $builder
             ->add('titre')
             ->add('texte')
+            ->remove('updatedAt')
         ;
     }
 

@@ -14,6 +14,7 @@ class CategorieType extends AbstractType
         $builder
             ->add('nom')
             ->add('logo')
+            ->remove('updatedAt')
         ;
     }
 

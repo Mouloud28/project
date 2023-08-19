@@ -14,6 +14,7 @@ class SujetType extends AbstractType
         $builder
             ->add('nom')
             ->add('texte')
+            ->remove('updatedAt')
         ;
     }
 

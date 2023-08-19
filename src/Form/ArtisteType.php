@@ -16,6 +16,7 @@ class ArtisteType extends AbstractType
             ->add('date_naissance')
             ->add('pays_origine')
             ->add('photo')
+            ->remove('updatedAt')
         ;
     }
 

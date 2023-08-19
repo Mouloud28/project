@@ -20,6 +20,7 @@ class LivreType extends AbstractType
             ->add('date_publication_france')
             ->add('date_publication_pays_origine')
             ->add('ISBN')
+            ->remove('updatedAt')
         ;
     }
 

@@ -21,6 +21,7 @@ class FilmType extends AbstractType
             ->add('date_sortie_france')
             ->add('date_sortie_pays_origine')
             ->add('bandes_annonces_teasers')
+            ->remove('updatedAt')
         ;
     }
 

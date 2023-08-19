@@ -13,6 +13,7 @@ class MessageType extends AbstractType
     {
         $builder
             ->add('texte')
+            ->remove('updatedAt')
         ;
     }
 

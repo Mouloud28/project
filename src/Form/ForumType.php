@@ -13,6 +13,7 @@ class ForumType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->remove('updatedAt')
         ;
     }
 

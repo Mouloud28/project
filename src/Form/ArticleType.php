@@ -17,6 +17,7 @@ class ArticleType extends AbstractType
             ->add('date_creation')
             ->add('introduction')
             ->add('texte')
+            ->remove('updatedAt')
         ;
     }
 
