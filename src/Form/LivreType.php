@@ -6,6 +6,7 @@ use App\Entity\Livre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class LivreType extends AbstractType
 {
@@ -20,6 +21,8 @@ class LivreType extends AbstractType
             ->add('date_publication_france')
             ->add('date_publication_pays_origine')
             ->add('ISBN')
+            ->add('imageFile', FileType::class, ['label' => 'Image'])
+            ->remove('updatedAt')
         ;
     }
 

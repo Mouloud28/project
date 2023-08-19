@@ -23,6 +23,7 @@ class SerieType extends AbstractType
             ->add('bandes_annonces_teasers')
             ->add('nombre_saisons')
             ->add('statut')
+            ->remove('updatedAt')
         ;
     }
 
