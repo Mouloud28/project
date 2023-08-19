@@ -47,6 +47,9 @@ class Serie
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class Serie
     public function setStatut(string $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

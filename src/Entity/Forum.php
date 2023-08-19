@@ -16,6 +16,9 @@ class Forum
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Forum
     public function setNom(string $nom): static
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

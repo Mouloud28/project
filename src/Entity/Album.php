@@ -44,6 +44,9 @@ class Album
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -165,6 +168,18 @@ class Album
     public function setLabel(string $label): static
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

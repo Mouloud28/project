@@ -17,6 +17,9 @@ class Message
     #[ORM\Column(type: Types::TEXT)]
     private ?string $texte = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -30,6 +33,18 @@ class Message
     public function setTexte(string $texte): static
     {
         $this->texte = $texte;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

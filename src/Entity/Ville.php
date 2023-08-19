@@ -19,6 +19,9 @@ class Ville
     #[ORM\Column(length: 255)]
     private ?string $pays = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Ville
     public function setPays(string $pays): static
     {
         $this->pays = $pays;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

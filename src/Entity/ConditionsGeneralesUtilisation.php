@@ -23,6 +23,9 @@ class ConditionsGeneralesUtilisation
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +63,18 @@ class ConditionsGeneralesUtilisation
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

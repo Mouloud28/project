@@ -19,6 +19,9 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Categorie
     public function setLogo(string $logo): static
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

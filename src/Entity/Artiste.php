@@ -26,6 +26,9 @@ class Artiste
     #[ORM\Column(length: 255)]
     private ?string $photo = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Artiste
     public function setPhoto(string $photo): static
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

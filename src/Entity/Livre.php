@@ -38,6 +38,9 @@ class Livre
     #[ORM\Column(length: 255)]
     private ?string $ISBN = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Livre
     public function setISBN(string $ISBN): static
     {
         $this->ISBN = $ISBN;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
