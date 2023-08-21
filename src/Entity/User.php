@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -50,6 +52,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class)]
+    private Collection $article;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Contact $contact = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Message::class)]
+    private Collection $message;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ConditionsGeneralesUtilisation $conditions_generales_utilisation = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Critique::class)]
+    private Collection $critiques;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Notation::class)]
+    private Collection $notations;
+
+    public function __construct()
+    {
+        $this->article = new ArrayCollection();
+        $this->message = new ArrayCollection();
+        $this->critiques = new ArrayCollection();
+        $this->notations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -215,6 +244,150 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticle(): Collection
+    {
+        return $this->article;
+    }
+
+    public function addArticle(Article $article): static
+    {
+        if (!$this->article->contains($article)) {
+            $this->article->add($article);
+            $article->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): static
+    {
+        if ($this->article->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getUser() === $this) {
+                $article->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getContact(): ?Contact
+    {
+        return $this->contact;
+    }
+
+    public function setContact(?Contact $contact): static
+    {
+        $this->contact = $contact;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessage(): Collection
+    {
+        return $this->message;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->message->contains($message)) {
+            $this->message->add($message);
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->message->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getConditionsGeneralesUtilisation(): ?ConditionsGeneralesUtilisation
+    {
+        return $this->conditions_generales_utilisation;
+    }
+
+    public function setConditionsGeneralesUtilisation(?ConditionsGeneralesUtilisation $conditions_generales_utilisation): static
+    {
+        $this->conditions_generales_utilisation = $conditions_generales_utilisation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Critique>
+     */
+    public function getCritiques(): Collection
+    {
+        return $this->critiques;
+    }
+
+    public function addCritique(Critique $critique): static
+    {
+        if (!$this->critiques->contains($critique)) {
+            $this->critiques->add($critique);
+            $critique->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritique(Critique $critique): static
+    {
+        if ($this->critiques->removeElement($critique)) {
+            // set the owning side to null (unless already changed)
+            if ($critique->getUser() === $this) {
+                $critique->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notation>
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): static
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations->add($notation);
+            $notation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): static
+    {
+        if ($this->notations->removeElement($notation)) {
+            // set the owning side to null (unless already changed)
+            if ($notation->getUser() === $this) {
+                $notation->setUser(null);
+            }
+        }
 
         return $this;
     }

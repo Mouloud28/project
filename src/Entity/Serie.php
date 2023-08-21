@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SerieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -56,6 +58,38 @@ class Serie
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Article::class)]
+    private Collection $article;
+
+    #[ORM\ManyToOne(inversedBy: 'serie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'serie')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Forum $forum = null;
+
+    #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'serie')]
+    private Collection $genres;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'serie')]
+    private Collection $artistes;
+
+    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Critique::class)]
+    private Collection $critiques;
+
+    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Notation::class)]
+    private Collection $notations;
+
+    public function __construct()
+    {
+        $this->article = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->artistes = new ArrayCollection();
+        $this->critiques = new ArrayCollection();
+        $this->notations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -227,6 +261,174 @@ class Serie
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Article>
+     */
+    public function getArticle(): Collection
+    {
+        return $this->article;
+    }
+
+    public function addArticle(Article $article): static
+    {
+        if (!$this->article->contains($article)) {
+            $this->article->add($article);
+            $article->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): static
+    {
+        if ($this->article->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getSerie() === $this) {
+                $article->setSerie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getForum(): ?Forum
+    {
+        return $this->forum;
+    }
+
+    public function setForum(?Forum $forum): static
+    {
+        $this->forum = $forum;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+            $genre->addSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        if ($this->genres->removeElement($genre)) {
+            $genre->removeSerie($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+            $artiste->addSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        if ($this->artistes->removeElement($artiste)) {
+            $artiste->removeSerie($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Critique>
+     */
+    public function getCritiques(): Collection
+    {
+        return $this->critiques;
+    }
+
+    public function addCritique(Critique $critique): static
+    {
+        if (!$this->critiques->contains($critique)) {
+            $this->critiques->add($critique);
+            $critique->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritique(Critique $critique): static
+    {
+        if ($this->critiques->removeElement($critique)) {
+            // set the owning side to null (unless already changed)
+            if ($critique->getSerie() === $this) {
+                $critique->setSerie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notation>
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): static
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations->add($notation);
+            $notation->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): static
+    {
+        if ($this->notations->removeElement($notation)) {
+            // set the owning side to null (unless already changed)
+            if ($notation->getSerie() === $this) {
+                $notation->setSerie(null);
+            }
+        }
 
         return $this;
     }

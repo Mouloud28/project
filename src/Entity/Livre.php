@@ -53,9 +53,41 @@ class Livre
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Article::class)]
     private Collection $article;
 
+    #[ORM\ManyToOne(inversedBy: 'livre')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categorie $categorie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'livre')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Forum $forum = null;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livre')]
+    private Collection $editeurs;
+
+    #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livre')]
+    private Collection $genres;
+
+    #[ORM\ManyToOne(inversedBy: 'livre')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Langue $langue = null;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'livre')]
+    private Collection $artistes;
+
+    #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Critique::class)]
+    private Collection $critiques;
+
+    #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Notation::class)]
+    private Collection $notations;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
+        $this->editeurs = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->artistes = new ArrayCollection();
+        $this->critiques = new ArrayCollection();
+        $this->notations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +252,183 @@ class Livre
             // set the owning side to null (unless already changed)
             if ($article->getLivre() === $this) {
                 $article->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategorie(): ?Categorie
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categorie $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getForum(): ?Forum
+    {
+        return $this->forum;
+    }
+
+    public function setForum(?Forum $forum): static
+    {
+        $this->forum = $forum;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeurs(): Collection
+    {
+        return $this->editeurs;
+    }
+
+    public function addEditeur(Editeur $editeur): static
+    {
+        if (!$this->editeurs->contains($editeur)) {
+            $this->editeurs->add($editeur);
+            $editeur->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeur(Editeur $editeur): static
+    {
+        if ($this->editeurs->removeElement($editeur)) {
+            $editeur->removeLivre($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenre(Genre $genre): static
+    {
+        if (!$this->genres->contains($genre)) {
+            $this->genres->add($genre);
+            $genre->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGenre(Genre $genre): static
+    {
+        if ($this->genres->removeElement($genre)) {
+            $genre->removeLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): static
+    {
+        $this->langue = $langue;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+            $artiste->addLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        if ($this->artistes->removeElement($artiste)) {
+            $artiste->removeLivre($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Critique>
+     */
+    public function getCritiques(): Collection
+    {
+        return $this->critiques;
+    }
+
+    public function addCritique(Critique $critique): static
+    {
+        if (!$this->critiques->contains($critique)) {
+            $this->critiques->add($critique);
+            $critique->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCritique(Critique $critique): static
+    {
+        if ($this->critiques->removeElement($critique)) {
+            // set the owning side to null (unless already changed)
+            if ($critique->getLivre() === $this) {
+                $critique->setLivre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Notation>
+     */
+    public function getNotations(): Collection
+    {
+        return $this->notations;
+    }
+
+    public function addNotation(Notation $notation): static
+    {
+        if (!$this->notations->contains($notation)) {
+            $this->notations->add($notation);
+            $notation->setLivre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNotation(Notation $notation): static
+    {
+        if ($this->notations->removeElement($notation)) {
+            // set the owning side to null (unless already changed)
+            if ($notation->getLivre() === $this) {
+                $notation->setLivre(null);
             }
         }
 

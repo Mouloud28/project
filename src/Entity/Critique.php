@@ -23,6 +23,22 @@ class Critique
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'critiques')]
+    private ?Livre $livre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'critiques')]
+    private ?Film $film = null;
+
+    #[ORM\ManyToOne(inversedBy: 'critiques')]
+    private ?Serie $serie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'critiques')]
+    private ?Album $album = null;
+
+    #[ORM\ManyToOne(inversedBy: 'critiques')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +76,66 @@ class Critique
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getLivre(): ?Livre
+    {
+        return $this->livre;
+    }
+
+    public function setLivre(?Livre $livre): static
+    {
+        $this->livre = $livre;
+
+        return $this;
+    }
+
+    public function getFilm(): ?Film
+    {
+        return $this->film;
+    }
+
+    public function setFilm(?Film $film): static
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    public function getSerie(): ?Serie
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(?Serie $serie): static
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    public function getAlbum(): ?Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(?Album $album): static
+    {
+        $this->album = $album;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

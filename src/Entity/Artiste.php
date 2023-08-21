@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ArtisteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -35,6 +37,34 @@ class Artiste
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'artistes')]
+    private Collection $film;
+
+    #[ORM\ManyToMany(targetEntity: Serie::class, inversedBy: 'artistes')]
+    private Collection $serie;
+
+    #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'artistes')]
+    private Collection $album;
+
+    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'artistes')]
+    private Collection $livre;
+
+    #[ORM\ManyToOne(inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Ville $ville = null;
+
+    #[ORM\ManyToMany(targetEntity: Metier::class, mappedBy: 'artiste')]
+    private Collection $metiers;
+
+    public function __construct()
+    {
+        $this->film = new ArrayCollection();
+        $this->serie = new ArrayCollection();
+        $this->album = new ArrayCollection();
+        $this->livre = new ArrayCollection();
+        $this->metiers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -122,6 +152,141 @@ class Artiste
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFilm(): Collection
+    {
+        return $this->film;
+    }
+
+    public function addFilm(Film $film): static
+    {
+        if (!$this->film->contains($film)) {
+            $this->film->add($film);
+        }
+
+        return $this;
+    }
+
+    public function removeFilm(Film $film): static
+    {
+        $this->film->removeElement($film);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Serie>
+     */
+    public function getSerie(): Collection
+    {
+        return $this->serie;
+    }
+
+    public function addSerie(Serie $serie): static
+    {
+        if (!$this->serie->contains($serie)) {
+            $this->serie->add($serie);
+        }
+
+        return $this;
+    }
+
+    public function removeSerie(Serie $serie): static
+    {
+        $this->serie->removeElement($serie);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbum(): Collection
+    {
+        return $this->album;
+    }
+
+    public function addAlbum(Album $album): static
+    {
+        if (!$this->album->contains($album)) {
+            $this->album->add($album);
+        }
+
+        return $this;
+    }
+
+    public function removeAlbum(Album $album): static
+    {
+        $this->album->removeElement($album);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivre(): Collection
+    {
+        return $this->livre;
+    }
+
+    public function addLivre(Livre $livre): static
+    {
+        if (!$this->livre->contains($livre)) {
+            $this->livre->add($livre);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): static
+    {
+        $this->livre->removeElement($livre);
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): static
+    {
+        $this->ville = $ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Metier>
+     */
+    public function getMetiers(): Collection
+    {
+        return $this->metiers;
+    }
+
+    public function addMetier(Metier $metier): static
+    {
+        if (!$this->metiers->contains($metier)) {
+            $this->metiers->add($metier);
+            $metier->addArtiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMetier(Metier $metier): static
+    {
+        if ($this->metiers->removeElement($metier)) {
+            $metier->removeArtiste($this);
+        }
 
         return $this;
     }

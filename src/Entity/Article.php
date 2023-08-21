@@ -42,6 +42,19 @@ class Article
     #[ORM\ManyToOne(inversedBy: 'article')]
     private ?Livre $livre = null;
 
+    #[ORM\ManyToOne(inversedBy: 'article')]
+    private ?Film $film = null;
+
+    #[ORM\ManyToOne(inversedBy: 'article')]
+    private ?Serie $serie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'article')]
+    private ?Album $album = null;
+
+    #[ORM\ManyToOne(inversedBy: 'article')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,6 +165,54 @@ class Article
     public function setLivre(?Livre $livre): static
     {
         $this->livre = $livre;
+
+        return $this;
+    }
+
+    public function getFilm(): ?Film
+    {
+        return $this->film;
+    }
+
+    public function setFilm(?Film $film): static
+    {
+        $this->film = $film;
+
+        return $this;
+    }
+
+    public function getSerie(): ?Serie
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(?Serie $serie): static
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    public function getAlbum(): ?Album
+    {
+        return $this->album;
+    }
+
+    public function setAlbum(?Album $album): static
+    {
+        $this->album = $album;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

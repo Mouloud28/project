@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EditeurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,14 @@ class Editeur
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'editeurs')]
+    private Collection $livre;
+
+    public function __construct()
+    {
+        $this->livre = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,30 @@ class Editeur
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivre(): Collection
+    {
+        return $this->livre;
+    }
+
+    public function addLivre(Livre $livre): static
+    {
+        if (!$this->livre->contains($livre)) {
+            $this->livre->add($livre);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): static
+    {
+        $this->livre->removeElement($livre);
 
         return $this;
     }

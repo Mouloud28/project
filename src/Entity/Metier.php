@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MetierRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MetierRepository::class)]
@@ -18,6 +20,14 @@ class Metier
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'metiers')]
+    private Collection $artiste;
+
+    public function __construct()
+    {
+        $this->artiste = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -44,6 +54,30 @@ class Metier
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtiste(): Collection
+    {
+        return $this->artiste;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artiste->contains($artiste)) {
+            $this->artiste->add($artiste);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        $this->artiste->removeElement($artiste);
 
         return $this;
     }
