@@ -35,7 +35,7 @@ class Artiste
     #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'photo')]
     private ?File $imageFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'artistes')]

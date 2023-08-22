@@ -25,7 +25,7 @@ class ConditionsGeneralesUtilisation
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'conditions_generales_utilisation', targetEntity: User::class)]

@@ -21,7 +21,7 @@ class Ville
     #[ORM\Column(length: 255)]
     private ?string $pays = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Artiste::class)]

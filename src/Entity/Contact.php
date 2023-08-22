@@ -35,7 +35,7 @@ class Contact
     #[Vich\UploadableField(mapping: 'contact', fileNameProperty: 'fichier')]
     private ?File $imageFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'contact', targetEntity: User::class)]

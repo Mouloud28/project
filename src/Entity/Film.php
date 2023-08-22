@@ -50,7 +50,7 @@ class Film
     #[ORM\Column(length: 255)]
     private ?string $bandes_annonces_teasers = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Article::class)]

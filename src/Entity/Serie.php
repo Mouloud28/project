@@ -56,7 +56,7 @@ class Serie
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Article::class)]

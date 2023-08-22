@@ -47,7 +47,7 @@ class Livre
     #[ORM\Column(length: 255)]
     private ?string $ISBN = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Article::class)]

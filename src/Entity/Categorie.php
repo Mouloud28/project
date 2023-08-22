@@ -28,7 +28,7 @@ class Categorie
     #[Vich\UploadableField(mapping: 'categories', fileNameProperty: 'logo')]
     private ?File $imageFile = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Livre::class, orphanRemoval: true)]

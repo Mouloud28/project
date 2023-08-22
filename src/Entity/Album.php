@@ -53,7 +53,7 @@ class Album
     #[ORM\Column(length: 255)]
     private ?string $label = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Article::class)]
