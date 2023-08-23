@@ -50,6 +50,9 @@ class Film
     #[ORM\Column(length: 255)]
     private ?string $bandes_annonces_teasers = null;
 
+    #[Vich\UploadableField(mapping: 'films', fileNameProperty: 'bandes_annonces_teasers')]
+    private ?File $imageFile2 = null;
+
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
@@ -69,6 +72,9 @@ class Film
 
     #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'film')]
     private Collection $artistes;
+
+    #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'nom')]
+    private ?File $imageFile3 = null;
 
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Critique::class)]
     private Collection $critiques;
@@ -221,6 +227,31 @@ class Film
         $this->bandes_annonces_teasers = $bandes_annonces_teasers;
 
         return $this;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile2(?File $imageFile2 = null): void
+    {
+        $this->imageFile2 = $imageFile2;
+
+        if (null !== $imageFile2) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile2(): ?File
+    {
+        return $this->imageFile2;
     }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
