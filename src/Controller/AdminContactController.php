@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/contact')]
-class ContactController extends AbstractController
+class AdminContactController extends AbstractController
 {
     #[Route('/', name: 'app_contact_index', methods: ['GET'])]
     public function index(ContactRepository $contactRepository): Response

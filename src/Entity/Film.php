@@ -82,6 +82,9 @@ class Film
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Notation::class)]
     private Collection $notations;
 
+    #[ORM\OneToMany(mappedBy: 'film', targetEntity: BandesAnnoncesTeasers::class, cascade:['persist', 'remove'])]
+    private Collection $bandesAnnoncesTeasers;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -89,6 +92,7 @@ class Film
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
+        $this->bandesAnnoncesTeasers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -428,6 +432,28 @@ class Film
             // set the owning side to null (unless already changed)
             if ($notation->getFilm() === $this) {
                 $notation->setFilm(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if (!$this->bandesAnnoncesTeasers->contains($bandesAnnoncesTeaser)) {
+            $this->bandesAnnoncesTeasers->add($bandesAnnoncesTeaser);
+            $bandesAnnoncesTeaser->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if ($this->bandesAnnoncesTeasers->removeElement($bandesAnnoncesTeaser)) {
+            // set the owning side to null (unless already changed)
+            if ($bandesAnnoncesTeaser->getFilm() === $this) {
+                $bandesAnnoncesTeaser->setFilm(null);
             }
         }
 

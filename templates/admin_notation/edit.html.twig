@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Notation{% endblock %}
+
+{% block body %}
+    <h1>Edit Notation</h1>
+
+    {{ include('admin_notation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_notation_index') }}">back to list</a>
+
+    {{ include('admin_notation/_delete_form.html.twig') }}
+{% endblock %}

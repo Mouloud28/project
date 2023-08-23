@@ -6,6 +6,7 @@ use App\Entity\Film;
 use App\Entity\Forum;
 use App\Entity\Genre;
 use App\Entity\Artiste;
+use App\Form\BandesAnnoncesTeasersType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -75,8 +76,12 @@ class FilmType extends AbstractType
                 'multiple' => true,
                 'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
                 'required' => true])
-            ->add('imageFile', FileType::class, ['label' => 'Bande-annonce'])
-            ->remove('bandes_annonces_teasers')
+            ->add('imageFile2', FileType::class, ['label' => 'Bandes-annonces et teasers'])
+            ->add('bandesAnnoncesTeasers', CollectionType::class, [
+                'entry_type' => BandesAnnoncesTeasersType::class,
+                'allow_add'=> true,
+                'allow_delete' => true,
+                'by_reference' => false])
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,
                 'choice_label' => 'nom',

@@ -41,5 +41,8 @@ vich_uploader:
             uri_prefix: /images/Contact
             upload_destination: '%kernel.project_dir%/public/images/Contact'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-            
+        bandesannoncesteasers:
+            uri_prefix: /images/BandesAnnoncesTeasers
+            upload_destination: '%kernel.project_dir%/public/images/BandesAnnoncesTeasers'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
 
