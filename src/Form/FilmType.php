@@ -75,7 +75,8 @@ class FilmType extends AbstractType
                 'multiple' => true,
                 'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
                 'required' => true])
-            ->add('bandes_annonces_teasers')
+            ->add('imageFile', FileType::class, ['label' => 'Bande-annonce'])
+            ->remove('bandes_annonces_teasers')
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,
                 'choice_label' => 'nom',
