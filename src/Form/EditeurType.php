@@ -15,6 +15,7 @@ class EditeurType extends AbstractType
             ->add('nom')
             ->add('pays_origine')
             ->add('date_creation')
+            ->remove('updatedAt')
         ;
     }
 

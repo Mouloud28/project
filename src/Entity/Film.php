@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Vich\UploadableField;
 use App\Repository\FilmRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -48,9 +50,6 @@ class Film
 
     #[ORM\Column(length: 255)]
     private ?string $bandes_annonces_teasers = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -186,18 +185,6 @@ class Film
     public function setBandesAnnoncesTeasers(string $bandes_annonces_teasers): static
     {
         $this->bandes_annonces_teasers = $bandes_annonces_teasers;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

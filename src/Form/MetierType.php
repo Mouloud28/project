@@ -13,6 +13,7 @@ class MetierType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->remove('updatedAt')
         ;
     }
 

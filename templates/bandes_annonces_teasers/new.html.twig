@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New BandesAnnoncesTeasers{% endblock %}
+
+{% block body %}
+    <h1>Create new BandesAnnoncesTeasers</h1>
+
+    {{ include('bandes_annonces_teasers/_form.html.twig') }}
+
+    <a href="{{ path('app_bandes_annonces_teasers_index') }}">back to list</a>
+{% endblock %}

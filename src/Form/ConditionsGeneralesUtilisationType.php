@@ -15,6 +15,7 @@ class ConditionsGeneralesUtilisationType extends AbstractType
             ->add('titre')
             ->add('introduction')
             ->add('description')
+            ->remove('updatedAt')
         ;
     }
 

@@ -13,6 +13,7 @@ class GenreType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->remove('updatedAt')
         ;
     }
 

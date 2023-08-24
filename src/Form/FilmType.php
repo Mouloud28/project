@@ -3,9 +3,16 @@
 namespace App\Form;
 
 use App\Entity\Film;
+use App\Entity\Forum;
+use App\Entity\Genre;
+use App\Entity\Artiste;
+use App\Form\BandesAnnoncesTeasersType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FilmType extends AbstractType
 {
@@ -14,14 +21,30 @@ class FilmType extends AbstractType
         $builder
             ->add('titre_francais')
             ->add('titre_original')
-            ->add('affiche')
+            ->add('artistes', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
+                'label' => 'Réalisateur(s)',
+                'expanded' => true,
+                'multiple' => true,
+                'placeholder' => 'Sélectionnez un ou plusieurs réalisateurs',
+                'required' => true])
+            ->add('imageFile', FileType::class, ['label' => 'Affiche'])
+            ->remove('affiche')
+            ->add('genres', EntityType::class, [
+                'class' => Genre::class,
+                'choice_label' => 'nom',
+                'label' => 'Genre(s)',
+                'expanded' => true,
+                'multiple' => true,
+                'placeholder' => 'Sélectionnez un ou plusieurs genres',
+                'required' => true])
             ->add('duree')
             ->add('synopsis')
             ->add('pays_origine')
             ->add('date_sortie_france')
             ->add('date_sortie_pays_origine')
             ->add('bandes_annonces_teasers')
-            ->remove('updatedAt')
         ;
     }
 

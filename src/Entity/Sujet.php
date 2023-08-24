@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SujetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,9 +22,6 @@ class Sujet
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $texte = null;
-
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int
     {
@@ -49,18 +48,6 @@ class Sujet
     public function setTexte(string $texte): static
     {
         $this->texte = $texte;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

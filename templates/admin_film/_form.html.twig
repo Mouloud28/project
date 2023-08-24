@@ -1,4 +1,30 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_row(form.titre_francais) }}
+{{ form_row(form.titre_original) }}
+{{ form_row(form.artistes) }}
+{{ form_row(form.imageFile) }}
+{{ form_row(form.genres) }}
+{{ form_row(form.duree) }}
+{{ form_row(form.synopsis) }}
+{{ form_row(form.pays_origine) }}
+{{ form_row(form.date_sortie_france) }}
+{{ form_row(form.date_sortie_pays_origine) }}
+{{ form_row(form.artistes_) }}
+{{ form_row(form.artistes__) }}
+{{ form_row(form.artistes___) }}
+{{ form_row(form.artistes____) }}
+{{ form_row(form.imageFile2) }}
+
+<ul class="bandesAnnoncesTeasers" data-index="{{ form.bandesAnnoncesTeasers|length > 0 ? form.bandesAnnoncesTeasers|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.bandesAnnoncesTeasers.vars.prototype)|e('html_attr') }}"></ul>
+
+{% for tag in form.bandesAnnoncesTeasers %}
+            <li>{{ form_widget(bandeAnnonceTeaser) }}</li>
+        {% endfor %}
+
+<button type="button" class="add_item_link" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
+
+<button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_row(form.forum) }}
+
 {{ form_end(form) }}
