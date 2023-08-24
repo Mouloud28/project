@@ -12,15 +12,18 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class LivreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre_francais')
-            ->add('titre_original')
+            ->add('titre_francais', TextType::class, ['label' => 'Titre français'])
+            ->add('titre_original', TextType::class, ['label' => 'Titre original'])
+
             ->add('artistes', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
@@ -29,7 +32,9 @@ class LivreType extends AbstractType
                 'multiple' => true,
                 'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
                 'required' => true])
+
             ->remove('couverture')
+
             ->add('imageFile', FileType::class, ['label' => 'Couverture'])
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
@@ -39,10 +44,12 @@ class LivreType extends AbstractType
                 'multiple' => true,
                 'placeholder' => 'Sélectionnez un ou plusieurs genres',
                 'required' => true])
-            ->add('synopsis')
-            ->add('pays_origine')
-            ->add('date_publication_france')
-            ->add('date_publication_pays_origine')
+
+            ->add('synopsis', TextType::class, ['label' => 'Synopsis'])
+            ->add('pays_origine', TextType::class, ['label' => 'Pays d\'origine'])
+            ->add('date_publication_france', DateType::class, ['label' => 'Date de publication (France)'])
+            ->add('date_publication_pays_origine', DateType::class, ['label' => 'Date de publication (Pays d\'origine)'])
+            
             ->add('langue', EntityType::class, [
                 'class' => Langue::class,
                 'choice_label' => 'nom',
@@ -56,14 +63,13 @@ class LivreType extends AbstractType
                 'label' => 'Editeur(s)',
             ])
 
-            ->add('ISBN')
-
+            ->add('ISBN', TextType::class, ['label' => 'ISBN'])
             ->remove('updatedAt')
 
             ->add('artistes_', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
-                'label' => 'Traducteur',
+                'label' => 'Traducteur(s)',
                 'expanded' => true,
                 'multiple' => true,
                 'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
@@ -76,7 +82,7 @@ class LivreType extends AbstractType
                 'label' => 'Editeur(s)',
                 ])
             
-            ->add('ISBN_')
+            ->add('ISBN', TextType::class, ['label' => 'ISBN'])
 
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,
