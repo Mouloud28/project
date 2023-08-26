@@ -28,14 +28,16 @@ class ArtisteType extends AbstractType
             'class' => 'input',
             'placeholder' => 'Tapez le nom de l\'artiste.'
             ],
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
 
             ->add('date_naissance', DateType::class, [
             'label' => 'Date de naissance',
-            // 'attr' => ['placeholder' => 'Renseignez la date de naissance de l\'artiste.'],
+            'attr' => ['class' => 'input'],
             'years' => range(0000, date('Y')),
             'attr' => ['class' => 'custom-date-input'],
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
 
@@ -45,6 +47,7 @@ class ArtisteType extends AbstractType
             'class' => 'input',
             'placeholder' => 'Sélectionnez un pays.'
             ],
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
 
@@ -55,12 +58,18 @@ class ArtisteType extends AbstractType
             'label' => 'Ville d\'origine',
             'expanded' => false,
             'placeholder' => 'Sélectionnez une ville.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
 
             ->add('imageFile', FileType::class, [
             'label' => 'Photo',
-            'attr' => ['class' => 'input'] ])
+            'attr' => [
+            'class' => 'input',
+            'enctype' => 'multipart/form-data'],
+            'required' => true,
+            'row_attr' => ['class' => 'mx-5 my-3'],
+            ])
             ->remove('photo')
             
             ->add('metiers', EntityType::class, [
@@ -71,6 +80,7 @@ class ArtisteType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez une ou plusieurs activités.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true])
             
             ->add('livre', EntityType::class, [
@@ -81,6 +91,7 @@ class ArtisteType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs livres.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
             
@@ -92,6 +103,7 @@ class ArtisteType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs films.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
             
@@ -103,6 +115,7 @@ class ArtisteType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez une ou plusieurs séries.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true  
             ])
             
@@ -114,6 +127,7 @@ class ArtisteType extends AbstractType
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs albums.',
+            'row_attr' => ['class' => 'mx-5 my-3'],
             'required' => true
             ])
 

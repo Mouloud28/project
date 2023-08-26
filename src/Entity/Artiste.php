@@ -29,7 +29,7 @@ class Artiste
     #[ORM\Column(length: 255)]
     private ?string $pays_origine = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $photo = null;
 
     #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'photo')]
@@ -39,15 +39,19 @@ class Artiste
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $film;
 
     #[ORM\ManyToMany(targetEntity: Serie::class, inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $serie;
 
     #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $album;
 
     #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: true)]
     private Collection $livre;
 
     #[ORM\ManyToOne(inversedBy: 'artistes')]

@@ -23,7 +23,7 @@
                 <td>{{ artiste.nom }}</td>
                 <td>{{ artiste.dateNaissance ? artiste.dateNaissance|date('Y-m-d') : '' }}</td>
                 <td>{{ artiste.paysOrigine }}</td>
-                <td>{{ artiste.photo }}</td>
+                <td><img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Hayao Miyazaki"></td>
                 <td>
                     <a href="{{ path('app_admin_artiste_show', {'id': artiste.id}) }}">show</a>
                     <a href="{{ path('app_admin_artiste_edit', {'id': artiste.id}) }}">edit</a>

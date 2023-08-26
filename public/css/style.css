@@ -9,25 +9,13 @@ body{
 .btn-ajouter-artiste{
     background-color: rgba(44, 47, 62);
     color: white;
-    font-weight: bold;
 }
 
 .h1-ajouter-artiste{
-    margin-top: 20px;
     background-color: rgba(217, 217, 217);
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
 }
 
-.a-retour-liste-articles{
+.div-retour-liste-articles{
     background-color: rgba(44, 47, 62);
-    color: white;
-    text-decoration : none;
-    width: 215px;
-    border-radius: 10px;
-    text-align: center;
-    font-weight: bold;
-    margin-top: 20px;
+    width: 225px;
 }
-
