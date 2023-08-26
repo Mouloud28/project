@@ -25,8 +25,8 @@ class ArtisteType extends AbstractType
             ->add('nom', TextType::class, [
             'label' => 'Nom',
             'attr' => [
-            'placeholder' => 'Tapez le nom de l\'artiste.',
-            'style' => 'background-color:rgba(217, 217, 217)'
+            'class' => 'input',
+            'placeholder' => 'Tapez le nom de l\'artiste.'
             ],
             'required' => true
             ])
@@ -34,36 +34,40 @@ class ArtisteType extends AbstractType
             ->add('date_naissance', DateType::class, [
             'label' => 'Date de naissance',
             // 'attr' => ['placeholder' => 'Renseignez la date de naissance de l\'artiste.'],
-            'attr' => ['style' => 'background-color:rgba(217, 217, 217)'],
+            'years' => range(0000, date('Y')),
+            'attr' => ['class' => 'custom-date-input'],
             'required' => true
             ])
 
             ->add('pays_origine', TextType::class, [
             'label' => 'Pays d\'origine',
             'attr' => [
-            'placeholder' => 'Sélectionnez un pays.',
-            'style' => 'background-color:rgba(217, 217, 217)'
+            'class' => 'input',
+            'placeholder' => 'Sélectionnez un pays.'
             ],
             'required' => true
             ])
 
             ->add('ville', EntityType::class, [
             'class' => Ville::class,
+            'attr' => ['class' => 'input'],
             'choice_label' => 'nom',
             'label' => 'Ville d\'origine',
             'expanded' => false,
             'placeholder' => 'Sélectionnez une ville.',
-            'attr' => ['style' => 'background-color:rgba(217, 217, 217)'],
             'required' => true
             ])
 
-            ->add('imageFile', FileType::class, ['label' => 'Photo'])
+            ->add('imageFile', FileType::class, [
+            'label' => 'Photo',
+            'attr' => ['class' => 'input'] ])
             ->remove('photo')
             
             ->add('metiers', EntityType::class, [
             'class' => Metier::class,
             'choice_label' => 'nom',
             'label' => 'Activité(s)',
+            'attr' => ['class' => 'input'],
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez une ou plusieurs activités.',
@@ -73,6 +77,7 @@ class ArtisteType extends AbstractType
             'class' => Livre::class,
             'choice_label' => 'titre_francais',
             'label' => 'Livre(s)',
+            'attr' => ['class' => 'input'],
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs livres.',
@@ -83,6 +88,7 @@ class ArtisteType extends AbstractType
             'class' => Film::class,
             'choice_label' => 'titre_francais',
             'label' => 'Film(s)',
+            'attr' => ['class' => 'input'],
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs films.',
@@ -93,6 +99,7 @@ class ArtisteType extends AbstractType
             'class' => Serie::class,
             'choice_label' => 'titre_francais',
             'label' => 'Série(s)',
+            'attr' => ['class' => 'input'],
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez une ou plusieurs séries.',
@@ -103,6 +110,7 @@ class ArtisteType extends AbstractType
             'class' => Album::class,
             'choice_label' => 'titre_francais',
             'label' => 'Albums(s)',
+            'attr' => ['class' => 'input'],
             'expanded' => true,
             'multiple' => true,
             'placeholder' => 'Sélectionnez un ou plusieurs albums.',
