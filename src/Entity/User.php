@@ -56,15 +56,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Article::class)]
     private Collection $article;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Contact $contact = null;
-
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Message::class)]
     private Collection $message;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?ConditionsGeneralesUtilisation $conditions_generales_utilisation = null;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Critique::class)]
     private Collection $critiques;
@@ -278,18 +271,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getContact(): ?Contact
-    {
-        return $this->contact;
-    }
-
-    public function setContact(?Contact $contact): static
-    {
-        $this->contact = $contact;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Message>
      */
@@ -316,18 +297,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $message->setUser(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getConditionsGeneralesUtilisation(): ?ConditionsGeneralesUtilisation
-    {
-        return $this->conditions_generales_utilisation;
-    }
-
-    public function setConditionsGeneralesUtilisation(?ConditionsGeneralesUtilisation $conditions_generales_utilisation): static
-    {
-        $this->conditions_generales_utilisation = $conditions_generales_utilisation;
 
         return $this;
     }
