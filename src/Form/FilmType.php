@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FilmType extends AbstractType
@@ -19,8 +20,10 @@ class FilmType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre_francais')
-            ->add('titre_original')
+            ->add('titre_francais', TextType::class, [
+                'label' => 'Titre français',
+            ])
+            ->add('titre_original', TextType::class)
             ->add('artistes', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',

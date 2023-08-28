@@ -6,16 +6,87 @@ body{
     background-color: rgba(217, 217, 217);
 }
 
+/* Artistes */
+
 .btn-ajouter-artiste{
     background-color: rgba(44, 47, 62);
     color: white;
+    width: 1425px;
 }
 
 .h1-ajouter-artiste{
     background-color: rgba(217, 217, 217);
 }
 
-.div-retour-liste-articles{
+.div-retour-liste-artistes{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Livres */
+
+.btn-ajouter-livre{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1425px;
+}
+
+.h1-ajouter-livre{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-livres{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Films */
+
+.btn-ajouter-film{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1425px;
+}
+
+.h1-ajouter-film{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-films{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Séries */
+
+.btn-ajouter-serie{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1425px;
+}
+
+.h1-ajouter-serie{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-series{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Albums */
+
+.btn-ajouter-album{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1425px;
+}
+
+.h1-ajouter-album{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-albums{
     background-color: rgba(44, 47, 62);
     width: 225px;
 }

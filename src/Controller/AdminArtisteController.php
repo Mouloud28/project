@@ -53,15 +53,16 @@ class AdminArtisteController extends AbstractController
     #[Route('/{id}/edit', name: 'app_admin_artiste_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Artiste $artiste, EntityManagerInterface $entityManager): Response
     {
-        $imageFile = $artiste->getImageFile();
+        // $imageFile = $artiste->getImageFile();
         $form = $this->createForm(ArtisteType::class, $artiste);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if ($artiste->getImageFile() === null) {
-                $artiste->getImageFile($imageFile); // Réaffecter la photo originale
-            }
+            // if ($artiste->getImageFile() === null) {
+            //      $imageFile = $entityManager->getRepository(Artiste::class)->find($artiste->getId())->getImageFile();
+            //      $artiste->setImageFile($imageFile); // Réaffecter la photo originale
+            //  }
 
             $entityManager->flush();
 

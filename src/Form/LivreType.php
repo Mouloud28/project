@@ -11,85 +11,284 @@ use App\Entity\Editeur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class LivreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titre_francais', TextType::class, ['label' => 'Titre français'])
-            ->add('titre_original', TextType::class, ['label' => 'Titre original'])
+            ->add('titre_francais', TextType::class, [
+                'label' => 'Titre français',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le titre français du livre.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le titre français du livre.'
+                    ])
+                ]
+            ])
+
+            ->add('titre_original', TextType::class, [
+                'label' => 'Titre original',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le titre original du livre.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le titre original du livre.'
+                    ])
+                ]
+            ])
 
             ->add('artistes', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Auteur(s)',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs auteurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => true,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
-                'required' => true])
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs auteurs.'
+                    ])
+                ]
+            ])
 
             ->remove('couverture')
 
-            ->add('imageFile', FileType::class, ['label' => 'Couverture'])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Couverture',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Sélectionnez la couverture du livre.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez sélectionner la couverture du livre.'
+                    ])
+                ]
+            ])
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
-                'expanded' => true,
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs genres.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs genres',
-                'required' => true])
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs genres.'
+                    ])
+                ]
+            ])
 
-            ->add('synopsis', TextType::class, ['label' => 'Synopsis'])
-            ->add('pays_origine', TextType::class, ['label' => 'Pays d\'origine'])
-            ->add('date_publication_france', DateType::class, ['label' => 'Date de publication (France)'])
-            ->add('date_publication_pays_origine', DateType::class, ['label' => 'Date de publication (Pays d\'origine)'])
-            
+            ->add('synopsis', TextareaType::class, [
+                'label' => 'Synopsis',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le synopsis du livre.',
+                    'rows' => 10
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le synopsis du livre.'
+                    ])
+                ]
+            ])
+
+            ->add('pays_origine', TextType::class, [
+                'label' => 'Pays d\'origine',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le pays d\'origine du livre.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le pays d\'origine du livre.'
+                    ])
+                ]
+            ])
+
+            ->add('date_publication_france', DateType::class, [
+                'label' => 'Date de publication (France)',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez la date de publication française du livre.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner la date de publication française du livre.'
+                    ])
+                ]
+            ])
+
+            ->add('date_publication_pays_origine', DateType::class, [
+                'label' => 'Date de publication (Pays d\'origine)',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez la date de publication dans le pays d\'origine du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner la date de publication dans le pays d\'origine du livre.'
+                    ])
+                ]
+            ])
+
             ->add('langue', EntityType::class, [
                 'class' => Langue::class,
                 'choice_label' => 'nom',
                 'label' => 'Langue d\'origine',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez la langue originale du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner la langue originale du livre.'
+                    ])
+                ]
             ])
-            
+
             ->add('editeurs', EntityType::class, [
                 'class' => Editeur::class,
                 'multiple' => true,
                 'choice_label' => 'nom',
                 'label' => 'Editeur(s)',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
+                    ])
+                ]
             ])
 
-            ->add('ISBN', TextType::class, ['label' => 'ISBN'])
+            ->add('ISBN', TextType::class, [
+                'label' => 'ISBN',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez l\'ISBN du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner l\'ISBN du livre.'
+                    ])
+                ]
+            ])
+
             ->remove('updatedAt')
 
             ->add('artistes_', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Traducteur(s)',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs traducteurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => true,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs auteurs',
-                'required' => true])
-            
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs traducteurs.'
+                    ])
+                ]
+            ])
+
             ->add('editeurs_', EntityType::class, [
                 'class' => Editeur::class,
-                'multiple' => true,
                 'choice_label' => 'nom',
                 'label' => 'Editeur(s)',
-                ])
-            
-            ->add('ISBN', TextType::class, ['label' => 'ISBN'])
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
+                    ])
+                ]
+            ])
+
+            ->add('ISBN_', TextType::class, [
+                'label' => 'ISBN',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez l\'ISBN du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner l\'ISBN du livre.'
+                    ])
+                ]
+            ])
 
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,
                 'choice_label' => 'nom',
                 'label' => 'Forum',
-                ])
-        ;
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le forum du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le forum du livre.'
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

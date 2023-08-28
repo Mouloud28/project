@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre index{% endblock %}
+{% block title %}Admin - Gestion des livres{% endblock %}
 
 {% block body %}
-    <h1>Livre index</h1>
+    <h1>Admin - Gestion des livres</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Titre_francais</th>
-                <th>Titre_original</th>
-                <th>Couverture</th>
-                <th>Synopsis</th>
-                <th>Pays_origine</th>
-                <th>Date_publication_france</th>
-                <th>Date_publication_pays_origine</th>
-                <th>ISBN</th>
-                <th>actions</th>
+                <th>ID</th>
+                <th>Titre francais</th>
+                {# <th>Titre original</th> #}
+                {# <th>Couverture</th> #}
+                {# <th>Synopsis</th> #}
+                {# <th>Pays d'origine</th> #}
+                {# <th>Date de publication (France)</th> #}
+                {# <th>Date de publication (pays d'origine)</th> #}
+                {# <th>ISBN</th> #}
+                <th>Auteur(s)</th>
+                <th>Genre(s)</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>

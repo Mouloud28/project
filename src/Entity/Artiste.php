@@ -116,7 +116,7 @@ class Artiste
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): static
+    public function setPhoto(string $photo = null): static
     {
         $this->photo = $photo;
 

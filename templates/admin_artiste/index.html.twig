@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Artiste index{% endblock %}
+{% block title %}Admin - Gestion des artistes{% endblock %}
 
 {% block body %}
-    <h1>Artiste index</h1>
+    <h1>Admin - Gestion des artistes</h1>
 
     <table class="table">
         <thead>
@@ -13,7 +13,7 @@
                 <th>Date_naissance</th>
                 <th>Pays_origine</th>
                 <th>Photo</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -21,9 +21,9 @@
             <tr>
                 <td>{{ artiste.id }}</td>
                 <td>{{ artiste.nom }}</td>
-                <td>{{ artiste.dateNaissance ? artiste.dateNaissance|date('Y-m-d') : '' }}</td>
+                <td>{{ artiste.dateNaissance ? artiste.dateNaissance|date('d-m-Y') : '' }}</td>
                 <td>{{ artiste.paysOrigine }}</td>
-                <td><img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Hayao Miyazaki"></td>
+                <td><img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Image"></td>
                 <td>
                     <a href="{{ path('app_admin_artiste_show', {'id': artiste.id}) }}">show</a>
                     <a href="{{ path('app_admin_artiste_edit', {'id': artiste.id}) }}">edit</a>
