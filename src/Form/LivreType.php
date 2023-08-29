@@ -8,6 +8,8 @@ use App\Entity\Livre;
 use App\Entity\Langue;
 use App\Entity\Artiste;
 use App\Entity\Editeur;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,9 +22,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class LivreType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options,): void
     {
         $builder
+
             ->add('titre_francais', TextType::class, [
                 'label' => 'Titre français',
                 'attr' => [
@@ -51,9 +54,13 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez renseigner le titre original du livre.'
                     ])
                 ]
-            ])
+            ]);
 
-            ->add('artistes', EntityType::class, [
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->add('artistes', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Auteur(s)',
@@ -69,8 +76,10 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs auteurs.'
                     ])
-                ]
-            ])
+                ],
+                'data' => $data->getArtistes()
+            ]);
+        })
 
             ->remove('couverture')
 
@@ -78,6 +87,7 @@ class LivreType extends AbstractType
                 'label' => 'Couverture',
                 'attr' => [
                     'class' => 'input',
+                    'enctype' => 'multipart/form-data',
                     'placeholder' => 'Sélectionnez la couverture du livre.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
@@ -144,6 +154,8 @@ class LivreType extends AbstractType
                     'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication française du livre.'
                 ],
+                'format' => 'dd/MM/yyyy',
+                'years' => range(0000, date('Y')),
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,
                 'constraints' => [
@@ -159,6 +171,8 @@ class LivreType extends AbstractType
                     'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication dans le pays d\'origine du livre.',
                 ],
+                'format' => 'dd/MM/yyyy',
+                'years' => range(0000, date('Y')),
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,
                 'constraints' => [
@@ -218,10 +232,15 @@ class LivreType extends AbstractType
                 ]
             ])
 
-            ->remove('updatedAt')
+            ->remove('updatedAt');
 
-            ->add('artistes_', EntityType::class, [
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->add('traducteurs', EntityType::class, [
                 'class' => Artiste::class,
+                'mapped' => true,
                 'choice_label' => 'nom',
                 'label' => 'Traducteur(s)',
                 'attr' => [
@@ -231,13 +250,15 @@ class LivreType extends AbstractType
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => true,
                 'multiple' => true,
-                'required' => true,
+                'required' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs traducteurs.'
                     ])
-                ]
-            ])
+                ],
+                'data' => $data->getArtistes()
+            ]);
+        })
 
             ->add('editeurs_', EntityType::class, [
                 'class' => Editeur::class,

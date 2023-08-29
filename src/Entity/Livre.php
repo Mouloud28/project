@@ -26,7 +26,7 @@ class Livre
     #[ORM\Column(length: 255)]
     private ?string $titre_original = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable : true)]
     private ?string $couverture = null;
 
     #[Vich\UploadableField(mapping: 'livres', fileNameProperty: 'couverture')]
@@ -80,6 +80,12 @@ class Livre
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Notation::class)]
     private Collection $notations;
 
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
+    private Collection $traducteurs;
+
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $traducteur = null;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -88,6 +94,7 @@ class Livre
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
+        $this->traducteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -124,7 +131,7 @@ class Livre
         return $this->couverture;
     }
 
-    public function setCouverture(string $couverture): static
+    public function setCouverture(string $couverture = null): static
     {
         $this->couverture = $couverture;
 
@@ -434,4 +441,41 @@ class Livre
 
         return $this;
     }
+
+    // public function getTraducteur(): ?string
+    // {
+    //     return $this->traducteur;
+    // }
+
+    // public function setTraducteur(?string $traducteur): static
+    // {
+    //     $this->traducteur = $traducteur;
+
+    //     return $this;
+    // }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getTraducteurs(): Collection
+    {
+        return $this->traducteurs;
+    }
+
+    public function addTraducteur(Artiste $traducteur): static
+    {
+        if (!$this->traducteurs->contains($traducteur)) {
+            $this->traducteurs->add($traducteur);
+        }
+
+        return $this;
+    }
+
+    public function removeTraducteur(Artiste $traducteur): static
+    {
+        $this->traducteurs->removeElement($traducteur);
+
+        return $this;
+    }
+
 }

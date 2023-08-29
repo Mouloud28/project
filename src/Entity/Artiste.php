@@ -61,6 +61,9 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Metier::class, mappedBy: 'artiste')]
     private Collection $metiers;
 
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'traducteurs')]
+    private Collection $livres;
+
     public function __construct()
     {
         $this->film = new ArrayCollection();
@@ -68,6 +71,7 @@ class Artiste
         $this->album = new ArrayCollection();
         $this->livre = new ArrayCollection();
         $this->metiers = new ArrayCollection();
+        $this->livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,5 +297,13 @@ class Artiste
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivres(): Collection
+    {
+        return $this->livres;
     }
 }

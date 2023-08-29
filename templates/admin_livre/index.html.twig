@@ -1,51 +1,74 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin - Gestion des livres{% endblock %}
+{% block title %}Admin - Gestion des livres
+{% endblock %}
 
 {% block body %}
-    <h1>Admin - Gestion des livres</h1>
+	<h1>Admin - Gestion des livres</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titre francais</th>
-                {# <th>Titre original</th> #}
-                {# <th>Couverture</th> #}
-                {# <th>Synopsis</th> #}
-                {# <th>Pays d'origine</th> #}
-                {# <th>Date de publication (France)</th> #}
-                {# <th>Date de publication (pays d'origine)</th> #}
-                {# <th>ISBN</th> #}
-                <th>Auteur(s)</th>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Titre francais</th>
+				{# <th>Titre original</th> #}
+				{# <th>Couverture</th> #}
+				{# <th>Synopsis</th> #}
+				{# <th>Pays d'origine</th> #}
+				{# <th>Date de publication (France)</th> #}
+				{# <th>Date de publication (pays d'origine)</th> #}
+				{# <th>ISBN</th> #}<th>
+				Auteur(s)</th>
                 <th>Genre(s)</th>
                 <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for livre in livres %}
-            <tr>
-                <td>{{ livre.id }}</td>
-                <td>{{ livre.titreFrancais }}</td>
-                <td>{{ livre.titreOriginal }}</td>
-                <td>{{ livre.couverture }}</td>
-                <td>{{ livre.synopsis }}</td>
-                <td>{{ livre.paysOrigine }}</td>
-                <td>{{ livre.datePublicationFrance ? livre.datePublicationFrance|date('Y-m-d') : '' }}</td>
-                <td>{{ livre.datePublicationPaysOrigine ? livre.datePublicationPaysOrigine|date('Y-m-d') : '' }}</td>
-                <td>{{ livre.ISBN }}</td>
-                <td>
-                    <a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>
-                    <a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="10">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+		</tr>
+		</thead>
+			<tbody>
+				{% for livre in livres %}
+					<tr>
+                    <td>{{ livre.id }}</td>
+                    <td>{{ livre.titreFrancais }}</td>
+					{# <td>{{ livre.titreOriginal }}</td> #}
+					{# <td>{{ livre.couverture }}</td> #}
+					{# <td>{{ livre.synopsis }}</td> #}
+					{# <td>{{ livre.paysOrigine }}</td> #}
+					{# <td>{{ livre.datePublicationFrance ? livre.datePublicationFrance|date('Y-m-d') : '' }}</td> #}
+					{# <td>{{ livre.datePublicationPaysOrigine ? livre.datePublicationPaysOrigine|date('Y-m-d') : '' }}</td> #}
+						{# <td>{{ livre.ISBN }}</td> #}
 
-    <a href="{{ path('app_admin_livre_new') }}">Create new</a>
+					<td>
+
+                    {% if livre.artistes %}
+						{% for artiste in livre.artistes %}
+						{{ artiste.nom }}{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}
+                    </td>
+
+                    <td>
+                    
+                    {% if livre.genres %}
+						{% for genre in livre.genres %}
+						{{ genre.nom }}{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}
+                    
+                    </td>
+
+					<td>
+						<a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}">show</a>
+						<a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="10">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_livre_new') }}">Create new</a>
 {% endblock %}
