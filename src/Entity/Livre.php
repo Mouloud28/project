@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\LivreRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Artiste;
+use App\Entity\Editeur;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\LivreRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: LivreRepository::class)]
@@ -54,15 +56,12 @@ class Livre
     private Collection $article;
 
     #[ORM\ManyToOne(inversedBy: 'livre')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToOne(inversedBy: 'livre')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Forum $forum = null;
-
-    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livre')]
-    private Collection $editeurs;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livre')]
     private Collection $genres;
@@ -83,18 +82,25 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
     private Collection $traducteurs;
 
+    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres')]
+    private Collection $editeurs_france;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livre')]
+    private Collection $editeurs;
+
     // #[ORM\Column(length: 255, nullable: true)]
     // private ?string $traducteur = null;
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
-        $this->editeurs = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
         $this->traducteurs = new ArrayCollection();
+        $this->editeurs_france = new ArrayCollection();
+        $this->editeurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -474,6 +480,30 @@ class Livre
     public function removeTraducteur(Artiste $traducteur): static
     {
         $this->traducteurs->removeElement($traducteur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeursFrance(): Collection
+    {
+        return $this->editeurs_france;
+    }
+
+    public function addEditeurFrance(Editeur $editeur_france): static
+    {
+        if (!$this->editeurs_france->contains($editeur_france)) {
+            $this->editeurs_france->add($editeur_france);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeurFrance(Editeur $editeur_france): static
+    {
+        $this->editeurs_france->removeElement($editeur_france);
 
         return $this;
     }

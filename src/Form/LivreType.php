@@ -28,6 +28,7 @@ class LivreType extends AbstractType
 
             ->add('titre_francais', TextType::class, [
                 'label' => 'Titre français',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez le titre français du livre.'
@@ -43,6 +44,7 @@ class LivreType extends AbstractType
 
             ->add('titre_original', TextType::class, [
                 'label' => 'Titre original',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez le titre original du livre.'
@@ -64,6 +66,7 @@ class LivreType extends AbstractType
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Auteur(s)',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs auteurs.'
@@ -85,6 +88,7 @@ class LivreType extends AbstractType
 
             ->add('imageFile', FileType::class, [
                 'label' => 'Couverture',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'enctype' => 'multipart/form-data',
@@ -100,6 +104,7 @@ class LivreType extends AbstractType
             ])
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
+                'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
                 'attr' => [
@@ -119,6 +124,7 @@ class LivreType extends AbstractType
 
             ->add('synopsis', TextareaType::class, [
                 'label' => 'Synopsis',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez le synopsis du livre.',
@@ -135,6 +141,7 @@ class LivreType extends AbstractType
 
             ->add('pays_origine', TextType::class, [
                 'label' => 'Pays d\'origine',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez le pays d\'origine du livre.'
@@ -150,6 +157,7 @@ class LivreType extends AbstractType
 
             ->add('date_publication_france', DateType::class, [
                 'label' => 'Date de publication (France)',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication française du livre.'
@@ -167,6 +175,7 @@ class LivreType extends AbstractType
 
             ->add('date_publication_pays_origine', DateType::class, [
                 'label' => 'Date de publication (Pays d\'origine)',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication dans le pays d\'origine du livre.',
@@ -186,6 +195,7 @@ class LivreType extends AbstractType
                 'class' => Langue::class,
                 'choice_label' => 'nom',
                 'label' => 'Langue d\'origine',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez la langue originale du livre.',
@@ -197,13 +207,18 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez renseigner la langue originale du livre.'
                     ])
                 ]
-            ])
+            ]);
 
-            ->add('editeurs', EntityType::class, [
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->add('editeurs', EntityType::class, [
                 'class' => Editeur::class,
                 'multiple' => true,
                 'choice_label' => 'nom',
                 'label' => 'Editeur(s)',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
@@ -214,11 +229,14 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
-                ]
-            ])
+                ],
+                'data' => $data->getEditeurs()
+            ]);
+        })
 
             ->add('ISBN', TextType::class, [
                 'label' => 'ISBN',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez l\'ISBN du livre.',
@@ -243,6 +261,7 @@ class LivreType extends AbstractType
                 'mapped' => true,
                 'choice_label' => 'nom',
                 'label' => 'Traducteur(s)',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs traducteurs.'
@@ -258,12 +277,17 @@ class LivreType extends AbstractType
                 ],
                 'data' => $data->getArtistes()
             ]);
-        })
+        });
 
-            ->add('editeurs_', EntityType::class, [
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->add('editeurs_france', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
                 'label' => 'Editeur(s)',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
@@ -276,11 +300,14 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
-                ]
-            ])
+                    ],
+                    'data' => $data->getEditeursFrance()
+                ]);
+            })
 
             ->add('ISBN_', TextType::class, [
                 'label' => 'ISBN',
+                'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez l\'ISBN du livre.',
@@ -298,6 +325,7 @@ class LivreType extends AbstractType
                 'class' => Forum::class,
                 'choice_label' => 'nom',
                 'label' => 'Forum',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez le forum du livre.',

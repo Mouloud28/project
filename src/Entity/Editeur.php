@@ -31,9 +31,13 @@ class Editeur
     #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'editeurs')]
     private Collection $livre;
 
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeurs_france')]
+    private Collection $livres;
+
     public function __construct()
     {
         $this->livre = new ArrayCollection();
+        $this->livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -111,5 +115,13 @@ class Editeur
         $this->livre->removeElement($livre);
 
         return $this;
+    }
+
+    /**
+    * @return Collection<int, Livre>
+    */
+    public function getLivres(): Collection
+    {
+    return $this->livres;
     }
 }
