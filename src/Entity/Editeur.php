@@ -28,16 +28,16 @@ class Editeur
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'editeurs')]
-    private Collection $livre;
-
-    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeurs_france')]
+    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'editeurs_france')]
     private Collection $livres;
+
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeurs_pays_origine')]
+    private Collection $livres_editeurs_pays_origine;
 
     public function __construct()
     {
-        $this->livre = new ArrayCollection();
         $this->livres = new ArrayCollection();
+        $this->livres_editeurs_pays_origine = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,34 +94,37 @@ class Editeur
     }
 
     /**
-     * @return Collection<int, Livre>
-     */
-    public function getLivre(): Collection
-    {
-        return $this->livre;
-    }
-
-    public function addLivre(Livre $livre): static
-    {
-        if (!$this->livre->contains($livre)) {
-            $this->livre->add($livre);
-        }
-
-        return $this;
-    }
-
-    public function removeLivre(Livre $livre): static
-    {
-        $this->livre->removeElement($livre);
-
-        return $this;
-    }
-
-    /**
     * @return Collection<int, Livre>
     */
     public function getLivres(): Collection
     {
     return $this->livres;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivresEditeursPaysOrigine(): Collection
+    {
+        return $this->livres_editeurs_pays_origine;
+    }
+
+    public function addLivresEditeursPaysOrigine(Livre $livresEditeursPaysOrigine): static
+    {
+        if (!$this->livres_editeurs_pays_origine->contains($livresEditeursPaysOrigine)) {
+            $this->livres_editeurs_pays_origine->add($livresEditeursPaysOrigine);
+            $livresEditeursPaysOrigine->addEditeursPaysOrigine($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivresEditeursPaysOrigine(Livre $livresEditeursPaysOrigine): static
+    {
+        if ($this->livres_editeurs_pays_origine->removeElement($livresEditeursPaysOrigine)) {
+            $livresEditeursPaysOrigine->removeEditeursPaysOrigine($this);
+        }
+
+        return $this;
     }
 }

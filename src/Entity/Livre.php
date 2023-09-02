@@ -28,7 +28,7 @@ class Livre
     #[ORM\Column(length: 255)]
     private ?string $titre_original = null;
 
-    #[ORM\Column(length: 255, nullable : true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $couverture = null;
 
     #[Vich\UploadableField(mapping: 'livres', fileNameProperty: 'couverture')]
@@ -82,11 +82,14 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
     private Collection $traducteurs;
 
-    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres')]
+    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livres')]
     private Collection $editeurs_france;
 
-    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livre')]
-    private Collection $editeurs;
+    #[ORM\Column(length: 255)]
+    private ?string $ISBN_france = null;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres_editeurs_pays_origine')]
+    private Collection $editeurs_pays_origine;
 
     // #[ORM\Column(length: 255, nullable: true)]
     // private ?string $traducteur = null;
@@ -100,7 +103,7 @@ class Livre
         $this->notations = new ArrayCollection();
         $this->traducteurs = new ArrayCollection();
         $this->editeurs_france = new ArrayCollection();
-        $this->editeurs = new ArrayCollection();
+        $this->editeurs_pays_origine = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -296,33 +299,6 @@ class Livre
     }
 
     /**
-     * @return Collection<int, Editeur>
-     */
-    public function getEditeurs(): Collection
-    {
-        return $this->editeurs;
-    }
-
-    public function addEditeur(Editeur $editeur): static
-    {
-        if (!$this->editeurs->contains($editeur)) {
-            $this->editeurs->add($editeur);
-            $editeur->addLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEditeur(Editeur $editeur): static
-    {
-        if ($this->editeurs->removeElement($editeur)) {
-            $editeur->removeLivre($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Genre>
      */
     public function getGenres(): Collection
@@ -508,4 +484,39 @@ class Livre
         return $this;
     }
 
+    public function getISBNFrance(): ?string
+    {
+        return $this->ISBN_france;
+    }
+
+    public function setISBNFrance(string $ISBN_france): static
+    {
+        $this->ISBN_france = $ISBN_france;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeursPaysOrigine(): Collection
+    {
+        return $this->editeurs_pays_origine;
+    }
+
+    public function addEditeursPaysOrigine(Editeur $editeursPaysOrigine): static
+    {
+        if (!$this->editeurs_pays_origine->contains($editeursPaysOrigine)) {
+            $this->editeurs_pays_origine->add($editeursPaysOrigine);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeursPaysOrigine(Editeur $editeursPaysOrigine): static
+    {
+        $this->editeurs_pays_origine->removeElement($editeursPaysOrigine);
+
+        return $this;
+    }
 }

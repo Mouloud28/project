@@ -16,13 +16,13 @@
 
 			<tr>
 				<th>Titre français</th>
-				<td>{{ livre.titreFrancais }}</td>
+				<td>{{ livre.TitreFrancais }}</td>
 			</tr>
 
 			<tr>
 				<th>Titre original</th>
 				<td>
-					{% if livre.paysOrigine is same as ('France') %}
+					{% if livre.PaysOrigine is same as ('France') %}
 						<p>-</p>
 					{% else %}
 						{{ livre.titreOriginal }}
@@ -49,88 +49,143 @@
 			</tr>
 
 			<tr>
-				<th>Synopsis</th>
-				<td>{{ livre.synopsis }}</td>
-			</tr>
-
-			<tr>
-				<th>Pays d'origine</th>
-				<td>{{ livre.paysOrigine }}</td>
-			</tr>
-
-			<tr>
-				<th>Date de publication (France)</th>
-				<td>{{ livre.datePublicationFrance ? livre.datePublicationFrance|date('m-d-Y') : '' }}</td>
-			</tr>
-
-			<tr>
-				<th>Date de publication (Pays d'origine)</th>
-				<td>{{ livre.datePublicationPaysOrigine ? livre.datePublicationPaysOrigine|date('m-d-Y') : '' }}</td>
-			</tr>
-
-			<tr>
-				<th>Langue d'origine</th>
+				<th>Genre(s)</th>
 				<td>
-					{% if livre.langue %}
+					{% if livre.genres %}
 
-						{# {% for langue in livre.langue %}
-													{{ langue.nom }}
-												{% endfor %} #}
-
-						{{livre.langue.nom}}
-					{% else %}
-						<span class="text-danger fst-italic">N.R</span>
-					{% endif %}
-				</td>
-			</tr>
-
-			<tr>
-				<th>Editeur(s)</th>
-				<td>
-					{% if livre.editeurs %}
-						{% for editeur in livre.editeurs %}
-							{{ editeur.nom }}
-						{% endfor %}
-					{% else %}
-						<span class="text-danger fst-italic">N.R</span>
-					{% endif %}
-				</td>
-			</tr>
-
-			<tr>
-				<th>Traducteur(s)</th>
-				<td>
-					{# {% if livre.traducteurs %}
-											{% for traducteur in livre.traducteurs %}
-												{{ traducteur.nom }}
-											{% endfor %}
-										{% else %}
-											<span class="text-danger fst-italic">N.R</span>
-										{% endif %} #}
-
-					{% if livre.langue.nom is same as ('Français') %}
-						<p>-</p>
-					{% else %}
-						{% for traducteur in livre.traducteurs %}
-							{{ traducteur.nom }}
+						{% for genre in livre.genres %}
+							{{ genre.nom }}
 						{% endfor %}
 					{% endif %}
-
 				</td>
 			</tr>
-
-			<tr>
-				<th>ISBN</th>
-				<td>{{ livre.ISBN }}</td>
-			</tr>
-
-
 		</tbody>
-	</table>
+	</td>
+</tr>
 
-	<a href="{{ path('app_admin_livre_index') }}">back to list</a>
+<tr>
+	<th>Synopsis</th>
+	<td>{{ livre.synopsis }}</td>
+</tr>
 
-	<a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>
+<tr>
+	<th>Pays d'origine</th>
+	<td>{{ livre.PaysOrigine }}</td>
+</tr>
 
-	{{ include('admin_livre/_delete_form.html.twig') }}
-{% endblock %}
+<tr>
+	<th>Date de publication (France)</th>
+	<td>{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</td>
+</tr>
+
+<tr>
+	<th>Date de publication (Pays d'origine)</th>
+	<td>
+
+		{% if livre.PaysOrigine is same as ('France') %}
+			<p>-</p>
+		{% else %}
+			{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</td>
+	{% endif %}
+</tr></tbody></table><h3>Version originale</h3><table class="table"><tbody>
+
+<tr>
+	<th class="th-show-livre">Langue d'origine</th>
+	<td>
+		{% if livre.langue %}
+			{{livre.langue.nom}}
+		{% else %}
+			<span class="text-danger fst-italic">N.R</span>
+		{% endif %}
+	</td>
+</tr>
+
+<tr>
+	<th class="th-show-livre">Editeur(s)</th>
+	<td>
+
+		{# {% if livre.EditeursFrance %}
+				{% for EditeurFrance in livre.EditeursFrance %}
+				{{ EditeurFrance.nom }}
+				{% endfor %}
+				{% else %}
+				<span class="text-danger fst-italic">N.R</span>
+				{% endif %} #}
+
+		{% if livre.langue.nom is same as ('Français') %}
+			{% for EditeurPaysOrigine in livre.EditeursPaysOrigine %}
+				{{ EditeurPaysOrigine.nom }}
+			{% endfor %}
+		{% else %}
+		<p>-</p>
+		{% endif %}
+
+	</td>
+</tr>
+
+<tr>
+	<th class="th-show-livre">ISBN</th>
+	<td>{{ livre.ISBN }}</td>
+</tr></tbody></table><h3>Version française</h3><table class="table"><tbody>
+
+<tr>
+	<th class="th-show-livre">Traducteur(s)</th>
+	<td>
+		{# {% if livre.traducteurs %}
+		{% for traducteur in livre.traducteurs %}
+		{{ traducteur.nom }}
+		{% endfor %}
+		{% else %}
+		<span class="text-danger fst-italic">N.R</span>
+		{% endif %} #}
+
+		{% if livre.langue.nom is same as ('Français') %}
+			<p>-</p>
+		{% else %}
+			{% for traducteur in livre.traducteurs %}
+				{{ traducteur.nom }}
+			{% endfor %}
+		{% endif %}
+
+	</td>
+</tr>
+
+<tr>
+	<th class="th-show-livre">Editeur(s)</th>
+	<td>
+
+		{# {% if livre.EditeursFrance %}
+				{% for EditeurFrance in livre.EditeursFrance %}
+				{{ EditeurFrance.nom }}
+				{% endfor %}
+				{% else %}
+				<span class="text-danger fst-italic">N.R</span>
+				{% endif %} #}
+
+		{% if livre.langue.nom is same as ('Français') %}
+			<p>-</p>
+		{% else %}
+			{% for EditeurFrance in livre.EditeursFrance %}
+				{{ EditeurFrance.nom }}
+			{% endfor %}
+		{% endif %}
+
+	</td>
+</tr>
+
+{# <tr>
+<th>ISBN</th>
+<td>{{ livre.ISBNFrance }}</td>
+</tr> #}
+
+<tr>
+	<th class="th-show-livre">ISBN</th>
+	<td>
+		{% if livre.langue.nom is same as ('Français') %}
+			<p>-</p>
+		{% else %}
+			{{ livre.ISBNFrance }}
+		{% endif %}
+	</td>
+
+</tr></tbody></table><a href="{{ path('app_admin_livre_index') }}">back to list</a><a href="{{ path('app_admin_livre_edit', {'id': livre.id}) }}">edit</a>{{ include('admin_livre/_delete_form.html.twig') }}{% endblock %}

@@ -207,32 +207,7 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez renseigner la langue originale du livre.'
                     ])
                 ]
-            ]);
-
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('editeurs', EntityType::class, [
-                'class' => Editeur::class,
-                'multiple' => true,
-                'choice_label' => 'nom',
-                'label' => 'Editeur(s)',
-                'label_attr' => ['class' => 'fst-italic'],
-                'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
-                ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
-                'required' => true,
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
-                    ])
-                ],
-                'data' => $data->getEditeurs()
-            ]);
-        })
+            ])
 
             ->add('ISBN', TextType::class, [
                 'label' => 'ISBN',
@@ -283,6 +258,32 @@ class LivreType extends AbstractType
             $form = $event->getForm();
             $data = $event->getData();
 
+            $form->add('editeurs_pays_origine', EntityType::class, [
+                'class' => Editeur::class,
+                'choice_label' => 'nom',
+                'label' => 'Editeur(s)',
+                'label_attr' => ['class' => 'fst-italic'],
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
+                    ])
+                ],
+                'data' => $data->getEditeurs()
+            ]);
+        });
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
             $form->add('editeurs_france', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
@@ -305,7 +306,7 @@ class LivreType extends AbstractType
                 ]);
             })
 
-            ->add('ISBN_', TextType::class, [
+            ->add('ISBN_france', TextType::class, [
                 'label' => 'ISBN',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
