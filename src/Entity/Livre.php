@@ -79,12 +79,12 @@ class Livre
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Notation::class)]
     private Collection $notations;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
+    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'livres')]
     private Collection $traducteurs;
 
     #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livres')]
     private Collection $editeurs_france;
-
+ 
     #[ORM\Column(length: 255)]
     private ?string $ISBN_france = null;
 

@@ -16,13 +16,13 @@
 
 			<tr>
 				<th>Titre français</th>
-				<td>{{ livre.TitreFrancais }}</td>
+				<td>{{ livre.titreFrancais }}</td>
 			</tr>
 
 			<tr>
 				<th>Titre original</th>
 				<td>
-					{% if livre.PaysOrigine is same as ('France') %}
+					{% if livre.paysOrigine is same as ('France') %}
 						<p>-</p>
 					{% else %}
 						{{ livre.titreOriginal }}
@@ -105,19 +105,19 @@
 	<td>
 
 		{# {% if livre.EditeursFrance %}
-				{% for EditeurFrance in livre.EditeursFrance %}
-				{{ EditeurFrance.nom }}
-				{% endfor %}
-				{% else %}
-				<span class="text-danger fst-italic">N.R</span>
-				{% endif %} #}
+						{% for EditeurFrance in livre.EditeursFrance %}
+						{{ EditeurFrance.nom }}
+						{% endfor %}
+						{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+						{% endif %} #}
 
 		{% if livre.langue.nom is same as ('Français') %}
 			{% for EditeurPaysOrigine in livre.EditeursPaysOrigine %}
 				{{ EditeurPaysOrigine.nom }}
 			{% endfor %}
 		{% else %}
-		<p>-</p>
+			<p>-</p>
 		{% endif %}
 
 	</td>
@@ -132,12 +132,12 @@
 	<th class="th-show-livre">Traducteur(s)</th>
 	<td>
 		{# {% if livre.traducteurs %}
-		{% for traducteur in livre.traducteurs %}
-		{{ traducteur.nom }}
-		{% endfor %}
-		{% else %}
-		<span class="text-danger fst-italic">N.R</span>
-		{% endif %} #}
+				{% for traducteur in livre.traducteurs %}
+				{{ traducteur.nom }}
+				{% endfor %}
+				{% else %}
+				<span class="text-danger fst-italic">N.R</span>
+				{% endif %} #}
 
 		{% if livre.langue.nom is same as ('Français') %}
 			<p>-</p>
@@ -154,21 +154,31 @@
 	<th class="th-show-livre">Editeur(s)</th>
 	<td>
 
-		{# {% if livre.EditeursFrance %}
-				{% for EditeurFrance in livre.EditeursFrance %}
-				{{ EditeurFrance.nom }}
-				{% endfor %}
-				{% else %}
-				<span class="text-danger fst-italic">N.R</span>
-				{% endif %} #}
-
-		{% if livre.langue.nom is same as ('Français') %}
-			<p>-</p>
-		{% else %}
+		{% if livre.EditeursFrance %}
 			{% for EditeurFrance in livre.EditeursFrance %}
 				{{ EditeurFrance.nom }}
 			{% endfor %}
+		{% else %}
+			<span class="text-danger fst-italic">N.R</span>
 		{% endif %}
+
+		{# {% if livre.langue.nom is same as ('Anglais') %}
+					<p>-</p>
+				{% else %}
+					{% for editeurFrance in livre.editeursFrance %}
+						{{ editeurFrance.nom }}
+					{% endfor %}
+				{% endif %} #}
+
+		{# <td>
+							{% if livre.artistes %}
+								{% for artiste in livre.artistes %}
+									{{ artiste.nom }}
+								{% endfor %}
+							{% else %}
+								<span class="text-danger fst-italic">N.R</span>
+							{% endif %}
+						</td> #}
 
 	</td>
 </tr>
