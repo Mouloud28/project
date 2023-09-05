@@ -64,6 +64,7 @@ class Livre
     private ?Forum $forum = null;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livre')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $genres;
 
     #[ORM\ManyToOne(inversedBy: 'livre')]
@@ -79,17 +80,18 @@ class Livre
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Notation::class)]
     private Collection $notations;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'livres')]
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
     private Collection $traducteurs;
-
-    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livres')]
-    private Collection $editeurs_france;
  
     #[ORM\Column(length: 255)]
     private ?string $ISBN_france = null;
 
-    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres_editeurs_pays_origine')]
+    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livres')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $editeurs_pays_origine;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres2')]
+    private Collection $editeurs_france;
 
     // #[ORM\Column(length: 255, nullable: true)]
     // private ?string $traducteur = null;
@@ -102,8 +104,8 @@ class Livre
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
         $this->traducteurs = new ArrayCollection();
-        $this->editeurs_france = new ArrayCollection();
         $this->editeurs_pays_origine = new ArrayCollection();
+        $this->editeurs_france = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -232,6 +234,18 @@ class Livre
         return $this;
     }
 
+    public function getISBNFrance(): ?string
+    {
+        return $this->ISBN_france;
+    }
+
+    public function setISBNFrance(string $ISBN_france): static
+    {
+        $this->ISBN_france = $ISBN_france;
+
+        return $this;
+    }
+
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
         return $this->updatedAt;
@@ -243,6 +257,8 @@ class Livre
 
         return $this;
     }
+
+    
 
     /**
      * @return Collection<int, Article>
@@ -463,42 +479,6 @@ class Livre
     /**
      * @return Collection<int, Editeur>
      */
-    public function getEditeursFrance(): Collection
-    {
-        return $this->editeurs_france;
-    }
-
-    public function addEditeurFrance(Editeur $editeur_france): static
-    {
-        if (!$this->editeurs_france->contains($editeur_france)) {
-            $this->editeurs_france->add($editeur_france);
-        }
-
-        return $this;
-    }
-
-    public function removeEditeurFrance(Editeur $editeur_france): static
-    {
-        $this->editeurs_france->removeElement($editeur_france);
-
-        return $this;
-    }
-
-    public function getISBNFrance(): ?string
-    {
-        return $this->ISBN_france;
-    }
-
-    public function setISBNFrance(string $ISBN_france): static
-    {
-        $this->ISBN_france = $ISBN_france;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Editeur>
-     */
     public function getEditeursPaysOrigine(): Collection
     {
         return $this->editeurs_pays_origine;
@@ -519,4 +499,29 @@ class Livre
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeursFrance(): Collection
+    {
+        return $this->editeurs_france;
+    }
+
+    public function addEditeursFrance(Editeur $editeursFrance): static
+    {
+        if (!$this->editeurs_france->contains($editeursFrance)) {
+            $this->editeurs_france->add($editeursFrance);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeursFrance(Editeur $editeursFrance): static
+    {
+        $this->editeurs_france->removeElement($editeursFrance);
+
+        return $this;
+    }
+
 }

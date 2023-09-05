@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Genre;
+use App\Entity\Livre;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class GenreType extends AbstractType
@@ -14,6 +16,12 @@ class GenreType extends AbstractType
         $builder
             ->add('nom')
             ->remove('updatedAt')
+            ->add('livres', EntityType::class, [
+                'class' => Livre::class,
+                'choice_label' => 'titre_francais',
+                'multiple' => true,
+                'expanded' => true 
+            ])
         ;
     }
 

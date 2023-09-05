@@ -22,6 +22,7 @@ class Genre
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'genres')]
+    #[ORM\JoinColumn(nullable: false)]
     private Collection $livre;
 
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'genres')]

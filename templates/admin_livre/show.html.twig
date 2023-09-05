@@ -10,7 +10,7 @@
 		<tbody>
 
 			<tr>
-				<th>Id</th>
+				<th class="th-show-livre">Id</th>
 				<td>{{ livre.id }}</td>
 			</tr>
 
@@ -20,7 +20,7 @@
 			</tr>
 
 			<tr>
-				<th>Titre original</th>
+				<th class="th-show-livre">Titre original</th>
 				<td>
 					{% if livre.paysOrigine is same as ('France') %}
 						<p>-</p>
@@ -31,7 +31,7 @@
 			</tr>
 
 			<tr>
-				<th>Auteur(s)</th>
+				<th class="th-show-livre">Auteur(s)</th>
 				<td>
 					{% if livre.artistes %}
 						{% for artiste in livre.artistes %}
@@ -44,12 +44,12 @@
 			</tr>
 
 			<tr>
-				<th>Couverture</th>
+				<th class="th-show-livre">Couverture</th>
 				<td><img src="{{ vich_uploader_asset(livre, 'imageFile') }}" alt="Couverture du livre"></td>
 			</tr>
 
 			<tr>
-				<th>Genre(s)</th>
+				<th class="th-show-livre">Genre(s)</th>
 				<td>
 					{% if livre.genres %}
 
@@ -64,7 +64,7 @@
 </tr>
 
 <tr>
-	<th>Synopsis</th>
+	<th class="th-show-livre">Synopsis</th>
 	<td>{{ livre.synopsis }}</td>
 </tr>
 
@@ -74,12 +74,12 @@
 </tr>
 
 <tr>
-	<th>Date de publication (France)</th>
+	<th class="th-show-livre">Date de publication (France)</th>
 	<td>{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</td>
 </tr>
 
 <tr>
-	<th>Date de publication (Pays d'origine)</th>
+	<th class="th-show-livre">Date de publication (Pays d'origine)</th>
 	<td>
 
 		{% if livre.PaysOrigine is same as ('France') %}
@@ -155,38 +155,15 @@
 	<td>
 
 		{% if livre.EditeursFrance %}
-			{% for EditeurFrance in livre.EditeursFrance %}
+		{% for EditeurFrance in livre.EditeursFrance %}
 				{{ EditeurFrance.nom }}
 			{% endfor %}
 		{% else %}
 			<span class="text-danger fst-italic">N.R</span>
 		{% endif %}
 
-		{# {% if livre.langue.nom is same as ('Anglais') %}
-					<p>-</p>
-				{% else %}
-					{% for editeurFrance in livre.editeursFrance %}
-						{{ editeurFrance.nom }}
-					{% endfor %}
-				{% endif %} #}
-
-		{# <td>
-							{% if livre.artistes %}
-								{% for artiste in livre.artistes %}
-									{{ artiste.nom }}
-								{% endfor %}
-							{% else %}
-								<span class="text-danger fst-italic">N.R</span>
-							{% endif %}
-						</td> #}
-
 	</td>
 </tr>
-
-{# <tr>
-<th>ISBN</th>
-<td>{{ livre.ISBNFrance }}</td>
-</tr> #}
 
 <tr>
 	<th class="th-show-livre">ISBN</th>

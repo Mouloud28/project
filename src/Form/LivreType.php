@@ -8,9 +8,11 @@ use App\Entity\Livre;
 use App\Entity\Langue;
 use App\Entity\Artiste;
 use App\Entity\Editeur;
+use App\Entity\Publication;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -19,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class LivreType extends AbstractType
 {
@@ -112,7 +115,7 @@ class LivreType extends AbstractType
                     'placeholder' => 'Renseignez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -261,14 +264,19 @@ class LivreType extends AbstractType
             $form->add('editeurs_pays_origine', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
-                'label' => 'Editeur(s)',
+                // 'entry_type' => EntityType::class,
+                // 'entry_options' => [
+                //      'class' => Editeur::class,
+                //      'choice_label' => 'nom', // Utilisez le champ 'editeur.nom' de l'éditeur comme libellé
+                //  ],
+                'label' => 'Éditeur(s)',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -276,7 +284,7 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
                 ],
-                'data' => $data->getEditeurs()
+                'data' => $data->getEditeursPaysOrigine()
             ]);
         });
 
@@ -287,24 +295,28 @@ class LivreType extends AbstractType
             $form->add('editeurs_france', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
-                'label' => 'Editeur(s)',
+                // 'entry_options' => [
+                //      'class' => Editeur::class,
+                //      'choice_label' => 'nom', // Utilisez le champ 'editeur.nom' de l'éditeur comme libellé
+                //  ],
+                'label' => 'Éditeur(s)',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => false,
+                'expanded' => true,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
-                    ],
-                    'data' => $data->getEditeursFrance()
-                ]);
-            })
+                ],
+                'data' => $data->getEditeursFrance()
+            ]);
+        })
 
             ->add('ISBN_france', TextType::class, [
                 'label' => 'ISBN',
