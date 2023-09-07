@@ -14,8 +14,27 @@ class BandesAnnoncesTeasersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('video', FileType::class)
+
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Attribuez un nom à votre bande-annonce / teaser.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+            ])
+
+            ->add('video', FileType::class, [
+                'label' => 'Vidéo',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Attribuez un nom à votre bande-annonce / teaser.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+            ])
+
             ->remove('updatedAt')
             ->remove('film')
         ;

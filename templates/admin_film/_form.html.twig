@@ -21,10 +21,10 @@
             <li>{{ form_widget(bandeAnnonceTeaser) }}</li>
         {% endfor %}
 
-<button type="button" class="add_item_link" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
-
-<button class="btn">{{ button_label|default('Save') }}</button>
+<button type="button" class="add_item_link form-control mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
 
 {{ form_row(form.forum) }}
+
+<button class="btn-ajouter-film form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter le film') }}</button>
 
 {{ form_end(form) }}

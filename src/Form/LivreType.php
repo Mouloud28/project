@@ -8,11 +8,9 @@ use App\Entity\Livre;
 use App\Entity\Langue;
 use App\Entity\Artiste;
 use App\Entity\Editeur;
-use App\Entity\Publication;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -21,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class LivreType extends AbstractType
 {
@@ -104,8 +101,13 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez sélectionner la couverture du livre.'
                     ])
                 ]
-            ])
-            ->add('genres', EntityType::class, [
+            ]);
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            $form = $event->getForm();
+            $data = $event->getData();
+
+            $form->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
@@ -122,8 +124,10 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs genres.'
                     ])
-                ]
-            ])
+                ],
+                'data' => $data->getGenres()
+            ]);
+        })
 
             ->add('synopsis', TextareaType::class, [
                 'label' => 'Synopsis',

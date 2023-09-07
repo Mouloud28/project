@@ -63,10 +63,6 @@ class Livre
     #[ORM\JoinColumn(nullable: false)]
     private ?Forum $forum = null;
 
-    #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livre')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Collection $genres;
-
     #[ORM\ManyToOne(inversedBy: 'livre')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Langue $langue = null;
@@ -93,19 +89,23 @@ class Livre
     #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres2')]
     private Collection $editeurs_france;
 
+    #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livres')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Collection $genres;
+
     // #[ORM\Column(length: 255, nullable: true)]
     // private ?string $traducteur = null;
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
-        $this->genres = new ArrayCollection();
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
         $this->traducteurs = new ArrayCollection();
         $this->editeurs_pays_origine = new ArrayCollection();
         $this->editeurs_france = new ArrayCollection();
+        $this->genres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -314,33 +314,6 @@ class Livre
         return $this;
     }
 
-    /**
-     * @return Collection<int, Genre>
-     */
-    public function getGenres(): Collection
-    {
-        return $this->genres;
-    }
-
-    public function addGenre(Genre $genre): static
-    {
-        if (!$this->genres->contains($genre)) {
-            $this->genres->add($genre);
-            $genre->addLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGenre(Genre $genre): static
-    {
-        if ($this->genres->removeElement($genre)) {
-            $genre->removeLivre($this);
-        }
-
-        return $this;
-    }
-
     public function getLangue(): ?Langue
     {
         return $this->langue;
@@ -520,6 +493,30 @@ class Livre
     public function removeEditeursFrance(Editeur $editeursFrance): static
     {
         $this->editeurs_france->removeElement($editeursFrance);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Genre>
+     */
+    public function getGenres(): Collection
+    {
+        return $this->genres;
+    }
+
+    public function addGenres(Genre $genres): static
+    {
+        if (!$this->genres->contains($genres)) {
+            $this->genres->add($genres);
+        }
+
+        return $this;
+    }
+
+    public function removeGenres(Genre $genres): static
+    {
+        $this->genres->removeElement($genres);
 
         return $this;
     }

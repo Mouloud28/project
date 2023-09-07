@@ -21,10 +21,6 @@ class Genre
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'genres')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Collection $livre;
-
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'genres')]
     private Collection $film;
 
@@ -34,12 +30,16 @@ class Genre
     #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'genres')]
     private Collection $album;
 
+    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'genres')]
+    #[ORM\JoinColumn(nullable: false)]
+    private Collection $livres;
+
     public function __construct()
     {
-        $this->livre = new ArrayCollection();
         $this->film = new ArrayCollection();
         $this->serie = new ArrayCollection();
         $this->album = new ArrayCollection();
+        $this->livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -67,30 +67,6 @@ class Genre
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Livre>
-     */
-    public function getLivre(): Collection
-    {
-        return $this->livre;
-    }
-
-    public function addLivre(Livre $livre): static
-    {
-        if (!$this->livre->contains($livre)) {
-            $this->livre->add($livre);
-        }
-
-        return $this;
-    }
-
-    public function removeLivre(Livre $livre): static
-    {
-        $this->livre->removeElement($livre);
 
         return $this;
     }
@@ -163,6 +139,33 @@ class Genre
     public function removeAlbum(Album $album): static
     {
         $this->album->removeElement($album);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivres(): Collection
+    {
+        return $this->livres;
+    }
+
+    public function addLivre(Livre $livre): static
+    {
+        if (!$this->livres->contains($livre)) {
+            $this->livres->add($livre);
+            $livre->addGenres($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): static
+    {
+        if ($this->livres->removeElement($livre)) {
+            $livre->removeGenres($this);
+        }
 
         return $this;
     }

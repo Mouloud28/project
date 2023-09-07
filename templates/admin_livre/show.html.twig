@@ -51,10 +51,10 @@
 			<tr>
 				<th class="th-show-livre">Genre(s)</th>
 				<td>
-					{% if livre.genres %}
+					{% if livre.Genres %}
 
-						{% for genre in livre.genres %}
-							{{ genre.nom }}
+						{% for Genre in livre.Genres %}
+							{{ Genre.nom }}
 						{% endfor %}
 					{% endif %}
 				</td>

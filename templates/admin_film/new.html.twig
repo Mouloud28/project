@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Film{% endblock %}
+{% block title %}New Film
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Film</h1>
 
-    {{ include('admin_film/_form.html.twig') }}
+	<div class="h1-ajouter-film rounded text-center mx-5 my-3"><h1>Ajouter un film</h1></div>
 
-    <a href="{{ path('app_admin_film_index') }}">back to list</a>
+	<div class="div-retour-liste-films mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_film_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des films</a>
+	</div>
+
+	{{ include('admin_film/_form.html.twig') }}
+
 {% endblock %}

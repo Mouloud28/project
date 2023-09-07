@@ -6,8 +6,8 @@
 {% block body %}
 	<h1>Admin - Gestion des livres</h1>
 
-	<table class="table">
-		<thead>
+	<table class="table table-responsive table-stripped">
+		<thead class="table table-responsive table-stripped">
 			<tr>
 				<th>ID</th>
 				<th>Titre francais</th>
@@ -23,7 +23,7 @@
                 <th>Actions</th>
 		</tr>
 		</thead>
-			<tbody>
+			<tbody class="table table-responsive table-stripped">
 				{% for livre in livres %}
 					<tr>
                     <td>{{ livre.id }}</td>
@@ -48,9 +48,9 @@
 
                     <td>
                     
-                    {% if livre.genres %}
-						{% for genre in livre.genres %}
-						{{ genre.nom }}{% endfor %}
+                    {% if livre.Genres %}
+						{% for Genre in livre.Genres %}
+						{{ Genre.nom }}{% endfor %}
 					{% else %}
 						<span class="text-danger fst-italic">N.R</span>
 					{% endif %}

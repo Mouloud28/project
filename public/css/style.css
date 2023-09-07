@@ -15,7 +15,7 @@ body{
 .btn-ajouter-artiste{
     background-color: rgba(44, 47, 62);
     color: white;
-    width: 1425px;
+    width: 1418px;
 }
 
 .h1-ajouter-artiste{
@@ -32,7 +32,7 @@ body{
 .btn-ajouter-livre{
     background-color: rgba(44, 47, 62);
     color: white;
-    width: 1425px;
+    width: 1418px;
 }
 
 .h1-ajouter-livre{
@@ -49,7 +49,7 @@ body{
 .btn-ajouter-film{
     background-color: rgba(44, 47, 62);
     color: white;
-    width: 1425px;
+    width: 1418px;
 }
 
 .h1-ajouter-film{
@@ -61,12 +61,21 @@ body{
     width: 225px;
 }
 
+.add_item_link{
+    background-color: rgba(217, 217, 217);
+    width: 350px;
+}
+
+.bandesAnnoncesTeasers{
+    list-style: none;
+}
+
 /* Séries */
 
 .btn-ajouter-serie{
     background-color: rgba(44, 47, 62);
     color: white;
-    width: 1425px;
+    width: 1418px;
 }
 
 .h1-ajouter-serie{
@@ -83,7 +92,7 @@ body{
 .btn-ajouter-album{
     background-color: rgba(44, 47, 62);
     color: white;
-    width: 1425px;
+    width: 1418px;
 }
 
 .h1-ajouter-album{
