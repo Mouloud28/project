@@ -86,9 +86,6 @@ class Serie
     #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Notation::class)]
     private Collection $notations;
 
-    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: BandesAnnoncesTeasers::class, cascade:['persist', 'remove'])]
-    private Collection $bandesAnnoncesTeasers;
-
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -96,7 +93,6 @@ class Serie
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
-        $this->bandesAnnoncesTeasers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -460,28 +456,6 @@ class Serie
             // set the owning side to null (unless already changed)
             if ($notation->getSerie() === $this) {
                 $notation->setSerie(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function addBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
-    {
-        if (!$this->bandesAnnoncesTeasers->contains($bandesAnnoncesTeaser)) {
-            $this->bandesAnnoncesTeasers->add($bandesAnnoncesTeaser);
-            $bandesAnnoncesTeaser->setSerie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
-    {
-        if ($this->bandesAnnoncesTeasers->removeElement($bandesAnnoncesTeaser)) {
-            // set the owning side to null (unless already changed)
-            if ($bandesAnnoncesTeaser->getSerie() === $this) {
-                $bandesAnnoncesTeaser->setSerie(null);
             }
         }
 
