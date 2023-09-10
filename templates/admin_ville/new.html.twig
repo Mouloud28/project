@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Ville{% endblock %}
+{% block title %}Nouvelle ville
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Ville</h1>
 
-    {{ include('admin_ville/_form.html.twig') }}
+	<div class="h1-ajouter-ville rounded text-center mx-5 my-3">
+		<h1>Ajouter une ville</h1>
+	</div>
 
-    <a href="{{ path('app_admin_ville_index') }}">back to list</a>
+	<div class="div-retour-liste-villes mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_ville_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des villes</a>
+	</div>
+
+	{{ include('admin_ville/_form.html.twig') }}
+
 {% endblock %}

@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Serie{% endblock %}
+{% block title %}Nouvelle série{% endblock %}
 
 {% block body %}
-    <h1>Create new Serie</h1>
+    
+    <div class="h1-ajouter-serie rounded text-center mx-5 my-3"><h1>Ajouter une série</h1></div>
+
+    <div class="div-retour-liste-series mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_serie_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des séries</a>
+	</div>
 
     {{ include('admin_serie/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_serie_index') }}">back to list</a>
 {% endblock %}

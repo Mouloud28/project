@@ -60,7 +60,7 @@ class Film
     private Collection $article;
 
     #[ORM\ManyToOne(inversedBy: 'film')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToOne(inversedBy: 'film')]
@@ -73,8 +73,8 @@ class Film
     #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'film')]
     private Collection $artistes;
 
-    #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'nom')]
-    private ?File $imageFile3 = null;
+    // #[Vich\UploadableField(mapping: 'artistes', fileNameProperty: 'nom')]
+    // private ?File $imageFile3 = null;
 
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Critique::class)]
     private Collection $critiques;
@@ -84,6 +84,18 @@ class Film
 
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: BandesAnnoncesTeasers::class, cascade:['persist', 'remove'])]
     private Collection $bandesAnnoncesTeasers;
+
+    #[ORM\Column(length: 255)]
+    private ?string $scenariste = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $producteur = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $casting = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $compositeur = null;
 
     public function __construct()
     {
@@ -456,6 +468,54 @@ class Film
                 $bandesAnnoncesTeaser->setFilm(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getScenariste(): ?string
+    {
+        return $this->scenariste;
+    }
+
+    public function setScenariste(string $scenariste): static
+    {
+        $this->scenariste = $scenariste;
+
+        return $this;
+    }
+
+    public function getProducteur(): ?string
+    {
+        return $this->producteur;
+    }
+
+    public function setProducteur(string $producteur): static
+    {
+        $this->producteur = $producteur;
+
+        return $this;
+    }
+
+    public function getCasting(): ?string
+    {
+        return $this->casting;
+    }
+
+    public function setCasting(string $casting): static
+    {
+        $this->casting = $casting;
+
+        return $this;
+    }
+
+    public function getCompositeur(): ?string
+    {
+        return $this->compositeur;
+    }
+
+    public function setCompositeur(string $compositeur): static
+    {
+        $this->compositeur = $compositeur;
 
         return $this;
     }

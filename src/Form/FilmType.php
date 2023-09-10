@@ -131,6 +131,7 @@ class FilmType extends AbstractType
 
             ->add('duree', TimeType::class, [
                 'label' => 'Durée',
+                'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez la durée du film.'
@@ -196,7 +197,7 @@ class FilmType extends AbstractType
             ])
 
             ->add('date_sortie_pays_origine', DateType::class, [
-                'label' => 'Date de sortie (France)',
+                'label' => 'Date de sortie (Pays d\'origine)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
@@ -213,7 +214,7 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('artistes_', EntityType::class, [
+            ->add('scenariste', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Scénariste(s)',
@@ -233,7 +234,7 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('artistes__', EntityType::class, [
+            ->add('producteur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Producteur(s)',
@@ -253,7 +254,7 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('artistes___', EntityType::class, [
+            ->add('casting', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Casting',
@@ -273,7 +274,7 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('artistes____', EntityType::class, [
+            ->add('compositeur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Compositeur(s)',
@@ -293,36 +294,36 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('imageFile2', FileType::class, [
-                'label' => 'Bandes-annonces et teasers',
-                'label_attr' => ['class' => 'fw-bold'],
-                'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieurs bandes-annonces / teasers.'
-                ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Sélectionnez un(e) ou plusieurs bandes-annonces / teasers.'
-                    ])
-                ]
-                ])
+            // ->add('imageFile2', FileType::class, [
+            //     'label' => 'Bandes-annonce(s) et teaser(s)',
+            //     'label_attr' => ['class' => 'fw-bold'],
+            //     'attr' => [
+            //         'class' => 'input',
+            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //     ],
+            //     'row_attr' => ['class' => 'mx-5 my-3'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //         ])
+            //     ]
+            //     ])
 
             ->add('bandesAnnoncesTeasers', CollectionType::class, [
                 'entry_type' => BandesAnnoncesTeasersType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
-                'label' => 'Bandes-annonces et teasers',
+                'label' => 'Bandes-annonce(s) et teaser(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieurs bandes-annonces / teasers.'
+                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bandes-annonce(s) / teaser(s).'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Sélectionnez un(e) ou plusieurs bandes-annonces / teasers.'
+                        'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
                     ])
                 ]
             ])

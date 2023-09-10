@@ -46,7 +46,7 @@ class Artiste
     #[ORM\JoinColumn(nullable: true)]
     private Collection $serie;
 
-    #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'artistes')]
+    #[ORM\ManyToMany(targetEntity: Album::class, inversedBy: 'compositeurs')]
     #[ORM\JoinColumn(nullable: true)]
     private Collection $album;
 
@@ -64,6 +64,9 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'traducteurs')]
     private Collection $livres;
 
+    #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'producteurs')]
+    private Collection $albums;
+
     public function __construct()
     {
         $this->film = new ArrayCollection();
@@ -72,6 +75,7 @@ class Artiste
         $this->livre = new ArrayCollection();
         $this->metiers = new ArrayCollection();
         $this->livres = new ArrayCollection();
+        $this->albums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -305,5 +309,13 @@ class Artiste
     public function getLivres(): Collection
     {
         return $this->livres;
+    }
+
+    /**
+     * @return Collection<int, Album>
+     */
+    public function getAlbums(): Collection
+    {
+        return $this->albums;
     }
 }

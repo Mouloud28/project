@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Album{% endblock %}
+{% block title %}Nouvel album{% endblock %}
 
 {% block body %}
-    <h1>Create new Album</h1>
+    
+    <div class="h1-ajouter-album rounded text-center mx-5 my-3"><h1>Ajouter un album</h1></div>
+
+    <div class="div-retour-liste-albums mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_album_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des albums</a>
+	</div>
 
     {{ include('admin_album/_form.html.twig') }}
 
-    <a href="{{ path('app_admin_album_index') }}">back to list</a>
 {% endblock %}

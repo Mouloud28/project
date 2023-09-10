@@ -103,3 +103,75 @@ body{
     background-color: rgba(44, 47, 62);
     width: 225px;
 }
+
+/* Genres */
+
+.btn-ajouter-genre{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1435px;
+}
+
+.h1-ajouter-genre{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-genres{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Villes */
+
+.btn-ajouter-ville{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1435px;
+}
+
+.h1-ajouter-ville{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-villes{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Forum */
+
+.btn-ajouter-forum{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1435px;
+}
+
+.h1-ajouter-forum{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-listes-forums{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Categorie */
+
+.btn-ajouter-categorie{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1435px;
+}
+
+.h1-ajouter-categorie{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-listes-categories{
+    background-color: rgba(44, 47, 62);
+    width: 250px;
+}
+
+
+
+

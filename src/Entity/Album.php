@@ -71,7 +71,7 @@ class Album
     private Collection $genres;
 
     #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'album')]
-    private Collection $artistes;
+    private Collection $compositeurs;
 
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Critique::class)]
     private Collection $critiques;
@@ -79,13 +79,17 @@ class Album
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Notation::class)]
     private Collection $notations;
 
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'albums')]
+    private Collection $producteurs;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
         $this->genres = new ArrayCollection();
-        $this->artistes = new ArrayCollection();
+        $this->compositeurs = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
+        $this->producteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -334,25 +338,25 @@ class Album
     /**
      * @return Collection<int, Artiste>
      */
-    public function getArtistes(): Collection
+    public function getCompositeurs(): Collection
     {
-        return $this->artistes;
+        return $this->compositeurs;
     }
 
-    public function addArtiste(Artiste $artiste): static
+    public function addCompositeurs(Artiste $compositeurs): static
     {
-        if (!$this->artistes->contains($artiste)) {
-            $this->artistes->add($artiste);
-            $artiste->addAlbum($this);
+        if (!$this->compositeurs->contains($compositeurs)) {
+            $this->compositeurs->add($compositeurs);
+            $compositeurs->addAlbum($this);
         }
 
         return $this;
     }
 
-    public function removeArtiste(Artiste $artiste): static
+    public function removeArtiste(Artiste $compositeurs): static
     {
-        if ($this->artistes->removeElement($artiste)) {
-            $artiste->removeAlbum($this);
+        if ($this->compositeurs->removeElement($compositeurs)) {
+            $compositeurs->removeAlbum($this);
         }
 
         return $this;
@@ -414,6 +418,30 @@ class Album
                 $notation->setAlbum(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getProducteurs(): Collection
+    {
+        return $this->producteurs;
+    }
+
+    public function addProducteurs(Artiste $producteurs): static
+    {
+        if (!$this->producteurs->contains($producteurs)) {
+            $this->producteurs->add($producteurs);
+        }
+
+        return $this;
+    }
+
+    public function removeProducteurs(Artiste $producteurs): static
+    {
+        $this->producteurs->removeElement($producteurs);
 
         return $this;
     }

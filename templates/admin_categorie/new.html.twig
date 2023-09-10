@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Categorie{% endblock %}
+{% block title %}Nouvelle catégorie
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Categorie</h1>
 
-    {{ include('admin_categorie/_form.html.twig') }}
+	<div class="h1-ajouter-categorie rounded text-center mx-5 my-3">
+		<h1>Ajouter une catégorie</h1>
+	</div>
 
-    <a href="{{ path('app_admin_categorie_index') }}">back to list</a>
+	<div class="div-retour-listes-categories mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_categorie_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des catégories</a>
+	</div>
+
+	{{ include('admin_categorie/_form.html.twig') }}
+
 {% endblock %}

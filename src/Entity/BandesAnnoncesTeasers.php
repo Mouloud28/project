@@ -33,6 +33,10 @@ class BandesAnnoncesTeasers
     #[ORM\JoinColumn(nullable: false)]
     private ?Film $film = null;
 
+    #[ORM\ManyToOne(inversedBy: 'bandesAnnoncesTeasers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Serie $serie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -107,6 +111,18 @@ class BandesAnnoncesTeasers
     public function setFilm(?Film $film): static
     {
         $this->film = $film;
+
+        return $this;
+    }
+
+    public function getSerie(): ?Serie
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(?Serie $serie): static
+    {
+        $this->serie = $serie;
 
         return $this;
     }

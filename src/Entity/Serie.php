@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\SerieRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SerieRepository;
+use App\Entity\BandesAnnoncesTeasers;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: SerieRepository::class)]
@@ -50,6 +51,9 @@ class Serie
     #[ORM\Column(length: 255)]
     private ?string $bandes_annonces_teasers = null;
 
+    #[Vich\UploadableField(mapping: 'series', fileNameProperty: 'bandes_annonces_teasers')]
+    private ?File $imageFile2 = null;
+
     #[ORM\Column]
     private ?int $nombre_saisons = null;
 
@@ -82,6 +86,9 @@ class Serie
     #[ORM\OneToMany(mappedBy: 'serie', targetEntity: Notation::class)]
     private Collection $notations;
 
+    #[ORM\OneToMany(mappedBy: 'serie', targetEntity: BandesAnnoncesTeasers::class, cascade:['persist', 'remove'])]
+    private Collection $bandesAnnoncesTeasers;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -89,6 +96,7 @@ class Serie
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
+        $this->bandesAnnoncesTeasers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -227,6 +235,31 @@ class Serie
         $this->bandes_annonces_teasers = $bandes_annonces_teasers;
 
         return $this;
+    }
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile2(?File $imageFile2 = null): void
+    {
+        $this->imageFile2 = $imageFile2;
+
+        if (null !== $imageFile2) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile2(): ?File
+    {
+        return $this->imageFile2;
     }
 
     public function getNombreSaisons(): ?int
@@ -427,6 +460,28 @@ class Serie
             // set the owning side to null (unless already changed)
             if ($notation->getSerie() === $this) {
                 $notation->setSerie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if (!$this->bandesAnnoncesTeasers->contains($bandesAnnoncesTeaser)) {
+            $this->bandesAnnoncesTeasers->add($bandesAnnoncesTeaser);
+            $bandesAnnoncesTeaser->setSerie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if ($this->bandesAnnoncesTeasers->removeElement($bandesAnnoncesTeaser)) {
+            // set the owning side to null (unless already changed)
+            if ($bandesAnnoncesTeaser->getSerie() === $this) {
+                $bandesAnnoncesTeaser->setSerie(null);
             }
         }
 

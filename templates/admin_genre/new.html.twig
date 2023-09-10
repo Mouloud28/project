@@ -1,11 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Genre{% endblock %}
+{% block title %}Nouveau genre
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Genre</h1>
 
-    {{ include('admin_genre/_form.html.twig') }}
+	<div class="h1-ajouter-genre rounded text-center mx-5 my-3">
+		<h1>Ajouter un genre</h1>
+	</div>
 
-    <a href="{{ path('app_admin_genre_index') }}">back to list</a>
+	<div class="div-retour-liste-genres mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_genre_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des genres</a>
+	</div>
+
+	{{ include('admin_genre/_form.html.twig') }}
+
 {% endblock %}
