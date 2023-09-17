@@ -1,58 +1,119 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Film{% endblock %}
+{% block title %}Film
+{% endblock %}
 
 {% block body %}
-    <h1>Film</h1>
+	<h1>Film</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ film.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre_francais</th>
-                <td>{{ film.titreFrancais }}</td>
-            </tr>
-            <tr>
-                <th>Titre_original</th>
-                <td>{{ film.titreOriginal }}</td>
-            </tr>
-            <tr>
-                <th>Affiche</th>
-                <td>{{ film.affiche }}</td>
-            </tr>
-            <tr>
-                <th>Duree</th>
-                <td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Synopsis</th>
-                <td>{{ film.synopsis }}</td>
-            </tr>
-            <tr>
-                <th>Pays_origine</th>
-                <td>{{ film.paysOrigine }}</td>
-            </tr>
-            <tr>
-                <th>Date_sortie_france</th>
-                <td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Date_sortie_pays_origine</th>
-                <td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Bandes_annonces_teasers</th>
-                <td>{{ film.bandesAnnoncesTeasers }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ film.id }}</td>
+			</tr>
+			<tr>
+				<th>Titre_francais</th>
+				<td>{{ film.titreFrancais }}</td>
+			</tr>
+			<tr>
+				<th>Titre_original</th>
+				<td>{{ film.titreOriginal }}</td>
+			</tr>
 
-    <a href="{{ path('app_admin_film_index') }}">back to list</a>
+			<tr>
+				<th>Réalisateur(s)</th>
+				<td>
+					{% if film.artistes %}
+						{% for artiste in film.artistes %}
+							{{ artiste.nom }}
+						{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}
+				</td>
+			</tr>
 
-    <a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
+			<tr>
+				<th>Affiche</th>
+				<td><img src="{{ vich_uploader_asset(film, 'imageFile') }}" alt="Affiche du film"></td>
+			</tr>
+			<tr>
+				<th>Duree</th>
+				<td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Synopsis</th>
+				<td>{{ film.synopsis }}</td>
+			</tr>
+			<tr>
+				<th>Pays_origine</th>
+				<td>{{ film.paysOrigine }}</td>
+			</tr>
+			<tr>
+				<th>Date_sortie_france</th>
+				<td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
+			</tr>
+			<tr>
+				<th>Date_sortie_pays_origine</th>
+				<td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+			</tr>
 
-    {{ include('admin_film/_delete_form.html.twig') }}
+			<tr>
+				<th>Scénariste(s)</th>
+				<td>
+
+					{% if film.scenariste %}
+										{% for scenariste in film.scenariste %}
+											{{ scenariste.artiste }}
+										{% endfor %}
+										{% else %}
+											<span class="text-danger fst-italic">N.R</span>
+										{% endif %}
+
+					{# {% if film.scenariste %}
+						{{ film.scenariste.artiste }}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %} #}
+
+				</td>
+			</tr>
+
+			<tr>
+				<th>Producteur(s)</th>
+				<td>{% if film.producteur %}
+											{% for producteur in film.producteur %}
+												{{ producteur.artiste }}
+											{% endfor %}
+										{% else %}
+											<span class="text-danger fst-italic">N.R</span>
+										{% endif %}</td>
+			</tr>
+
+			<tr>
+				<th>Casting</th>
+				<td></td>
+			</tr>
+
+			<tr>
+				<th>Compositeur</th>
+				<td></td>
+			</tr>
+
+
+			<tr>
+				<th>Bandes_annonces_teasers</th>
+				<td>
+					<video src="{{ vich_uploader_asset(film, 'imageFile2') }}" controls></video>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_admin_film_index') }}">back to list</a>
+
+	<a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
+
+	{{ include('admin_film/_delete_form.html.twig') }}
 {% endblock %}

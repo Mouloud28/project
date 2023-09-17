@@ -104,14 +104,6 @@
 	<th class="th-show-livre">Editeur(s)</th>
 	<td>
 
-		{# {% if livre.EditeursFrance %}
-						{% for EditeurFrance in livre.EditeursFrance %}
-						{{ EditeurFrance.nom }}
-						{% endfor %}
-						{% else %}
-						<span class="text-danger fst-italic">N.R</span>
-						{% endif %} #}
-
 		{% if livre.langue.nom is same as ('Français') %}
 			{% for EditeurPaysOrigine in livre.EditeursPaysOrigine %}
 				{{ EditeurPaysOrigine.nom }}
@@ -131,13 +123,6 @@
 <tr>
 	<th class="th-show-livre">Traducteur(s)</th>
 	<td>
-		{# {% if livre.traducteurs %}
-				{% for traducteur in livre.traducteurs %}
-				{{ traducteur.nom }}
-				{% endfor %}
-				{% else %}
-				<span class="text-danger fst-italic">N.R</span>
-				{% endif %} #}
 
 		{% if livre.langue.nom is same as ('Français') %}
 			<p>-</p>
@@ -155,7 +140,7 @@
 	<td>
 
 		{% if livre.EditeursFrance %}
-		{% for EditeurFrance in livre.EditeursFrance %}
+			{% for EditeurFrance in livre.EditeursFrance %}
 				{{ EditeurFrance.nom }}
 			{% endfor %}
 		{% else %}

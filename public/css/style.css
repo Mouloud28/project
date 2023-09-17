@@ -2,10 +2,6 @@ body{
     background-color: rgba(178, 196, 171);
 }
 
-.th-show-livre{
-    width: 150px;
-}
-
 .input{
     background-color: rgba(217, 217, 217);
 }
@@ -44,6 +40,10 @@ body{
     width: 225px;
 }
 
+.th-show-livre{
+    width: 150px;
+}
+
 /* Films */
 
 .btn-ajouter-film{
@@ -63,7 +63,7 @@ body{
 
 .add_item_link{
     background-color: rgba(217, 217, 217);
-    width: 350px;
+    width: 1418px;
 }
 
 .bandesAnnoncesTeasers{

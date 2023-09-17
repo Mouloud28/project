@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RoleArtisteFilm index
+{% endblock %}
+
+{% block body %}
+	<h1>RoleArtisteFilm index</h1>
+
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Role</th>
+				<th>Artiste</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for role_artiste_film in role_artiste_films %}
+				<tr>
+					<td>{{ role_artiste_film.id }}</td>
+					{# <td>{{ role_artiste_film.role }}</td> #}
+
+					<td>{{ role_artiste_film.artiste.nom }}</td>
+
+					<td>
+						{% if role_artiste_film.role %}
+							{% for role in role_artiste_film.role %}
+								{{ role.nom }}
+							{% endfor %}
+						{% else %}
+							<span class="text-danger fst-italic">N.R</span>
+						{% endif %}
+					</td>
+
+					<td>
+						<a href="{{ path('app_role_artiste_film_show', {'id': role_artiste_film.id}) }}">show</a>
+						<a href="{{ path('app_role_artiste_film_edit', {'id': role_artiste_film.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a href="{{ path('app_role_artiste_film_new') }}">Create new</a>
+{% endblock %}

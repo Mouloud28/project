@@ -13,17 +13,16 @@
 {{ form_row(form.producteur) }}
 {{ form_row(form.casting) }}
 {{ form_row(form.compositeur) }}
-{# {{ form_row(form.bandesAnnoncesTeasers)}} #}
-{# {{ form_row(form.imageFile2) }} #}
 
-{{form_label(form.bandesAnnoncesTeasers)}}
-<ul class="bandesAnnoncesTeasers" data-index="{{ form.bandesAnnoncesTeasers|length > 0 ? form.bandesAnnoncesTeasers|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.bandesAnnoncesTeasers.vars.prototype)|e('html_attr') }}"></ul>
+{{form_label(form.imageFile2)}}
 
-{% for tag in form.bandesAnnoncesTeasers %}
-            <li>{{ form_widget(bandeAnnonceTeaser) }}</li>
-        {% endfor %}
+<ul class="bandesAnnoncesTeasers mx-5 my-3" data-index="{{ form.imageFile2|length > 0 ? form.imageFile2|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.imageFile2)|e('html_attr') }}"> </ul>
 
-<button type="button" class="add_item_link form-control mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
+{% for tag in form.imageFile2 %}
+	<li>{{ form_widget(bandeAnnonceTeaser) }}</li>
+{% endfor %}
+
+<button type="button" class="add_item_link mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
 
 {{ form_row(form.forum) }}
 

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit RoleArtisteFilm{% endblock %}
+
+{% block body %}
+    <h1>Edit RoleArtisteFilm</h1>
+
+    {{ include('role_artiste_film/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_role_artiste_film_index') }}">back to list</a>
+
+    {{ include('role_artiste_film/_delete_form.html.twig') }}
+{% endblock %}

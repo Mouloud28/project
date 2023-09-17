@@ -67,6 +67,9 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'producteurs')]
     private Collection $albums;
 
+    #[ORM\OneToMany(mappedBy: 'artiste', targetEntity: RoleArtisteFilm::class)]
+    private Collection $roleArtisteFilms;
+
     public function __construct()
     {
         $this->film = new ArrayCollection();
@@ -76,11 +79,17 @@ class Artiste
         $this->metiers = new ArrayCollection();
         $this->livres = new ArrayCollection();
         $this->albums = new ArrayCollection();
+        $this->roleArtisteFilms = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
     public function getNom(): ?string
@@ -317,5 +326,35 @@ class Artiste
     public function getAlbums(): Collection
     {
         return $this->albums;
+    }
+
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getRoleArtisteFilms(): Collection
+    {
+        return $this->roleArtisteFilms;
+    }
+
+    public function addRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
+    {
+        if (!$this->roleArtisteFilms->contains($roleArtisteFilm)) {
+            $this->roleArtisteFilms->add($roleArtisteFilm);
+            $roleArtisteFilm->setArtiste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
+    {
+        if ($this->roleArtisteFilms->removeElement($roleArtisteFilm)) {
+            // set the owning side to null (unless already changed)
+            if ($roleArtisteFilm->getArtiste() === $this) {
+                $roleArtisteFilm->setArtiste(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -3,6 +3,7 @@
 const addbandeAnnonceTeaserFormDeleteLink = (item) => {
   const removeFormButton = document.createElement("button");
   removeFormButton.innerText = "Supprimer la vidéo";
+  removeFormButton.classList.add("mt-2", "mb-2", "form-control")
 
   item.append(removeFormButton);
 

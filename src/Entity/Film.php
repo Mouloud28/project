@@ -26,7 +26,7 @@ class Film
     #[ORM\Column(length: 255)]
     private ?string $titre_original = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $affiche = null;
 
     #[Vich\UploadableField(mapping: 'films', fileNameProperty: 'affiche')]
@@ -47,7 +47,7 @@ class Film
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_sortie_pays_origine = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $bandes_annonces_teasers = null;
 
     #[Vich\UploadableField(mapping: 'films', fileNameProperty: 'bandes_annonces_teasers')]
@@ -82,20 +82,20 @@ class Film
     #[ORM\OneToMany(mappedBy: 'film', targetEntity: Notation::class)]
     private Collection $notations;
 
-    #[ORM\OneToMany(mappedBy: 'film', targetEntity: BandesAnnoncesTeasers::class, cascade:['persist', 'remove'])]
-    private Collection $bandesAnnoncesTeasers;
+    #[ORM\OneToMany(mappedBy: 'film', targetEntity: RoleArtisteFilm::class)]
+    private Collection $roleArtisteFilms;
 
-    #[ORM\Column(length: 255)]
-    private ?string $scenariste = null;
+    #[ORM\OneToMany(mappedBy: 'film2', targetEntity: RoleArtisteFilm::class)]
+    private Collection $producteur;
 
-    #[ORM\Column(length: 255)]
-    private ?string $producteur = null;
+    #[ORM\OneToMany(mappedBy: 'film3', targetEntity: RoleArtisteFilm::class)]
+    private Collection $compositeur;
 
-    #[ORM\Column(length: 255)]
-    private ?string $casting = null;
+    #[ORM\OneToMany(mappedBy: 'film4', targetEntity: RoleArtisteFilm::class)]
+    private Collection $scenariste;
 
-    #[ORM\Column(length: 255)]
-    private ?string $compositeur = null;
+    #[ORM\OneToMany(mappedBy: 'film5', targetEntity: RoleArtisteFilm::class)]
+    private Collection $casting;
 
     public function __construct()
     {
@@ -104,12 +104,21 @@ class Film
         $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
-        $this->bandesAnnoncesTeasers = new ArrayCollection();
+        $this->roleArtisteFilms = new ArrayCollection();
+        $this->producteur = new ArrayCollection();
+        $this->compositeur = new ArrayCollection();
+        $this->scenariste = new ArrayCollection();
+        $this->casting = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->titre_francais;
     }
 
     public function getTitreFrancais(): ?string
@@ -141,7 +150,7 @@ class Film
         return $this->affiche;
     }
 
-    public function setAffiche(string $affiche): static
+    public function setAffiche(string $affiche = null): static
     {
         $this->affiche = $affiche;
 
@@ -238,7 +247,7 @@ class Film
         return $this->bandes_annonces_teasers;
     }
 
-    public function setBandesAnnoncesTeasers(string $bandes_annonces_teasers): static
+    public function setBandesAnnoncesTeasers(string $bandes_annonces_teasers = null): static
     {
         $this->bandes_annonces_teasers = $bandes_annonces_teasers;
 
@@ -450,72 +459,152 @@ class Film
         return $this;
     }
 
-    public function addBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getRoleArtisteFilms(): Collection
     {
-        if (!$this->bandesAnnoncesTeasers->contains($bandesAnnoncesTeaser)) {
-            $this->bandesAnnoncesTeasers->add($bandesAnnoncesTeaser);
-            $bandesAnnoncesTeaser->setFilm($this);
+        return $this->roleArtisteFilms;
+    }
+
+    public function addRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
+    {
+        if (!$this->roleArtisteFilms->contains($roleArtisteFilm)) {
+            $this->roleArtisteFilms->add($roleArtisteFilm);
+            $roleArtisteFilm->setFilm($this);
         }
 
         return $this;
     }
 
-    public function removeBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    public function removeRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
     {
-        if ($this->bandesAnnoncesTeasers->removeElement($bandesAnnoncesTeaser)) {
+        if ($this->roleArtisteFilms->removeElement($roleArtisteFilm)) {
             // set the owning side to null (unless already changed)
-            if ($bandesAnnoncesTeaser->getFilm() === $this) {
-                $bandesAnnoncesTeaser->setFilm(null);
+            if ($roleArtisteFilm->getFilm() === $this) {
+                $roleArtisteFilm->setFilm(null);
             }
         }
 
         return $this;
     }
 
-    public function getScenariste(): ?string
-    {
-        return $this->scenariste;
-    }
-
-    public function setScenariste(string $scenariste): static
-    {
-        $this->scenariste = $scenariste;
-
-        return $this;
-    }
-
-    public function getProducteur(): ?string
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getProducteur(): Collection
     {
         return $this->producteur;
     }
 
-    public function setProducteur(string $producteur): static
+    public function addProducteur(RoleArtisteFilm $producteur): static
     {
-        $this->producteur = $producteur;
+        if (!$this->producteur->contains($producteur)) {
+            $this->producteur->add($producteur);
+            $producteur->setFilm2($this);
+        }
 
         return $this;
     }
 
-    public function getCasting(): ?string
+    public function removeProducteur(RoleArtisteFilm $producteur): static
     {
-        return $this->casting;
-    }
-
-    public function setCasting(string $casting): static
-    {
-        $this->casting = $casting;
+        if ($this->producteur->removeElement($producteur)) {
+            // set the owning side to null (unless already changed)
+            if ($producteur->getFilm2() === $this) {
+                $producteur->setFilm2(null);
+            }
+        }
 
         return $this;
     }
 
-    public function getCompositeur(): ?string
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getCompositeur(): Collection
     {
         return $this->compositeur;
     }
 
-    public function setCompositeur(string $compositeur): static
+    public function addCompositeur(RoleArtisteFilm $compositeur): static
     {
-        $this->compositeur = $compositeur;
+        if (!$this->compositeur->contains($compositeur)) {
+            $this->compositeur->add($compositeur);
+            $compositeur->setFilm3($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompositeur(RoleArtisteFilm $compositeur): static
+    {
+        if ($this->compositeur->removeElement($compositeur)) {
+            // set the owning side to null (unless already changed)
+            if ($compositeur->getFilm3() === $this) {
+                $compositeur->setFilm3(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getScenariste(): Collection
+    {
+        return $this->scenariste;
+    }
+
+    public function addScenariste(RoleArtisteFilm $scenariste): static
+    {
+        if (!$this->scenariste->contains($scenariste)) {
+            $this->scenariste->add($scenariste);
+            $scenariste->setFilm4($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScenariste(RoleArtisteFilm $scenariste): static
+    {
+        if ($this->scenariste->removeElement($scenariste)) {
+            // set the owning side to null (unless already changed)
+            if ($scenariste->getFilm4() === $this) {
+                $scenariste->setFilm4(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, RoleArtisteFilm>
+     */
+    public function getCasting(): Collection
+    {
+        return $this->casting;
+    }
+
+    public function addCasting(RoleArtisteFilm $casting): static
+    {
+        if (!$this->casting->contains($casting)) {
+            $this->casting->add($casting);
+            $casting->setFilm5($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCasting(RoleArtisteFilm $casting): static
+    {
+        if ($this->casting->removeElement($casting)) {
+            // set the owning side to null (unless already changed)
+            if ($casting->getFilm5() === $this) {
+                $casting->setFilm5(null);
+            }
+        }
 
         return $this;
     }

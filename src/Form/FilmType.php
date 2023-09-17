@@ -6,9 +6,9 @@ use App\Entity\Film;
 use App\Entity\Forum;
 use App\Entity\Genre;
 use App\Entity\Artiste;
+use App\Entity\RoleArtisteFilm;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use App\Form\BandesAnnoncesTeasersType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -19,7 +19,6 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FilmType extends AbstractType
 {
@@ -215,8 +214,8 @@ class FilmType extends AbstractType
             ])
 
             ->add('scenariste', EntityType::class, [
-                'class' => Artiste::class,
-                'choice_label' => 'nom',
+                'class' => RoleArtisteFilm::class,
+                'choice_label' => 'artiste',
                 'label' => 'Scénariste(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
@@ -225,7 +224,7 @@ class FilmType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => true,
-                'multiple' => true,
+                // 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -235,8 +234,8 @@ class FilmType extends AbstractType
             ])
 
             ->add('producteur', EntityType::class, [
-                'class' => Artiste::class,
-                'choice_label' => 'nom',
+                'class' => RoleArtisteFilm::class,
+                'choice_label' => 'artiste',
                 'label' => 'Producteur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
@@ -255,8 +254,8 @@ class FilmType extends AbstractType
             ])
 
             ->add('casting', EntityType::class, [
-                'class' => Artiste::class,
-                'choice_label' => 'nom',
+                'class' => RoleArtisteFilm::class,
+                'choice_label' => 'artiste',
                 'label' => 'Casting',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
@@ -275,8 +274,8 @@ class FilmType extends AbstractType
             ])
 
             ->add('compositeur', EntityType::class, [
-                'class' => Artiste::class,
-                'choice_label' => 'nom',
+                'class' => RoleArtisteFilm::class,
+                'choice_label' => 'artiste',
                 'label' => 'Compositeur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
@@ -294,39 +293,20 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            // ->add('imageFile2', FileType::class, [
-            //     'label' => 'Bandes-annonce(s) et teaser(s)',
-            //     'label_attr' => ['class' => 'fw-bold'],
-            //     'attr' => [
-            //         'class' => 'input',
-            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //     ],
-            //     'row_attr' => ['class' => 'mx-5 my-3'],
-            //     'constraints' => [
-            //         new NotBlank([
-            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //         ])
-            //     ]
-            //     ])
-
-            ->add('bandesAnnoncesTeasers', CollectionType::class, [
-                'entry_type' => BandesAnnoncesTeasersType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
+            ->add('imageFile2', FileType::class, [
                 'label' => 'Bandes-annonce(s) et teaser(s)',
-                'label_attr' => ['class' => 'fw-bold'],
+                'label_attr' => ['class' => 'fw-bold mx-5 my-3'],
                 'attr' => [
                     'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bandes-annonce(s) / teaser(s).'
+                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'constraints' => [
-                    new NotBlank([
+                new NotBlank([
                         'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
                     ])
                 ]
-            ])
+                ])
 
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,
