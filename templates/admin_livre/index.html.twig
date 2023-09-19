@@ -11,14 +11,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Titre francais</th>
-				{# <th>Titre original</th> #}
-				{# <th>Couverture</th> #}
-				{# <th>Synopsis</th> #}
-				{# <th>Pays d'origine</th> #}
-				{# <th>Date de publication (France)</th> #}
-				{# <th>Date de publication (pays d'origine)</th> #}
-				{# <th>ISBN</th> #}<th>
-				Auteur(s)</th>
+				<th>Auteur(s)</th>
                 <th>Genre(s)</th>
                 <th>Actions</th>
 		</tr>
@@ -38,8 +31,8 @@
 
 					<td>
 
-                    {% if livre.artistes %}
-						{% for artiste in livre.artistes %}
+                    {% if livre.auteur %}
+						{% for artiste in livre.auteur %}
 						{{ artiste.nom }}{% endfor %}
 					{% else %}
 						<span class="text-danger fst-italic">N.R</span>

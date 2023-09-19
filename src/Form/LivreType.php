@@ -62,11 +62,11 @@ class LivreType extends AbstractType
                 'label' => 'Auteur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs auteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -101,11 +101,11 @@ class LivreType extends AbstractType
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -220,18 +220,18 @@ class LivreType extends AbstractType
 
             ->remove('updatedAt')
 
-            ->add('traducteurs', EntityType::class, [
+            ->add('traducteur', EntityType::class, [
                 'class' => Artiste::class,
                 'mapped' => true,
                 'choice_label' => 'nom',
                 'label' => 'Traducteur(s)',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs traducteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => false,
                 'constraints' => [
@@ -241,7 +241,7 @@ class LivreType extends AbstractType
                 ]
             ])
 
-            ->add('editeurs_pays_origine', EntityType::class, [
+            ->add('editeur_pays_origine', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
                 // 'entry_type' => EntityType::class,
@@ -252,11 +252,11 @@ class LivreType extends AbstractType
                 'label' => 'Éditeur(s)',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -266,21 +266,17 @@ class LivreType extends AbstractType
                 ]
             ])
 
-            ->add('editeurs_france', EntityType::class, [
+            ->add('editeur_france', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
-                // 'entry_options' => [
-                //      'class' => Editeur::class,
-                //      'choice_label' => 'nom', // Utilisez le champ 'editeur.nom' de l'éditeur comme libellé
-                //  ],
                 'label' => 'Éditeur(s)',
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [

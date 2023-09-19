@@ -46,19 +46,12 @@ class Artiste
     #[ORM\JoinColumn(nullable: true)]
     private Collection $album;
 
-    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'artistes')]
-    #[ORM\JoinColumn(nullable: true)]
-    private Collection $livre;
-
     #[ORM\ManyToOne(inversedBy: 'artistes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Ville $ville = null;
 
     #[ORM\ManyToMany(targetEntity: Metier::class, mappedBy: 'artiste')]
     private Collection $metiers;
-
-    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'traducteurs')]
-    private Collection $livres;
 
     #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'producteurs')]
     private Collection $albums;
@@ -78,19 +71,25 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'compositeur')]
     private Collection $compositeurs_films;
 
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'auteur')]
+    private Collection $auteurs_livres;
+
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'traducteur')]
+    private Collection $traducteurs_livres;
+
     public function __construct()
     {
         $this->serie = new ArrayCollection();
         $this->album = new ArrayCollection();
-        $this->livre = new ArrayCollection();
         $this->metiers = new ArrayCollection();
-        $this->livres = new ArrayCollection();
         $this->albums = new ArrayCollection();
         $this->realisateurs_films = new ArrayCollection();
         $this->producteurs_films = new ArrayCollection();
         $this->scenaristes_films = new ArrayCollection();
         $this->casting_film = new ArrayCollection();
         $this->compositeurs_films = new ArrayCollection();
+        $this->auteurs_livres = new ArrayCollection();
+        $this->traducteurs_livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -236,30 +235,6 @@ class Artiste
         return $this;
     }
 
-    /**
-     * @return Collection<int, Livre>
-     */
-    public function getLivre(): Collection
-    {
-        return $this->livre;
-    }
-
-    public function addLivre(Livre $livre): static
-    {
-        if (!$this->livre->contains($livre)) {
-            $this->livre->add($livre);
-        }
-
-        return $this;
-    }
-
-    public function removeLivre(Livre $livre): static
-    {
-        $this->livre->removeElement($livre);
-
-        return $this;
-    }
-
     public function getVille(): ?Ville
     {
         return $this->ville;
@@ -297,14 +272,6 @@ class Artiste
         }
 
         return $this;
-    }
-
-    /**
-     * @return Collection<int, Livre>
-     */
-    public function getLivres(): Collection
-    {
-        return $this->livres;
     }
 
     /**
@@ -445,6 +412,60 @@ class Artiste
     {
         if ($this->compositeurs_films->removeElement($compositeursFilm)) {
             $compositeursFilm->removeCompositeur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getAuteursLivres(): Collection
+    {
+        return $this->auteurs_livres;
+    }
+
+    public function addAuteursLivre(Livre $auteursLivre): static
+    {
+        if (!$this->auteurs_livres->contains($auteursLivre)) {
+            $this->auteurs_livres->add($auteursLivre);
+            $auteursLivre->addAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuteursLivre(Livre $auteursLivre): static
+    {
+        if ($this->auteurs_livres->removeElement($auteursLivre)) {
+            $auteursLivre->removeAuteur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getTraducteursLivres(): Collection
+    {
+        return $this->traducteurs_livres;
+    }
+
+    public function addTraducteursLivre(Livre $traducteursLivre): static
+    {
+        if (!$this->traducteurs_livres->contains($traducteursLivre)) {
+            $this->traducteurs_livres->add($traducteursLivre);
+            $traducteursLivre->addTraducteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraducteursLivre(Livre $traducteursLivre): static
+    {
+        if ($this->traducteurs_livres->removeElement($traducteursLivre)) {
+            $traducteursLivre->removeTraducteur($this);
         }
 
         return $this;

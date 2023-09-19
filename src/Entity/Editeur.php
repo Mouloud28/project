@@ -28,18 +28,16 @@ class Editeur
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'editeurs_pays_origine')]
-    #[ORM\JoinColumn(nullable: false)]
-   
-    private Collection $livres;
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeur_pays_origine')]
+    private Collection $editeurs_pays_origine_livres;
 
-    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeurs_france')]
-    private Collection $livres2;
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'editeur_france')]
+    private Collection $editeurs_france_livres;
 
     public function __construct()
     {
-        $this->livres = new ArrayCollection();
-        $this->livres2 = new ArrayCollection();
+        $this->editeurs_pays_origine_livres = new ArrayCollection();
+        $this->editeurs_france_livres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -98,25 +96,25 @@ class Editeur
     /**
      * @return Collection<int, Livre>
      */
-    public function getLivres(): Collection
+    public function getEditeursPaysOrigineLivres(): Collection
     {
-        return $this->livres;
+        return $this->editeurs_pays_origine_livres;
     }
 
-    public function addLivre(Livre $livre): static
+    public function addEditeursPaysOrigineLivre(Livre $editeursPaysOrigineLivre): static
     {
-        if (!$this->livres->contains($livre)) {
-            $this->livres->add($livre);
-            $livre->addEditeursPaysOrigine($this);
+        if (!$this->editeurs_pays_origine_livres->contains($editeursPaysOrigineLivre)) {
+            $this->editeurs_pays_origine_livres->add($editeursPaysOrigineLivre);
+            $editeursPaysOrigineLivre->addEditeurPaysOrigine($this);
         }
 
         return $this;
     }
 
-    public function removeLivre(Livre $livre): static
+    public function removeEditeursPaysOrigineLivre(Livre $editeursPaysOrigineLivre): static
     {
-        if ($this->livres->removeElement($livre)) {
-            $livre->removeEditeursPaysOrigine($this);
+        if ($this->editeurs_pays_origine_livres->removeElement($editeursPaysOrigineLivre)) {
+            $editeursPaysOrigineLivre->removeEditeurPaysOrigine($this);
         }
 
         return $this;
@@ -125,25 +123,25 @@ class Editeur
     /**
      * @return Collection<int, Livre>
      */
-    public function getLivres2(): Collection
+    public function getEditeursFranceLivres(): Collection
     {
-        return $this->livres2;
+        return $this->editeurs_france_livres;
     }
 
-    public function addLivres2(Livre $livres2): static
+    public function addEditeursFranceLivre(Livre $editeursFranceLivre): static
     {
-        if (!$this->livres2->contains($livres2)) {
-            $this->livres2->add($livres2);
-            $livres2->addEditeursFrance($this);
+        if (!$this->editeurs_france_livres->contains($editeursFranceLivre)) {
+            $this->editeurs_france_livres->add($editeursFranceLivre);
+            $editeursFranceLivre->addEditeurFrance($this);
         }
 
         return $this;
     }
 
-    public function removeLivres2(Livre $livres2): static
+    public function removeEditeursFranceLivre(Livre $editeursFranceLivre): static
     {
-        if ($this->livres2->removeElement($livres2)) {
-            $livres2->removeEditeursFrance($this);
+        if ($this->editeurs_france_livres->removeElement($editeursFranceLivre)) {
+            $editeursFranceLivre->removeEditeurFrance($this);
         }
 
         return $this;

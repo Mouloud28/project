@@ -24,8 +24,8 @@
 			<tr>
 				<th>Réalisateur(s)</th>
 				<td>
-					{% if film.artistes %}
-						{% for artiste in film.artistes %}
+					{% if film.realisateur %}
+						{% for artiste in film.realisateur %}
 							{{ artiste.nom }}
 						{% endfor %}
 					{% else %}
@@ -64,31 +64,27 @@
 				<td>
 
 					{% if film.scenariste %}
-										{% for scenariste in film.scenariste %}
-											{{ scenariste.artiste }}
-										{% endfor %}
-										{% else %}
-											<span class="text-danger fst-italic">N.R</span>
-										{% endif %}
-
-					{# {% if film.scenariste %}
-						{{ film.scenariste.artiste }}
+						{% for artiste in film.scenariste %}
+							{{ artiste.nom }}
+						{% endfor %}
 					{% else %}
 						<span class="text-danger fst-italic">N.R</span>
-					{% endif %} #}
+					{% endif %}
 
 				</td>
 			</tr>
 
 			<tr>
 				<th>Producteur(s)</th>
-				<td>{% if film.producteur %}
-											{% for producteur in film.producteur %}
-												{{ producteur.artiste }}
-											{% endfor %}
-										{% else %}
-											<span class="text-danger fst-italic">N.R</span>
-										{% endif %}</td>
+				<td>
+					{% if film.producteur %}
+							{% for artiste in film.producteur %}
+								{{ artiste.nom }}
+							{% endfor %}
+						{% else %}
+							<span class="text-danger fst-italic">N.R</span>
+						{% endif %}
+				</td>
 			</tr>
 
 			<tr>

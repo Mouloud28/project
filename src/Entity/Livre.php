@@ -7,6 +7,7 @@ use App\Entity\Editeur;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\LivreRepository;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -67,45 +68,45 @@ class Livre
     #[ORM\JoinColumn(nullable: false)]
     private ?Langue $langue = null;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'livre')]
-    private Collection $artistes;
-
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Critique::class)]
     private Collection $critiques;
 
     #[ORM\OneToMany(mappedBy: 'livre', targetEntity: Notation::class)]
     private Collection $notations;
-
-    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
-    private Collection $traducteurs;
  
     #[ORM\Column(length: 255)]
     private ?string $ISBN_france = null;
-
-    #[ORM\ManyToMany(targetEntity: Editeur::class, mappedBy: 'livres')]
-    #[ORM\JoinColumn(nullable: false)]
-    private Collection $editeurs_pays_origine;
-
-    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'livres2')]
-    private Collection $editeurs_france;
 
     #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'livres')]
     #[ORM\JoinColumn(nullable: false)]
     private Collection $genres;
 
-    // #[ORM\Column(length: 255, nullable: true)]
-    // private ?string $traducteur = null;
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'auteurs_livres')]
+    #[JoinTable(name: 'auteurs_artistes')]
+    private Collection $auteur;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'traducteurs_livres')]
+    #[JoinTable(name: 'traducteurs_artistes')]
+    private Collection $traducteur;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'editeurs_pays_origine_livres')]
+    #[JoinTable(name: 'editeurs_pays_origine_editeurs')]
+    private Collection $editeur_pays_origine;
+
+    #[ORM\ManyToMany(targetEntity: Editeur::class, inversedBy: 'editeurs_france_livres')]
+    #[JoinTable(name: 'editeurs_france_editeurs')]
+    private Collection $editeur_france;
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
-        $this->artistes = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
-        $this->traducteurs = new ArrayCollection();
-        $this->editeurs_pays_origine = new ArrayCollection();
-        $this->editeurs_france = new ArrayCollection();
         $this->genres = new ArrayCollection();
+        $this->auteur = new ArrayCollection();
+        $this->traducteur = new ArrayCollection();
+        $this->editeur_pays_origine = new ArrayCollection();
+        $this->editeur_france = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -327,33 +328,6 @@ class Livre
     }
 
     /**
-     * @return Collection<int, Artiste>
-     */
-    public function getArtistes(): Collection
-    {
-        return $this->artistes;
-    }
-
-    public function addArtiste(Artiste $artiste): static
-    {
-        if (!$this->artistes->contains($artiste)) {
-            $this->artistes->add($artiste);
-            $artiste->addLivre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtiste(Artiste $artiste): static
-    {
-        if ($this->artistes->removeElement($artiste)) {
-            $artiste->removeLivre($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Critique>
      */
     public function getCritiques(): Collection
@@ -413,90 +387,6 @@ class Livre
         return $this;
     }
 
-    // public function getTraducteur(): ?string
-    // {
-    //     return $this->traducteur;
-    // }
-
-    // public function setTraducteur(?string $traducteur): static
-    // {
-    //     $this->traducteur = $traducteur;
-
-    //     return $this;
-    // }
-
-    /**
-     * @return Collection<int, Artiste>
-     */
-    public function getTraducteurs(): Collection
-    {
-        return $this->traducteurs;
-    }
-
-    public function addTraducteur(Artiste $traducteur): static
-    {
-        if (!$this->traducteurs->contains($traducteur)) {
-            $this->traducteurs->add($traducteur);
-        }
-
-        return $this;
-    }
-
-    public function removeTraducteur(Artiste $traducteur): static
-    {
-        $this->traducteurs->removeElement($traducteur);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Editeur>
-     */
-    public function getEditeursPaysOrigine(): Collection
-    {
-        return $this->editeurs_pays_origine;
-    }
-
-    public function addEditeursPaysOrigine(Editeur $editeursPaysOrigine): static
-    {
-        if (!$this->editeurs_pays_origine->contains($editeursPaysOrigine)) {
-            $this->editeurs_pays_origine->add($editeursPaysOrigine);
-        }
-
-        return $this;
-    }
-
-    public function removeEditeursPaysOrigine(Editeur $editeursPaysOrigine): static
-    {
-        $this->editeurs_pays_origine->removeElement($editeursPaysOrigine);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Editeur>
-     */
-    public function getEditeursFrance(): Collection
-    {
-        return $this->editeurs_france;
-    }
-
-    public function addEditeursFrance(Editeur $editeursFrance): static
-    {
-        if (!$this->editeurs_france->contains($editeursFrance)) {
-            $this->editeurs_france->add($editeursFrance);
-        }
-
-        return $this;
-    }
-
-    public function removeEditeursFrance(Editeur $editeursFrance): static
-    {
-        $this->editeurs_france->removeElement($editeursFrance);
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Genre>
      */
@@ -517,6 +407,102 @@ class Livre
     public function removeGenres(Genre $genres): static
     {
         $this->genres->removeElement($genres);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getAuteur(): Collection
+    {
+        return $this->auteur;
+    }
+
+    public function addAuteur(Artiste $auteur): static
+    {
+        if (!$this->auteur->contains($auteur)) {
+            $this->auteur->add($auteur);
+        }
+
+        return $this;
+    }
+
+    public function removeAuteur(Artiste $auteur): static
+    {
+        $this->auteur->removeElement($auteur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getTraducteur(): Collection
+    {
+        return $this->traducteur;
+    }
+
+    public function addTraducteur(Artiste $traducteur): static
+    {
+        if (!$this->traducteur->contains($traducteur)) {
+            $this->traducteur->add($traducteur);
+        }
+
+        return $this;
+    }
+
+    public function removeTraducteur(Artiste $traducteur): static
+    {
+        $this->traducteur->removeElement($traducteur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeurPaysOrigine(): Collection
+    {
+        return $this->editeur_pays_origine;
+    }
+
+    public function addEditeurPaysOrigine(Editeur $editeurPaysOrigine): static
+    {
+        if (!$this->editeur_pays_origine->contains($editeurPaysOrigine)) {
+            $this->editeur_pays_origine->add($editeurPaysOrigine);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeurPaysOrigine(Editeur $editeurPaysOrigine): static
+    {
+        $this->editeur_pays_origine->removeElement($editeurPaysOrigine);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Editeur>
+     */
+    public function getEditeurFrance(): Collection
+    {
+        return $this->editeur_france;
+    }
+
+    public function addEditeurFrance(Editeur $editeurFrance): static
+    {
+        if (!$this->editeur_france->contains($editeurFrance)) {
+            $this->editeur_france->add($editeurFrance);
+        }
+
+        return $this;
+    }
+
+    public function removeEditeurFrance(Editeur $editeurFrance): static
+    {
+        $this->editeur_france->removeElement($editeurFrance);
 
         return $this;
     }
