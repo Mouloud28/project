@@ -36,6 +36,9 @@ class RoleArtisteFilm
     #[ORM\ManyToMany(targetEntity: Metier::class, inversedBy: 'roleArtisteFilms')]
     private Collection $role;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->role = new ArrayCollection();
@@ -143,6 +146,18 @@ class RoleArtisteFilm
     public function removeRole(Metier $role): static
     {
         $this->role->removeElement($role);
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

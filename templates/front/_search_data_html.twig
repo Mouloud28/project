@@ -1,6 +1,5 @@
-{# {{ form_start(form) }}
-
-    <div class="flex justify-center">
+{{form_start(form)}}
+<div class="flex justify-center">
 	<div class="mb-3 xl:w-96">
 		<div class="input-group relative flex flex-wrap items-stretch w-full mb-4">
 
@@ -14,32 +13,4 @@
 		</div>
 	</div>
 </div>
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }} #}
-
-{{ form_start(form) }}
-{# {{ form_widget(form) }} #}
-{{form_row(form.titre_francais)}}
-{{form_row(form.titre_original)}}
-{{form_row(form.artistes)}}
-{{form_row(form.imageFile)}}
-{{form_row(form.genres)}}
-{{form_row(form.synopsis)}}
-{{form_row(form.pays_origine)}}
-{{form_row(form.date_publication_france)}}
-{{form_row(form.date_publication_pays_origine)}}
-
-<p class="mx-5 my-3 fw-bold">Version originale</p>
-
-{{form_row(form.langue)}}
-{{form_row(form.editeurs_pays_origine)}}
-{{form_row(form.ISBN)}}
-
-<p class="mx-5 my-3 fw-bold">Version française</p>
-
-{{form_row(form.traducteurs)}}
-{{form_row(form.editeurs_france)}}
-{{form_row(form.ISBN_france)}}
-{{form_row(form.forum)}}
-<button class="btn-ajouter-livre form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter le livre') }}</button>
-{{ form_end(form) }}
+{{form_end(form)}}

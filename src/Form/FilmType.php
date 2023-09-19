@@ -224,7 +224,7 @@ class FilmType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => true,
-                // 'multiple' => true,
+                'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([

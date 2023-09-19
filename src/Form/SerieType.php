@@ -213,46 +213,12 @@ class SerieType extends AbstractType
                 ]
             ])
 
-            // ->add('imageFile2', FileType::class, [
-            //     'label' => 'Bandes-annonce(s) et teaser(s)',
-            //     'label_attr' => ['class' => 'fw-bold'],
-            //     'attr' => [
-            //         'class' => 'input',
-            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //     ],
-            //     'row_attr' => ['class' => 'mx-5 my-3'],
-            //     'constraints' => [
-            //         new NotBlank([
-            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //         ])
-            //     ]
-            // ])
-
-            // ->add('imageFile2', FileType::class, [
-            //     'label' => 'Bandes-annonce(s) et teaser(s)',
-            //     'label_attr' => ['class' => 'fw-bold'],
-            //     'attr' => [
-            //         'class' => 'input',
-            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //     ],
-            //     'row_attr' => ['class' => 'mx-5 my-3'],
-            //     'constraints' => [
-            //         new NotBlank([
-            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-            //         ])
-            //     ]
-            //     ])
-
-            ->add('bandesAnnoncesTeasers', CollectionType::class, [
-                'entry_type' => BandesAnnoncesTeasersType::class,
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-                // 'label' => 'Bandes-annonce(s) et teaser(s)',
+            ->add('imageFile2', FileType::class, [
+                'label' => 'Bandes-annonce(s) et teaser(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bandes-annonce(s) / teaser(s).'
+                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'constraints' => [
@@ -289,7 +255,7 @@ class SerieType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                    'message' => 'Veuillez renseigner le statut de la série.'
+                        'message' => 'Veuillez renseigner le statut de la série.'
                     ])
                 ]
             ])
