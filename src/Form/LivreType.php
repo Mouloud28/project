@@ -8,8 +8,6 @@ use App\Entity\Livre;
 use App\Entity\Langue;
 use App\Entity\Artiste;
 use App\Entity\Editeur;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -56,13 +54,9 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez renseigner le titre original du livre.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('artistes', EntityType::class, [
+            ->add('auteur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Auteur(s)',
@@ -79,10 +73,8 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs auteurs.'
                     ])
-                ],
-                'data' => $data->getArtistes()
-            ]);
-        })
+                ]
+            ])
 
             ->remove('couverture')
 
@@ -101,13 +93,9 @@ class LivreType extends AbstractType
                         'message' => 'Veuillez sélectionner la couverture du livre.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('genres', EntityType::class, [
+            ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
@@ -124,10 +112,8 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs genres.'
                     ])
-                ],
-                'data' => $data->getGenres()
-            ]);
-        })
+                ]
+            ])
 
             ->add('synopsis', TextareaType::class, [
                 'label' => 'Synopsis',
@@ -232,13 +218,9 @@ class LivreType extends AbstractType
                 ]
             ])
 
-            ->remove('updatedAt');
+            ->remove('updatedAt')
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('traducteurs', EntityType::class, [
+            ->add('traducteurs', EntityType::class, [
                 'class' => Artiste::class,
                 'mapped' => true,
                 'choice_label' => 'nom',
@@ -256,16 +238,10 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs traducteurs.'
                     ])
-                ],
-                'data' => $data->getArtistes()
-            ]);
-        });
+                ]
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('editeurs_pays_origine', EntityType::class, [
+            ->add('editeurs_pays_origine', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
                 // 'entry_type' => EntityType::class,
@@ -287,16 +263,10 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
-                ],
-                'data' => $data->getEditeursPaysOrigine()
-            ]);
-        });
+                ]
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('editeurs_france', EntityType::class, [
+            ->add('editeurs_france', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
                 // 'entry_options' => [
@@ -317,10 +287,8 @@ class LivreType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs éditeurs.'
                     ])
-                ],
-                'data' => $data->getEditeursFrance()
-            ]);
-        })
+                ]
+            ])
 
             ->add('ISBN_france', TextType::class, [
                 'label' => 'ISBN',

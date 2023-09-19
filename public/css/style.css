@@ -2,7 +2,7 @@ body{
     background-color: rgba(178, 196, 171);
 }
 
-.input{
+.input, .select2{
     background-color: rgba(217, 217, 217);
 }
 

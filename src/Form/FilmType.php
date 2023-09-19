@@ -6,9 +6,6 @@ use App\Entity\Film;
 use App\Entity\Forum;
 use App\Entity\Genre;
 use App\Entity\Artiste;
-use App\Entity\RoleArtisteFilm;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -55,33 +52,27 @@ class FilmType extends AbstractType
                         'message' => 'Veuillez renseigner le titre original du film.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('artistes', EntityType::class, [
+            ->add('realisateur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Réalisateur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs réalisateurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs réalisateurs.'
                     ])
-                ],
-                'data' => $data->getArtistes()
-            ]);
-        })
+                ]
+            ])
 
             ->add('imageFile', FileType::class, [
                 'label' => 'Affiche',
@@ -100,34 +91,28 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->remove('affiche');
+            ->remove('affiche')
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('genres', EntityType::class, [
+            ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Renseignez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs genres.'
                     ])
-                ],
-                'data' => $data->getGenres()
-            ]);
-        })
-
+                ]
+            ])
+        
             ->add('duree', TimeType::class, [
                 'label' => 'Durée',
                 'label_attr' => ['class' => 'fw-bold'],
@@ -214,16 +199,16 @@ class FilmType extends AbstractType
             ])
 
             ->add('scenariste', EntityType::class, [
-                'class' => RoleArtisteFilm::class,
-                'choice_label' => 'artiste',
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
                 'label' => 'Scénariste(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Sélectionnez un ou plusieurs scénaristes.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -234,16 +219,16 @@ class FilmType extends AbstractType
             ])
 
             ->add('producteur', EntityType::class, [
-                'class' => RoleArtisteFilm::class,
-                'choice_label' => 'artiste',
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
                 'label' => 'Producteur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Sélectionnez un ou plusieurs producteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -254,16 +239,16 @@ class FilmType extends AbstractType
             ])
 
             ->add('casting', EntityType::class, [
-                'class' => RoleArtisteFilm::class,
-                'choice_label' => 'artiste',
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
                 'label' => 'Casting',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -274,16 +259,16 @@ class FilmType extends AbstractType
             ])
 
             ->add('compositeur', EntityType::class, [
-                'class' => RoleArtisteFilm::class,
-                'choice_label' => 'artiste',
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
                 'label' => 'Compositeur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
+                    'class' => 'input select-2',
                     'placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
@@ -302,11 +287,11 @@ class FilmType extends AbstractType
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'constraints' => [
-                new NotBlank([
+                    new NotBlank([
                         'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
                     ])
                 ]
-                ])
+            ])
 
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,

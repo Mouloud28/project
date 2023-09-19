@@ -38,10 +38,6 @@ class Artiste
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'artistes')]
-    #[ORM\JoinColumn(nullable: true)]
-    private Collection $film;
-
     #[ORM\ManyToMany(targetEntity: Serie::class, inversedBy: 'artistes')]
     #[ORM\JoinColumn(nullable: true)]
     private Collection $serie;
@@ -67,19 +63,34 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'producteurs')]
     private Collection $albums;
 
-    #[ORM\OneToMany(mappedBy: 'artiste', targetEntity: RoleArtisteFilm::class)]
-    private Collection $roleArtisteFilms;
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'realisateur')]
+    private Collection $realisateurs_films;
+
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'producteur')]
+    private Collection $producteurs_films;
+
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'scenariste')]
+    private Collection $scenaristes_films;
+
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'casting')]
+    private Collection $casting_film;
+
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'compositeur')]
+    private Collection $compositeurs_films;
 
     public function __construct()
     {
-        $this->film = new ArrayCollection();
         $this->serie = new ArrayCollection();
         $this->album = new ArrayCollection();
         $this->livre = new ArrayCollection();
         $this->metiers = new ArrayCollection();
         $this->livres = new ArrayCollection();
         $this->albums = new ArrayCollection();
-        $this->roleArtisteFilms = new ArrayCollection();
+        $this->realisateurs_films = new ArrayCollection();
+        $this->producteurs_films = new ArrayCollection();
+        $this->scenaristes_films = new ArrayCollection();
+        $this->casting_film = new ArrayCollection();
+        $this->compositeurs_films = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,30 +184,6 @@ class Artiste
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Film>
-     */
-    public function getFilm(): Collection
-    {
-        return $this->film;
-    }
-
-    public function addFilm(Film $film): static
-    {
-        if (!$this->film->contains($film)) {
-            $this->film->add($film);
-        }
-
-        return $this;
-    }
-
-    public function removeFilm(Film $film): static
-    {
-        $this->film->removeElement($film);
 
         return $this;
     }
@@ -329,30 +316,135 @@ class Artiste
     }
 
     /**
-     * @return Collection<int, RoleArtisteFilm>
+     * @return Collection<int, Film>
      */
-    public function getRoleArtisteFilms(): Collection
+    public function getRealisateursFilms(): Collection
     {
-        return $this->roleArtisteFilms;
+        return $this->realisateurs_films;
     }
 
-    public function addRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
+    public function addRealisateursFilm(Film $realisateursFilm): static
     {
-        if (!$this->roleArtisteFilms->contains($roleArtisteFilm)) {
-            $this->roleArtisteFilms->add($roleArtisteFilm);
-            $roleArtisteFilm->setArtiste($this);
+        if (!$this->realisateurs_films->contains($realisateursFilm)) {
+            $this->realisateurs_films->add($realisateursFilm);
+            $realisateursFilm->addRealisateur($this);
         }
 
         return $this;
     }
 
-    public function removeRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
+    public function removeRealisateursFilm(Film $realisateursFilm): static
     {
-        if ($this->roleArtisteFilms->removeElement($roleArtisteFilm)) {
-            // set the owning side to null (unless already changed)
-            if ($roleArtisteFilm->getArtiste() === $this) {
-                $roleArtisteFilm->setArtiste(null);
-            }
+        if ($this->realisateurs_films->removeElement($realisateursFilm)) {
+            $realisateursFilm->removeRealisateur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getProducteursFilms(): Collection
+    {
+        return $this->producteurs_films;
+    }
+
+    public function addProducteursFilm(Film $producteursFilm): static
+    {
+        if (!$this->producteurs_films->contains($producteursFilm)) {
+            $this->producteurs_films->add($producteursFilm);
+            $producteursFilm->addProducteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProducteursFilm(Film $producteursFilm): static
+    {
+        if ($this->producteurs_films->removeElement($producteursFilm)) {
+            $producteursFilm->removeProducteur($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getScenaristesFilms(): Collection
+    {
+        return $this->scenaristes_films;
+    }
+
+    public function addScenaristesFilm(Film $scenaristesFilm): static
+    {
+        if (!$this->scenaristes_films->contains($scenaristesFilm)) {
+            $this->scenaristes_films->add($scenaristesFilm);
+            $scenaristesFilm->addScenariste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeScenaristesFilm(Film $scenaristesFilm): static
+    {
+        if ($this->scenaristes_films->removeElement($scenaristesFilm)) {
+            $scenaristesFilm->removeScenariste($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getCastingFilm(): Collection
+    {
+        return $this->casting_film;
+    }
+
+    public function addCastingFilm(Film $castingFilm): static
+    {
+        if (!$this->casting_film->contains($castingFilm)) {
+            $this->casting_film->add($castingFilm);
+            $castingFilm->addCasting($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCastingFilm(Film $castingFilm): static
+    {
+        if ($this->casting_film->removeElement($castingFilm)) {
+            $castingFilm->removeCasting($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getCompositeursFilms(): Collection
+    {
+        return $this->compositeurs_films;
+    }
+
+    public function addCompositeursFilm(Film $compositeursFilm): static
+    {
+        if (!$this->compositeurs_films->contains($compositeursFilm)) {
+            $this->compositeurs_films->add($compositeursFilm);
+            $compositeursFilm->addCompositeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCompositeursFilm(Film $compositeursFilm): static
+    {
+        if ($this->compositeurs_films->removeElement($compositeursFilm)) {
+            $compositeursFilm->removeCompositeur($this);
         }
 
         return $this;

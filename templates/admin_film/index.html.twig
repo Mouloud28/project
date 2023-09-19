@@ -1,62 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Film index{% endblock %}
+{% block title %}Film index
+{% endblock %}
 
 {% block body %}
-    <h1>Film index</h1>
+	<h1>Film index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre francais</th>
-                <th>Titre original</th>
-                <th>Réalisateur(s)</th>
-                <th>Affiche</th>
-                <th>Durée</th>
-                <th>Synopsis</th>
-                <th>Pays d'origine</th>
-                <th>Date de sortie (France)</th>
-                <th>Date de sortie (Pays d'origine)</th>
-                <th>Bandes-annonces et teasers</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for film in films %}
-            <tr>
-                <td>{{ film.id }}</td>
-                <td>{{ film.titreFrancais }}</td>
-                <td>{{ film.titreOriginal }}</td>
-                <td>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titre francais</th>
+				<th>Titre original</th>
+				<th>Réalisateur(s)</th>
+				<th>Affiche</th>
+				<th>Durée</th>
+				<th>Synopsis</th>
+				<th>Pays d'origine</th>
+				<th>Date de sortie (France)</th>
+				<th>Date de sortie (Pays d'origine)</th>
+				<th>Bandes-annonces et teasers</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for film in films %}
+				<tr>
+					<td>{{ film.id }}</td>
+					<td>{{ film.titreFrancais }}</td>
+					<td>{{ film.titreOriginal }}</td>
+					<td>
+						{% if film.realisateur %}
+							{% for artiste in film.realisateur %}
+								{{ artiste.nom }}
+							{% endfor %}
+						{% else %}
+							<span class="text-danger fst-italic">N.R</span>
+						{% endif %}
+					</td>
+					<td>{{ film.affiche }}</td>
+					<td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
+					<td>{{ film.synopsis }}</td>
+					<td>{{ film.paysOrigine }}</td>
+					<td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
+					<td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+					<td>
+						<video src="src=" {{ vich_uploader_asset(film, 'imageFile2') }} ""></video>
+					</td>
+					<td>
+						<a href="{{ path('app_admin_film_show', {'id': film.id}) }}">show</a>
+						<a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="11">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 
-                    {% if film.artistes %}
-						{% for artiste in film.artistes %}
-						{{ artiste.nom }}{% endfor %}
-					{% else %}
-						<span class="text-danger fst-italic">N.R</span>
-					{% endif %}
-                    </td>
-
-                <td>{{ film.affiche }}</td>
-                <td>{{ film.duree ? film.duree|date('H:i:s') : '' }}</td>
-                <td>{{ film.synopsis }}</td>
-                <td>{{ film.paysOrigine }}</td>
-                <td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
-                <td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
-                <td><video src="src="{{ vich_uploader_asset(film, 'imageFile2') }}""></video></td>
-                <td>
-                    <a href="{{ path('app_admin_film_show', {'id': film.id}) }}">show</a>
-                    <a href="{{ path('app_admin_film_edit', {'id': film.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="11">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_admin_film_new') }}">Create new</a>
+	<a href="{{ path('app_admin_film_new') }}">Create new</a>
 {% endblock %}
