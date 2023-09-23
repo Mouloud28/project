@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\AlbumRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\AlbumRepository;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: AlbumRepository::class)]
@@ -70,26 +71,28 @@ class Album
     #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'album')]
     private Collection $genres;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, mappedBy: 'album')]
-    private Collection $compositeurs;
-
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Critique::class)]
     private Collection $critiques;
 
     #[ORM\OneToMany(mappedBy: 'album', targetEntity: Notation::class)]
     private Collection $notations;
 
-    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'albums')]
-    private Collection $producteurs;
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'compositeurs_albums')]
+    #[JoinTable(name: 'compositeurs_artistes3')]
+    private Collection $compositeur;
+
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'producteurs_albums')]
+    #[JoinTable(name: 'producteurs_artistes3')]
+    private Collection $producteur;
 
     public function __construct()
     {
         $this->article = new ArrayCollection();
         $this->genres = new ArrayCollection();
-        $this->compositeurs = new ArrayCollection();
         $this->critiques = new ArrayCollection();
         $this->notations = new ArrayCollection();
-        $this->producteurs = new ArrayCollection();
+        $this->compositeur = new ArrayCollection();
+        $this->producteur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -336,33 +339,6 @@ class Album
     }
 
     /**
-     * @return Collection<int, Artiste>
-     */
-    public function getCompositeurs(): Collection
-    {
-        return $this->compositeurs;
-    }
-
-    public function addCompositeurs(Artiste $compositeurs): static
-    {
-        if (!$this->compositeurs->contains($compositeurs)) {
-            $this->compositeurs->add($compositeurs);
-            $compositeurs->addAlbum($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArtiste(Artiste $compositeurs): static
-    {
-        if ($this->compositeurs->removeElement($compositeurs)) {
-            $compositeurs->removeAlbum($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Critique>
      */
     public function getCritiques(): Collection
@@ -425,24 +401,49 @@ class Album
     /**
      * @return Collection<int, Artiste>
      */
-    public function getProducteurs(): Collection
+    public function getCompositeur(): Collection
     {
-        return $this->producteurs;
+        return $this->compositeur;
     }
 
-    public function addProducteurs(Artiste $producteurs): static
+    public function addCompositeur(Artiste $compositeur): static
     {
-        if (!$this->producteurs->contains($producteurs)) {
-            $this->producteurs->add($producteurs);
+        if (!$this->compositeur->contains($compositeur)) {
+            $this->compositeur->add($compositeur);
         }
 
         return $this;
     }
 
-    public function removeProducteurs(Artiste $producteurs): static
+    public function removeCompositeur(Artiste $compositeur): static
     {
-        $this->producteurs->removeElement($producteurs);
+        $this->compositeur->removeElement($compositeur);
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getProducteur(): Collection
+    {
+        return $this->producteur;
+    }
+
+    public function addProducteur(Artiste $producteur): static
+    {
+        if (!$this->producteur->contains($producteur)) {
+            $this->producteur->add($producteur);
+        }
+
+        return $this;
+    }
+
+    public function removeProducteur(Artiste $producteur): static
+    {
+        $this->producteur->removeElement($producteur);
+
+        return $this;
+    }
+
 }

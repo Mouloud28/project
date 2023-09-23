@@ -63,7 +63,7 @@ class LivreType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs auteurs.'
+                    'data-placeholder' => 'Renseignez un ou plusieurs auteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -102,7 +102,7 @@ class LivreType extends AbstractType
                 'label' => 'Genre(s)',
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs genres.'
+                    'data-placeholder' => 'Renseignez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -152,7 +152,6 @@ class LivreType extends AbstractType
                 'label' => 'Date de publication (France)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication française du livre.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -170,7 +169,6 @@ class LivreType extends AbstractType
                 'label' => 'Date de publication (Pays d\'origine)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de publication dans le pays d\'origine du livre.',
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -228,7 +226,7 @@ class LivreType extends AbstractType
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs traducteurs.'
+                    'data-placeholder' => 'Renseignez un ou plusieurs traducteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -253,7 +251,7 @@ class LivreType extends AbstractType
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
+                    'data-placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -273,7 +271,7 @@ class LivreType extends AbstractType
                 'label_attr' => ['class' => 'fst-italic'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs éditeurs.'
+                    'data-placeholder' => 'Renseignez un ou plusieurs éditeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,

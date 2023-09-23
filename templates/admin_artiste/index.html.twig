@@ -6,25 +6,33 @@
     <h1>Admin - Gestion des artistes</h1>
 
     <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
+        <thead class="rounded-row">
+            <tr class="rounded-row">
+                <th>ID</th>
                 <th>Nom</th>
                 <th>Date de naissance</th>
+                <th>Activité(s)</th>
                 <th>Pays d'origine</th>
                 <th>Photo</th>
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="rounded-row">
         {% for artiste in artistes %}
-            <tr>
-                <td>{{ artiste.id }}</td>
-                <td>{{ artiste.nom }}</td>
-                <td>{{ artiste.dateNaissance ? artiste.dateNaissance|date('d-m-Y') : '' }}</td>
-                <td>{{ artiste.paysOrigine }}</td>
-                <td><img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Image"></td>
-                <td>
+            <tr class="rounded-row">
+                <td class="rounded-row1"><span class="span-index">{{ artiste.id }}</span></td>
+                <td><span class="span-index">{{ artiste.nom }}</span></td>
+                <td><span class="span-index">{{ artiste.dateNaissance ? artiste.dateNaissance|date('d-m-Y') : '' }}</span></td>
+                <td>{% if artiste.metiers %}
+							{% for metiers in artiste.metiers %}
+								{{ metiers.nom }}
+							{% endfor %}
+						{% else %}
+							<span class="text-danger fst-italic">N.R</span>
+						{% endif %}</td>
+                <td><span class="span-index">{{ artiste.paysOrigine }}</span></td>
+                <td><span class="span-index"><img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Image"></span></td>
+                <td class="rounded-row2">
                     <a href="{{ path('app_admin_artiste_show', {'id': artiste.id}) }}">show</a>
                     <a href="{{ path('app_admin_artiste_edit', {'id': artiste.id}) }}">edit</a>
                 </td>
@@ -37,5 +45,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_artiste_new') }}">Create new</a>
+    <a href="{{ path('app_admin_artiste_new') }}">Ajouter</a>
 {% endblock %}

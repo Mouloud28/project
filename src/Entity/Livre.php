@@ -97,6 +97,9 @@ class Livre
     #[JoinTable(name: 'editeurs_france_editeurs')]
     private Collection $editeur_france;
 
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'livres')]
+    private Collection $artistes;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -107,6 +110,7 @@ class Livre
         $this->traducteur = new ArrayCollection();
         $this->editeur_pays_origine = new ArrayCollection();
         $this->editeur_france = new ArrayCollection();
+        $this->artistes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -503,6 +507,30 @@ class Livre
     public function removeEditeurFrance(Editeur $editeurFrance): static
     {
         $this->editeur_france->removeElement($editeurFrance);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        $this->artistes->removeElement($artiste);
 
         return $this;
     }

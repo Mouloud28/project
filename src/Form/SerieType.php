@@ -2,11 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Forum;
 use App\Entity\Genre;
 use App\Entity\Serie;
 use App\Entity\Artiste;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,9 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SerieType extends AbstractType
 {
@@ -55,33 +53,107 @@ class SerieType extends AbstractType
                         'message' => 'Veuillez renseigner le titre original de la série.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('artistes', EntityType::class, [
+            ->add('createur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Créateur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs créateurs.'
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs créateurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs créateurs.'
                     ])
+                ]
+            ])
+
+            ->add('producteur', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
+                'label' => 'Producteur(s)',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs producteurs.'
                 ],
-                'data' => $data->getArtistes()
-            ]);
-        })
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs producteurs.'
+                    ])
+                ]
+            ])
+
+            ->add('scenariste', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
+                'label' => 'Scénariste(s)',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs scénaristes.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs scénaristes.'
+                    ])
+                ]
+            ])
+
+            ->add('casting', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
+                'label' => 'Casting',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le casting.'
+                    ])
+                ]
+            ])
+
+            ->add('compositeur', EntityType::class, [
+                'class' => Artiste::class,
+                'choice_label' => 'nom',
+                'label' => 'Compositeur(s)',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs compositeurs.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'expanded' => false,
+                'multiple' => true,
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner un ou plusieurs compositeurs.'
+                    ])
+                ]
+            ])
 
             ->remove('affiche')
 
@@ -100,39 +172,32 @@ class SerieType extends AbstractType
                         'message' => 'Veuillez sélectionner l\'affiche de la série.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('genres', EntityType::class, [
+            ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
                 'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs genres.'
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs genres.'
                     ])
-                ],
-                'data' => $data->getGenres()
-            ]);
-        })
+                ]
+            ])
 
             ->add('duree', TimeType::class, [
                 'label' => 'Durée',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la durée d\'un épisode.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
@@ -181,7 +246,6 @@ class SerieType extends AbstractType
                 'label' => 'Date de diffusion (France)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de diffusion française de la série.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -199,7 +263,6 @@ class SerieType extends AbstractType
                 'label' => 'Date de diffusion (Pays d\'origine)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de diffusion dans le pays d\'origine de la série.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -256,6 +319,24 @@ class SerieType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner le statut de la série.'
+                    ])
+                ]
+            ])
+
+            ->add('forum', EntityType::class, [
+                'class' => Forum::class,
+                'choice_label' => 'nom',
+                'label' => 'Forum',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez le forum du livre.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner le forum du livre.'
                     ])
                 ]
             ])

@@ -106,10 +106,12 @@ class ArtisteType extends AbstractType
                 'class' => Metier::class,
                 'choice_label' => 'nom',
                 'label' => 'Activité(s)',
-                'attr' => ['class' => 'input'],
-                'expanded' => true,
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs activités.'
+                ],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez une ou plusieurs activités.',
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,
                 'constraints' => [
@@ -119,52 +121,200 @@ class ArtisteType extends AbstractType
                 ]
             ])
 
-            ->add('livre', EntityType::class, [
+            ->add('auteurs_livres', EntityType::class, [
                 'class' => Livre::class,
                 'choice_label' => 'titre_francais',
-                'label' => 'Livre(s)',
-                'attr' => ['class' => 'input'],
-                'expanded' => true,
+                'label' => 'Ecriture',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs livres.'
+                ],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs livres.',
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'required' => true
+                'required' => false
             ])
 
-            ->add('film', EntityType::class, [
+            ->add('traducteurs_livres', EntityType::class, [
+                'class' => Livre::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Traduction',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs livres.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('realisateurs_films', EntityType::class, [
                 'class' => Film::class,
                 'choice_label' => 'titre_francais',
-                'label' => 'Film(s)',
-                'attr' => ['class' => 'input'],
-                'expanded' => true,
+                'label' => 'Réalisation',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs films.'
+                ],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs films.',
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'required' => true
+                'required' => false
             ])
 
-            ->add('serie', EntityType::class, [
+            ->add('scenaristes_films', EntityType::class, [
+                'class' => Film::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Scénario(s)',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs films.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('producteurs_films', EntityType::class, [
+                'class' => Film::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Production',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs films.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('casting_film', EntityType::class, [
+                'class' => Film::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Acting',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs films.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('compositeurs_films', EntityType::class, [
+                'class' => Film::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Composition',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs films.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('createurs_series', EntityType::class, [
                 'class' => Serie::class,
                 'choice_label' => 'titre_francais',
-                'label' => 'Série(s)',
-                'attr' => ['class' => 'input'],
-                'expanded' => true,
+                'label' => 'Création',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs séries.'
+                ],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez une ou plusieurs séries.',
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'required' => true,
+                'required' => false
             ])
 
-            ->add('album', EntityType::class, [
+            ->add('scenaristes_series', EntityType::class, [
+                'class' => Serie::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Scénario(s)',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs séries.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('producteurs_series', EntityType::class, [
+                'class' => Serie::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Production',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs séries.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('casting_serie', EntityType::class, [
+                'class' => Serie::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Acting',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs séries.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('compositeurs_series', EntityType::class, [
+                'class' => Serie::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Composition',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez une ou plusieurs séries.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
+            ])
+
+            ->add('compositeurs_albums', EntityType::class, [
                 'class' => Album::class,
                 'choice_label' => 'titre_francais',
-                'label' => 'Albums(s)',
-                'attr' => ['class' => 'input'],
-                'expanded' => true,
+                'label' => 'Composition',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs albums.'
+                ],
+                'expanded' => false,
                 'multiple' => true,
-                'placeholder' => 'Sélectionnez un ou plusieurs albums.',
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'required' => true
+                'required' => false
+            ])
+
+            ->add('producteurs_albums', EntityType::class, [
+                'class' => Album::class,
+                'choice_label' => 'titre_francais',
+                'label' => 'Production',
+                'attr' => [
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs albums.'
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => false
             ])
 
             ->remove('updatedAt');

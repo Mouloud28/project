@@ -6,9 +6,6 @@ use App\Entity\Album;
 use App\Entity\Forum;
 use App\Entity\Genre;
 use App\Entity\Artiste;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use App\Form\BandesAnnoncesTeasersType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class AlbumType extends AbstractType
 {
@@ -54,33 +50,27 @@ class AlbumType extends AbstractType
                         'message' => 'Veuillez renseigner le titre original de l\'album.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('compositeurs', EntityType::class, [
+            ->add('compositeur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Compositeur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs compositeurs.'
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Renseignez un ou plusieurs compositeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs compositeurs.'
                     ])
-                ],
-                'data' => $data->getCompositeurs()
-            ]);
-        })
+                ]
+            ])
 
             ->remove('affiche')
 
@@ -90,42 +80,36 @@ class AlbumType extends AbstractType
                 'attr' => [
                     'class' => 'input',
                     'enctype' => 'multipart/form-data',
-                    'placeholder' => 'Sélectionnez la couverture du livre.'
+                    'placeholder' => 'Sélectionnez l\'affiche de l\'album.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Veuillez sélectionner la couverture du livre.'
+                        'message' => 'Veuillez sélectionner l\'affiche de l\'album.'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('genres', EntityType::class, [
+            ->add('genres', EntityType::class, [
                 'class' => Genre::class,
                 'label_attr' => ['class' => 'fw-bold'],
                 'choice_label' => 'nom',
                 'label' => 'Genre(s)',
                 'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs genres.'
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Renseignez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs genres.'
                     ])
-                ],
-                'data' => $data->getGenres()
-            ]);
-        })
+                ]
+            ])
 
             ->add('pays_origine', TextType::class, [
                 'label' => 'Pays d\'origine',
@@ -179,7 +163,6 @@ class AlbumType extends AbstractType
                 'label' => 'Date d\'enregistrement',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date d\'enregistrement de l\'album.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -197,7 +180,6 @@ class AlbumType extends AbstractType
                 'label' => 'Date de sortie (France)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de sortie (France).'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -215,7 +197,6 @@ class AlbumType extends AbstractType
                 'label' => 'Date de sortie (Pays d\'origine)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de sortie (Pays d\'origine).'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -227,33 +208,27 @@ class AlbumType extends AbstractType
                         'message' => 'Veuillez renseigner la date de sortie (Pays d\'origine).'
                     ])
                 ]
-            ]);
+            ])
 
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $form = $event->getForm();
-            $data = $event->getData();
-
-            $form->add('producteurs', EntityType::class, [
+        ->add('producteur', EntityType::class, [
                 'class' => Artiste::class,
                 'choice_label' => 'nom',
                 'label' => 'Producteur(s)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Renseignez un ou plusieurs producteurs.'
+                    'class' => 'input select-2',
+                    'data-placeholder' => 'Renseignez un ou plusieurs producteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner un ou plusieurs producteurs.'
                     ])
-                ],
-                'data' => $data->getProducteurs()
-            ]);
-        })
+                ]  
+            ])
 
             ->add('label', TextType::class, [
                 'label' => 'Label',

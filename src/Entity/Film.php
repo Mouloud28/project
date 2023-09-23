@@ -97,6 +97,9 @@ class Film
     #[JoinTable(name: 'compositeurs_artistes')]
     private Collection $compositeur;
 
+    #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'films')]
+    private Collection $artistes;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -108,6 +111,7 @@ class Film
         $this->scenariste = new ArrayCollection();
         $this->casting = new ArrayCollection();
         $this->compositeur = new ArrayCollection();
+        $this->artistes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -547,6 +551,30 @@ class Film
     public function removeCompositeur(Artiste $compositeur): static
     {
         $this->compositeur->removeElement($compositeur);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Artiste>
+     */
+    public function getArtistes(): Collection
+    {
+        return $this->artistes;
+    }
+
+    public function addArtiste(Artiste $artiste): static
+    {
+        if (!$this->artistes->contains($artiste)) {
+            $this->artistes->add($artiste);
+        }
+
+        return $this;
+    }
+
+    public function removeArtiste(Artiste $artiste): static
+    {
+        $this->artistes->removeElement($artiste);
 
         return $this;
     }

@@ -1,3 +1,11 @@
+$(document).ready(function () {
+$('.select-2').each(function () {
+var placeholder = $(this).data('placeholder');
+  
+$(this).select2({placeholder: placeholder, allowClear: true});
+});
+});
+
 // Films
 
 const addbandeAnnonceTeaserFormDeleteLink = (item) => {

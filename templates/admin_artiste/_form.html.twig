@@ -1,7 +1,38 @@
 {{ form_start(form) }}
 
-    {{ form_widget(form) }}
-    
-    <button class="btn-ajouter-artiste form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter l\'artiste') }}</button>
+{{form_row(form.nom)}}
+{{form_row(form.date_naissance)}}
+{{form_row(form.pays_origine)}}
+{{form_row(form.ville)}}
+{{form_row(form.imageFile)}}
+{{form_row(form.metiers)}}
+
+<p class="mx-5 my-3 fw-bold">Livres</p>
+
+{{form_row(form.auteurs_livres)}}
+{{form_row(form.traducteurs_livres)}}
+
+<p class="mx-5 my-3 fw-bold">Films</p>
+
+{{form_row(form.realisateurs_films)}}
+{{form_row(form.scenaristes_films)}}
+{{form_row(form.producteurs_films)}}
+{{form_row(form.casting_film)}}
+{{form_row(form.compositeurs_films)}}
+
+<p class="mx-5 my-3 fw-bold">Séries</p>
+
+{{form_row(form.createurs_series)}}
+{{form_row(form.scenaristes_series)}}
+{{form_row(form.producteurs_series)}}
+{{form_row(form.casting_serie)}}
+{{form_row(form.compositeurs_series)}}
+
+<p class="mx-5 my-3 fw-bold">Albums</p>
+
+{{form_row(form.compositeurs_albums)}}
+{{form_row(form.producteurs_albums)}}
+
+<button class="btn-ajouter-artiste form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter l\'artiste') }}</button>
 
 {{ form_end(form) }}

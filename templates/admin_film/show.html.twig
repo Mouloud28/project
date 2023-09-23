@@ -89,12 +89,28 @@
 
 			<tr>
 				<th>Casting</th>
-				<td></td>
+				<td>
+				
+				{% if film.casting %}
+						{% for artiste in film.casting %}
+							{{ artiste.nom }}
+						{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}
+				
+				</td>
 			</tr>
 
 			<tr>
 				<th>Compositeur</th>
-				<td></td>
+				<td>{% if film.compositeur %}
+						{% for artiste in film.compositeur %}
+							{{ artiste.nom }}
+						{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}</td>
 			</tr>
 
 

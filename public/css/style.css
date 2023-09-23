@@ -2,11 +2,63 @@ body{
     background-color: rgba(178, 196, 171);
 }
 
-.input, .select2{
+.input{
     background-color: rgba(217, 217, 217);
 }
 
+::placeholder{
+    font-family: inherit;
+}
+
+::data-placeholder{
+    font-family: inherit;
+}
+
+
+table{
+    border-collapse: separate;
+    border-spacing: 0 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.rounded-row1{
+    border-radius: 20px 0 0 20px;
+}
+
+.rounded-row2{
+    border-radius: 0 20px 20px 0;
+}
+
+th, td{
+    text-align: center;
+    vertical-align: middle;
+    background-color: rgba(217, 217, 217) !important;
+}
+
+.select2-selection.select2-selection--multiple {
+    background: rgba(217, 217, 217) !important;
+    border-radius : 0.375rem !important;
+    border : none !important;
+    height : 35px !important;
+}
+
 /* Artistes */
+
+#artiste_date_naissance_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#artiste_date_naissance_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#artiste_date_naissance_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
 
 .btn-ajouter-artiste{
     background-color: rgba(44, 47, 62);
@@ -25,6 +77,36 @@ body{
 
 /* Livres */
 
+#livre_date_publication_france_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#livre_date_publication_france_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#livre_date_publication_france_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#livre_date_publication_pays_origine_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#livre_date_publication_pays_origine_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#livre_date_publication_pays_origine_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
 .btn-ajouter-livre{
     background-color: rgba(44, 47, 62);
     color: white;
@@ -42,9 +124,50 @@ body{
 
 .th-show-livre{
     width: 150px;
+    background-color: rgba(217, 217, 217);
 }
 
 /* Films */
+
+#film_duree_minute {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_duree_hour {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_france_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_france_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_france_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_pays_origine_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_pays_origine_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#film_date_sortie_pays_origine_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
 
 .btn-ajouter-film{
     background-color: rgba(44, 47, 62);
@@ -72,6 +195,46 @@ body{
 
 /* Séries */
 
+#serie_duree_minute {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_duree_hour {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_france_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_france_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_france_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_pays_origine_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_pays_origine_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#serie_date_diffusion_pays_origine_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
 .btn-ajouter-serie{
     background-color: rgba(44, 47, 62);
     color: white;
@@ -88,6 +251,51 @@ body{
 }
 
 /* Albums */
+
+#album_date_enregistrement_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_enregistrement_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_enregistrement_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_france_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_france_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_france_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_pays_origine_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_pays_origine_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#album_date_sortie_pays_origine_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
 
 .btn-ajouter-album{
     background-color: rgba(44, 47, 62);

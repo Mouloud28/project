@@ -24,13 +24,9 @@ class Metier
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'metiers')]
     private Collection $artiste;
 
-    #[ORM\ManyToMany(targetEntity: RoleArtisteFilm::class, mappedBy: 'role')]
-    private Collection $roleArtisteFilms;
-
     public function __construct()
     {
         $this->artiste = new ArrayCollection();
-        $this->roleArtisteFilms = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,33 +83,6 @@ class Metier
     public function removeArtiste(Artiste $artiste): static
     {
         $this->artiste->removeElement($artiste);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, RoleArtisteFilm>
-     */
-    public function getRoleArtisteFilms(): Collection
-    {
-        return $this->roleArtisteFilms;
-    }
-
-    public function addRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
-    {
-        if (!$this->roleArtisteFilms->contains($roleArtisteFilm)) {
-            $this->roleArtisteFilms->add($roleArtisteFilm);
-            $roleArtisteFilm->addRole($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRoleArtisteFilm(RoleArtisteFilm $roleArtisteFilm): static
-    {
-        if ($this->roleArtisteFilms->removeElement($roleArtisteFilm)) {
-            $roleArtisteFilm->removeRole($this);
-        }
 
         return $this;
     }

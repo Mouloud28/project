@@ -61,7 +61,7 @@ class FilmType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs réalisateurs.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs réalisateurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -100,7 +100,7 @@ class FilmType extends AbstractType
                 'label' => 'Genre(s)',
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Renseignez un ou plusieurs genres.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs genres.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -117,7 +117,6 @@ class FilmType extends AbstractType
                 'label' => 'Durée',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la durée du film.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
@@ -166,7 +165,6 @@ class FilmType extends AbstractType
                 'label' => 'Date de sortie (France)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de sortie française du film.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -184,7 +182,6 @@ class FilmType extends AbstractType
                 'label' => 'Date de sortie (Pays d\'origine)',
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
-                    'class' => 'input',
                     'placeholder' => 'Renseignez la date de sortie dans le pays d\'origine du film.'
                 ],
                 'format' => 'dd/MM/yyyy',
@@ -205,7 +202,7 @@ class FilmType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Sélectionnez un ou plusieurs scénaristes.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs scénaristes.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -225,7 +222,7 @@ class FilmType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Sélectionnez un ou plusieurs producteurs.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs producteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -245,7 +242,7 @@ class FilmType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
@@ -265,7 +262,7 @@ class FilmType extends AbstractType
                 'label_attr' => ['class' => 'fw-bold'],
                 'attr' => [
                     'class' => 'input select-2',
-                    'placeholder' => 'Sélectionnez un ou plusieurs acteurs.'
+                    'data-placeholder' => 'Sélectionnez un ou plusieurs compositeurs.'
                 ],
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'expanded' => false,
