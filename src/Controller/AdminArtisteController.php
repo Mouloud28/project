@@ -2,22 +2,39 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
 use App\Entity\Artiste;
+use App\Form\SearchType;
 use App\Form\ArtisteType;
 use App\Repository\ArtisteRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/artiste')]
 class AdminArtisteController extends AbstractController
 {
     #[Route('/', name: 'app_admin_artiste_index', methods: ['GET'])]
-    public function index(ArtisteRepository $artisteRepository): Response
+    public function index(ArtisteRepository $artisteRepository, Request $request): Response
     {
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form -> handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $search->getPage($request -> query -> getInt('page', 1));
+            $artistes = $artisteRepository -> findBySearch($search);
+
+            return $this->render('admin_artiste/index.html.twig', [
+                'form' => $form->createView(),
+                'artistes' => $artistes
+            ]);
+        }
+
         return $this->render('admin_artiste/index.html.twig', [
+            'form' => $form -> createView(),
             'artistes' => $artisteRepository->findAll(),
         ]);
     }

@@ -8,28 +8,28 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th class="rounded-row1">Id</th>
                 <th>Nom</th>
-                <th>Actions</th>
+                <th class="rounded-row2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for metier in metiers %}
             <tr>
-                <td>{{ metier.id }}</td>
+                <td class="rounded-row1">{{ metier.id }}</td>
                 <td>{{ metier.nom }}</td>
-                <td>
+                <td class="rounded-row2">
                     <a href="{{ path('app_admin_metier_show', {'id': metier.id}) }}">show</a>
                     <a href="{{ path('app_admin_metier_edit', {'id': metier.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3" class="rounded">Aucun résultat trouvé.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_metier_new') }}">Create new</a>
+    <a href="{{ path('app_admin_metier_new') }}">Ajouter</a>
 {% endblock %}

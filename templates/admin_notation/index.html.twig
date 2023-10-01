@@ -1,37 +1,64 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Notation index{% endblock %}
+{% block title %}Notation index
+{% endblock %}
 
 {% block body %}
-    <h1>Notation index</h1>
+	<h1>Notation index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Note</th>
-                <th>Mise à jour</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for notation in notations %}
-            <tr>
-                <td>{{ notation.id }}</td>
-                <td>{{ notation.note }}</td>
-                <td>{{ notation.updatedAt ? notation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_admin_notation_show', {'id': notation.id}) }}">show</a>
-                    <a href="{{ path('app_admin_notation_edit', {'id': notation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	{# <table class="table">
+	        <thead>
+	            <tr>
+	                <th>Id</th>
+	                <th>Note</th>
+	                <th>Mise à jour</th>
+	                <th>Actions</th>
+	            </tr>
+	        </thead>
+	        <tbody>
+	        {% for notation in notations %}
+	            <tr>
+	                <td>{{ notation.id }}</td>
+	                <td>{{ notation.note }}</td>
+	                <td>{{ notation.updatedAt ? notation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+	                <td>
+	                    <a href="{{ path('app_admin_notation_show', {'id': notation.id}) }}">show</a>
+	                    <a href="{{ path('app_admin_notation_edit', {'id': notation.id}) }}">edit</a>
+	                </td>
+	            </tr>
+	        {% else %}
+	            <tr>
+	                <td colspan="4">no records found</td>
+	            </tr>
+	        {% endfor %}
+	        </tbody>
+	    </table> #}
 
-    <a href="{{ path('app_admin_notation_new') }}">Create new</a>
-{% endblock %}
+	<header class="header-star container-star">
+		<h1 class="h1-star">Notation avec des étoiles</h1>
+	</header>
+
+	<main class="main-star container-star">
+		<h3 class="h3-star">Cliquez sur une étoile pour donner une note</h3>
+		<div class="stars">
+			<i class="star stargrey fas fa-star" data-index="0"></i>
+			<i class="star stargrey fas fa-star" data-index="1"></i>
+			<i class="star stargrey fas fa-star" data-index="2"></i>
+			<i class="star stargrey fas fa-star" data-index="3"></i>
+			<i class="star stargrey fas fa-star" data-index="4"></i>
+            <i class="star stargrey fas fa-star" data-index="5"></i>
+            <i class="star stargrey fas fa-star" data-index="6"></i>
+            <i class="star stargrey fas fa-star" data-index="7"></i>
+            <i class="star stargrey fas fa-star" data-index="8"></i>
+            <i class="star stargrey fas fa-star" data-index="9"></i>
+		</div>
+
+
+		<footer class="footer-star container-star">
+			<p class="p-star">
+				Copyright ©2019
+			</p>
+		</footer>
+
+		<a href="{{ path('app_admin_notation_new') }}">Create new</a>
+	{% endblock %}

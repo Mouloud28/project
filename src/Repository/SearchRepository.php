@@ -3,8 +3,13 @@
 namespace App\Repository;
 
 use App\Entity\Search;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Repository\FilmRepository;
+use App\Repository\AlbumRepository;
+use App\Repository\LivreRepository;
+use App\Repository\SerieRepository;
+use App\Repository\ArtisteRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Search>
@@ -16,9 +21,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SearchRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $artisteRepository;
+    private $livreRepository;
+    private $filmRepository;
+    private $serieRepository;
+    private $albumRepository;
+
+    public function __construct(ManagerRegistry $registry, ArtisteRepository $artisteRepository,
+    LivreRepository $livreRepository,
+    FilmRepository $filmRepository,
+    SerieRepository $serieRepository,
+    AlbumRepository $albumRepository)
     {
         parent::__construct($registry, Search::class);
+        $this->artisteRepository = $artisteRepository;
+        $this->livreRepository = $livreRepository;
+        $this->filmRepository = $filmRepository;
+        $this->serieRepository = $serieRepository;
+        $this->albumRepository = $albumRepository;
     }
 
 //    /**

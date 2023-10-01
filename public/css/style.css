@@ -1,5 +1,20 @@
+* {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 100%;
+	min-height: 100%;
+	word-break: break-word;
+	word-wrap: break-word;
+}
+
 body{
     background-color: rgba(178, 196, 171);
+
+    margin: auto;
+	line-height: 1.2;
+	font-family: arial, sans-serif;
 }
 
 .input{
@@ -13,7 +28,6 @@ body{
 ::data-placeholder{
     font-family: inherit;
 }
-
 
 table{
     border-collapse: separate;
@@ -71,6 +85,38 @@ th, td{
 }
 
 .div-retour-liste-artistes{
+    background-color: rgba(44, 47, 62);
+    width: 225px;
+}
+
+/* Editeurs */
+
+#editeur_date_creation_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#editeur_date_creation_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#editeur_date_creation_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+.btn-ajouter-editeur{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    width: 1432px;
+}
+
+.h1-ajouter-editeur{
+    background-color: rgba(217, 217, 217);
+}
+
+.div-retour-liste-editeurs{
     background-color: rgba(44, 47, 62);
     width: 225px;
 }
@@ -380,6 +426,74 @@ th, td{
     width: 250px;
 }
 
+/* Notation */
 
+.h1-star{
+    text-align: center;
+    color: white;
+    font-weight: bold;
+}
 
+.img-star,
+.iframe-star,
+.video-star,
+.picture-star {
+	max-width: 100%;
+}
 
+.container-star {
+	max-width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.header-star {
+	height: 50px;
+	background-color: #263036;
+}
+
+.header-star .h1-star {
+	text-align: center;
+	margin: auto;
+	color: white;
+}
+
+.main-star {
+	background-color: snow;
+	padding: 50px 0 0;
+}
+
+.h3-star{
+	text-align: center;
+	color: lightslategray;
+}
+
+.stars {
+	margin: 50px;
+	text-align: center;
+}
+
+.stargrey {
+	color: #96969d;
+}
+
+.blue {
+	color: rgba(44, 47, 62);
+}
+
+.star:hover {
+	cursor: pointer;
+}
+
+.footer-star {
+	text-align: center;
+	background-color: #253036;
+	color: white;
+	font-size: 0.9rem;
+	height: 100px;
+}
+
+.footer-star .p-star {
+	margin: 0;
+	padding: 20px;
+}

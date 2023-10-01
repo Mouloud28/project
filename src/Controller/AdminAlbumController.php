@@ -3,21 +3,37 @@
 namespace App\Controller;
 
 use App\Entity\Album;
+use App\Entity\Search;
 use App\Form\AlbumType;
+use App\Form\SearchType;
 use App\Repository\AlbumRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/album')]
 class AdminAlbumController extends AbstractController
 {
     #[Route('/', name: 'app_admin_album_index', methods: ['GET'])]
-    public function index(AlbumRepository $albumRepository): Response
+    public function index(AlbumRepository $albumRepository, Request $request): Response
     {
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search);
+
+        $form -> handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $search->getPage($request -> query -> getInt('page', 1));
+            $albums = $albumRepository -> findBySearch($search);
+
+            return $this->render('admin_album/index.html.twig', [
+                'form' => $form->createView(),
+                'albums' => $albums
+            ]);
+        }
         return $this->render('admin_album/index.html.twig', [
+            'form' => $form -> createView(),
             'albums' => $albumRepository->findAll(),
         ]);
     }

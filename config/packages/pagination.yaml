@@ -1,0 +1,7 @@
+knp_paginator:
+    page_range: 5              # Nombre de pages affichées dans la pagination
+    default_options:
+        page_name: page        # Paramètre de requête qui spécifie le numéro de page
+        sort_field_name: sort  # Paramètre de requête qui spécifie le champ de tri
+        sort_direction_name: direction  # Paramètre de requête qui spécifie la direction de tri
+        distinct: true

@@ -8,28 +8,28 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+                <th class="rounded-row1">Id</th>
                 <th>Nom</th>
-                <th>Actions</th>
+                <th class="rounded-row2">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for genre in genres %}
             <tr>
-                <td>{{ genre.id }}</td>
+                <td class="rounded-row1">{{ genre.id }}</td>
                 <td>{{ genre.nom }}</td>
-                <td>
+                <td class="rounded-row2">
                     <a href="{{ path('app_admin_genre_show', {'id': genre.id}) }}">show</a>
                     <a href="{{ path('app_admin_genre_edit', {'id': genre.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="3">no records found</td>
+                <td colspan="3" class="rounded">Aucun résultat trouvé.</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_admin_genre_new') }}">Create new</a>
+    <a href="{{ path('app_admin_genre_new') }}">Ajouter</a>
 {% endblock %}

@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvel éditeur{% endblock %}
+{% block title %}Nouvel éditeur
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Editeur</h1>
+	<h1 class="h1-ajouter-editeur rounded text-center mx-5 my-3">Ajouter un éditeur</h1>
 
-    {{ include('admin_editeur/_form.html.twig') }}
+    <div class="div-retour-liste-editeurs mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_editeur_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des éditeurs</a>
+	</div>
 
-    <a href="{{ path('app_admin_editeur_index') }}">back to list</a>
+	{{ include('admin_editeur/_form.html.twig') }}
+
 {% endblock %}
