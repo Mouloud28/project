@@ -31,7 +31,6 @@ class Genre
     private Collection $album;
 
     #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'genres')]
-    #[ORM\JoinColumn(nullable: false)]
     private Collection $livres;
 
     public function __construct()

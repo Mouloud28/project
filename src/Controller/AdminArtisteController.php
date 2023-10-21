@@ -8,6 +8,7 @@ use App\Form\SearchType;
 use App\Form\ArtisteType;
 use App\Repository\ArtisteRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminArtisteController extends AbstractController
 {
     #[Route('/', name: 'app_admin_artiste_index', methods: ['GET'])]
-    public function index(ArtisteRepository $artisteRepository, Request $request): Response
+    public function index(ArtisteRepository $artisteRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -25,17 +26,29 @@ class AdminArtisteController extends AbstractController
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $search->getPage($request -> query -> getInt('page', 1));
-            $artistes = $artisteRepository -> findBySearch($search);
 
+            $pagination = $paginator->paginate(
+                $artisteRepository -> findBySearch($search), /* query NOT result */
+                $request->query->getInt('artiste', 1), /*page number*/
+                10,  /*limit per page*/
+                ["pageParameterName" => "artiste"]
+            );
             return $this->render('admin_artiste/index.html.twig', [
                 'form' => $form->createView(),
-                'artistes' => $artistes
+                'artistes' => $pagination
             ]);
         }
 
+        $pagination = $paginator->paginate(
+            $artisteRepository -> findAll(), /* query NOT result */
+            $request->query->getInt('artiste', 1), /*page number*/
+            10,  /*limit per page*/
+            ["pageParameterName" => "artiste"]
+        );
+
         return $this->render('admin_artiste/index.html.twig', [
             'form' => $form -> createView(),
-            'artistes' => $artisteRepository->findAll(),
+            'artistes' => $pagination
         ]);
     }
 

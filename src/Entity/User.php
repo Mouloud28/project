@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Un compte est déjà associé à cet email.')]
 #[Vich\Uploadable]
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -35,16 +35,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $pseudo = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $avatar = null;
 
     #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'avatar')]
     private ?File $imageFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $couverture = null;
 
     #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'couverture')]
@@ -148,7 +148,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->pseudo;
     }
 
-    public function setPseudo(string $pseudo): static
+    public function setPseudo(string $pseudo = null): static
     {
         $this->pseudo = $pseudo;
 
@@ -160,7 +160,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): static
+    public function setAvatar(string $avatar = null): static
     {
         $this->avatar = $avatar;
 
@@ -197,7 +197,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->couverture;
     }
 
-    public function setCouverture(string $couverture): static
+    public function setCouverture(string $couverture = null): static
     {
         $this->couverture = $couverture;
 

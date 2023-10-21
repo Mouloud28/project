@@ -118,6 +118,11 @@ class Livre
         return $this->id;
     }
 
+    public function __toString()
+    {
+        return $this->titre_francais;
+    }
+
     public function getTitreFrancais(): ?string
     {
         return $this->titre_francais;

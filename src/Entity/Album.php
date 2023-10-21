@@ -61,7 +61,7 @@ class Album
     private Collection $article;
 
     #[ORM\ManyToOne(inversedBy: 'album')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToOne(inversedBy: 'album')]
@@ -98,6 +98,11 @@ class Album
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->titre_francais;
     }
 
     public function getTitreFrancais(): ?string

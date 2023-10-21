@@ -6,10 +6,11 @@ use App\Entity\Notation;
 use App\Form\NotationType;
 use App\Repository\NotationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin/notation')]
 class AdminNotationController extends AbstractController
@@ -78,4 +79,21 @@ class AdminNotationController extends AbstractController
 
         return $this->redirectToRoute('app_admin_notation_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    public function rateAction(Request $request)
+{
+    $note = $request->request->get('note');
+    $livreId = $request->request->get('livre_id'); // ID de l'élément noté (par exemple, un livre)
+    $filmId = $request->request->get('film_id'); // ID de l'élément noté (par exemple, un film)
+    $serieId = $request->request->get('serie_id'); // ID de l'élément noté (par exemple, une série)
+    $albumId = $request->request->get('album_id'); // ID de l'élément noté (par exemple, un album)
+
+    // Enregistrez la notation en base de données, en associant l'utilisateur actuel
+    // et l'élément noté (book, movie, etc.)
+    // ...
+
+    // Réponse JSON pour confirmer la notation
+    return new JsonResponse(['success' => true]);
+}
+
 }

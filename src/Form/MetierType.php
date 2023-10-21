@@ -16,7 +16,7 @@ class MetierType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                'label' => 'Artiste(s)',
+                'label' => 'Métier',
                 'attr' => [
                     'class' => 'input',
                     'placeholder' => 'Renseignez un métier.'

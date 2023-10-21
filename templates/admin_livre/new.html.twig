@@ -1,12 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau livre{% endblock %}
+{% block title %}Nouveau livre
+{% endblock %}
 
 {% block body %}
-    
-    <div class="h1-ajouter-livre rounded text-center mx-5 my-3"><h1>Ajouter un livre</h1></div>
 
-    <div class="div-retour-liste-livres mx-5 my-3 rounded text-center"><a href="{{ path('app_admin_livre_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des livres</a></div>
+	<div class="h1-ajouter-livre rounded text-center mx-5 my-3">
+		<h1>Ajouter un livre</h1>
+	</div>
 
-    {{ include('admin_livre/_form.html.twig') }}
+	<div class="div-retour-liste-livres mx-5 my-3 rounded text-center">
+		<a href="{{ path('app_admin_livre_index') }}" class="text-decoration-none text-white fw-bold">Retour à la liste des livres</a>
+	</div>
+
+	{{ include('admin_livre/_form.html.twig') }}
 {% endblock %}

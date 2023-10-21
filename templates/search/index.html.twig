@@ -1,37 +1,468 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Search index{% endblock %}
+{% block title %}Search index
+{% endblock %}
 
 {% block body %}
-    <h1>Search index</h1>
+<div class="h1-résultats-search h1-search">
+	<h1>Résultats de la recherche :</h1>
+</div>
 
-{{ include('search/_form.html.twig') }}
+{# <ul class="nav nav-tabs">
+																																										<li class="nav-item">
+																																										    <a class="nav-link active" aria-current="page" href="#">Active</a>
+																																										</li>
+																																										<li class="nav-item">
+																																										    <a class="nav-link" href="#">Link</a>
+																																										</li>
+																																										<li class="nav-item">
+																																										    <a class="nav-link" href="#">Link</a>
+																																										</li>
+																																										<li class="nav-item">
+																																										    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+																																										</li>
+																																										</ul> #}
 
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Search</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for search in searches %}
-            <tr>
-                <td>{{ search.id }}</td>
-                <td>{{ search.search }}</td>
-                <td>
-                    <a href="{{ path('app_search_show', {'id': search.id}) }}">show</a>
-                    <a href="{{ path('app_search_edit', {'id': search.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_search_new') }}">Create new</a> #}
-{% endblock %}
+{% block content %}
+	<div class="search-artiste">
+		{% if artistes | length > 0 %}
+			<div class="h3-search-artiste">
+				<h3>Artistes</h3>
+			</div>
+			<ul>
+				{% for artiste in artistes %}
+					<div class="ul-search-artiste">
+						<div class="search-artiste-item1">
+							<div>
+								<a href="{{ path('app_admin_artiste_show', {'id': artiste.id}) }}" class="a-artiste-nom">
+									<li><img class="search-artiste-photo" src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="Couverture du livre"></li>
+								</a>
+							</div>
+						</div>
+						<div class="search-artiste-item2">
+							<div>
+								<a href="{{ path('app_admin_artiste_show', {'id': artiste.id}) }}" class="a-artiste-nom">
+									<li class="search-artiste-nom">
+										<i>
+											<b>Nom :</b>
+											{{ artiste.nom }}
+										</i>
+									</li>
+								</a>
+							</div>
+							<div>
+								<li class="search-artiste-date-naissance">
+									<b>Date de naissance :</b>
+									<b>Sortie :</b>
+									{{ artiste.dateNaissance ? artiste.dateNaissance|date('Y-m-d') : '' }}
+								</li>
+							</div>
+							<div>
+								<li class="search-artiste-activite">
+									<b>Activité(s) :</b>
+									{% for metiers in artiste.metiers %}
+										{{ metiers.nom }}
+									{% endfor %}
+								</li>
+							</div>
+							<div>
+								<li class="search-artiste-ville">
+									<b>Ville d'origine :</b>
+									{{artiste.ville.nom}}
+								</li>
+							</div>
+							<div>
+								<li class="search-artiste-pays">
+									<b>Pays d'origine :</b>
+									{{ artiste.paysOrigine }}</li>
+							</div>
+						</div>
+						<div class="search-artiste-item3">
+							<li class="search-artiste-oeuvres">
+								<div class="search-artiste-oeuvres-container">
+									<div class="search-artiste-oeuvres-livres">
+										{% if livres | length > 0 %}
+											<div>
+												{% if artiste.auteursLivres|join(",") is not empty %}
+													<p>Livres</p>
+													<p>Auteur :
+														{% for livre in artiste.auteursLivres %}
+															{{ livre.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.traducteursLivres|join(",") is not empty %}
+													<p>Livres</p>
+													<p>Traducteur :
+														{% for livre in artiste.traducteursLivres %}
+															{{ livre.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="search-artiste-oeuvres-films">
+										{% if films | length > 0 %}
+											<div>
+												{% if artiste.realisateursFilms|join(",") is not empty %}
+													<p>Films</p>
+													<p>Réalisateur :
+														{% for film in artiste.realisateursFilms %}
+															{{ film.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.scenaristesFilms|join(",") is not empty %}
+													<p>Films</p>
+													<p>Scénariste :
+														{% for film in artiste.scenaristesFilms %}
+															{{ film.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.producteursFilms|join(",") is not empty %}
+													<p>Films</p>
+													<p>Producteur :
+														{% for film in artiste.producteursFilms %}
+															{{ film.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+
+											<div>
+												{% if artiste.castingFilm|join(",") is not empty %}
+													<p>Films</p>
+													<p>Acting :
+														{% for film in artiste.castingFilm %}
+															{{ film.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+
+											<div>
+												{% if artiste.compositeursFilms|join(",") is not empty %}
+													<p>Films</p>
+													<p>Compositeur :
+														{% for film in artiste.compositeursFilms %}
+															{{ film.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+										{% endif %}
+									</div>
+
+									<div class="search-artiste-oeuvres-series">
+										{% if series | length > 0 %}
+											<div>
+												{% if artiste.createursSeries|join(",") is not empty %}
+													<p>Séries</p>
+													<p>Créateur :
+														{% for serie in artiste.createursSeries %}
+															{{ serie.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.scenaristesSeries|join(",") is not empty %}
+													<p>Séries</p>
+													<p>Scénariste :
+														{% for serie in artiste.scenaristesSeries %}
+															{{ serie.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.producteursSeries|join(",") is not empty %}
+													<p>Séries</p>
+													<p>Producteur :
+														{% for serie in artiste.producteursSeries %}
+															{{ serie.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.castingSerie|join(",") is not empty %}
+													<p>Séries</p>
+													<p>Acting :
+														{% for serie in artiste.castingSerie %}
+															{{ serie.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.compositeursSeries|join(",") is not empty %}
+													<p>Séries</p>
+													<p>Compositeur :
+														{% for serie in artiste.compositeursSeries %}
+															{{ serie.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+										{% endif %}
+									</div>
+									<div class="search-artiste-oeuvres-albums">
+										{% if albums | length > 0 %}
+											<div>
+												{% if artiste.compositeursAlbums|join(",") is not empty %}
+													<p>Albums</p>
+													<p>Compositeur :
+														{% for album in artiste.compositeursAlbums %}
+															{{ album.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+											<div>
+												{% if artiste.compositeursAlbums|join(",") is not empty %}
+													<p>Albums</p>
+													<p>Producteur :
+														{% for album in artiste.producteursAlbums %}
+															{{ album.titreFrancais }}
+														{% endfor %}
+													</p>
+												{% endif %}
+											</div>
+										{% endif %}
+									</div>
+								</div>
+							</li>
+						</li>
+					</div>
+				</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>
+
+<div class="search-livre">
+	{% if livres | length > 0 %}
+		<div class="h3-search-livre">
+			<h3>Livres</h3>
+		</div>
+		<ul>
+			{% for livre in livres %}
+				<div class="ul-search-livre">
+					<div class="search-livre-item1">
+						<div>
+							<a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}" class="a-livre-titre">
+								<li><img class="search-livre-couverture" src="{{ vich_uploader_asset(livre, 'imageFile') }}" alt="Couverture du livre"></li>
+							</a>
+						</div>
+					</div>
+					<div class="search-livre-item2">
+						<div>
+							<a href="{{ path('app_admin_livre_show', {'id': livre.id}) }}" class="a-livre-titre">
+								<li class="search-livre-titre">
+									<i>
+										<b>Titre français :</b>
+										{{ livre.titreFrancais }}
+									</i>
+								</li>
+							</a>
+						</div>
+						<div>
+							<li class="search-livre-auteur">
+								<b>Auteur(s) :</b>
+								{% for artiste in livre.auteur %}
+									{{ artiste.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-livre-genre">
+								<b>Genre(s) :</b>
+								{% for Genre in livre.Genres %}
+									{{ Genre.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-livre-editeur">
+								<b>Editeur(s) :</b>
+								{% for EditeurFrance in livre.EditeurFrance %}
+									{{ EditeurFrance.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-livre-date">
+								<b>Parution :</b>
+								{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</li>
+						</div>
+					</div>
+					<div class="search-livre-item3">
+						<li class="search-livre-synopsis">
+							<p>
+								<b>Synposis :</b>
+							</p>
+							{{ livre.synopsis }}</li>
+					</div>
+				</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>
+
+<div class="search-film">
+	{% if films | length > 0 %}
+		<div class="h3-search-film">
+			<h3>Films</h3>
+		</div>
+		<ul>
+			{% for film in films %}
+				<div class="ul-search-film">
+					<div class="search-film-item1">
+						<div>
+							<a href="{{ path('app_admin_film_show', {'id': film.id}) }}" class="a-film-titre">
+								<li><img class="search-film-affiche" src="{{ vich_uploader_asset(film, 'imageFile') }}" alt="Affiche du film"></li>
+							</a>
+						</div>
+					</div>
+					<div class="search-film-item2">
+						<div>
+							<a href="{{ path('app_admin_film_show', {'id': film.id}) }}" class="a-film-titre">
+								<li class="search-film-titre">
+									<i>
+										<b>Titre français :</b>
+										{{ film.titreFrancais }}
+									</i>
+								</li>
+							</a>
+						</div>
+						<div>
+							<li class="search-film-realisateur">
+								<b>Réalisateur(s) :</b>
+								{% for artiste in film.realisateur %}
+									{{ artiste.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-film-genre">
+								<b>Genre(s) :</b>
+								{% for Genre in film.Genres %}
+									{{ Genre.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-film-duree">
+								<b>Durée</b>
+								{{ film.duree ? film.duree|date('H:i:s') : '' }}
+							</li>
+						</div>
+						<div>
+							<li class="search-film-date">
+								<b>Sortie :</b>
+								{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</li>
+						</div>
+					</div>
+					<div class="search-film-item3">
+						<li class="search-film-synopsis">
+							<p>
+								<b>Synposis :</b>
+							</p>
+							{{ film.synopsis }}</li>
+					</div>
+				</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>
+
+<div class="search-serie">
+	{% if series | length > 0 %}
+		<div class="h3-search-serie">
+			<h3>Séries</h3>
+		</div>
+		<ul>
+			{% for serie in series %}
+				<div class="ul-search-serie">
+					<div class="search-serie-item1">
+						<div>
+							<a href="{{ path('app_admin_serie_show', {'id': serie.id}) }}" class="a-serie-titre">
+								<li><img class="search-serie-affiche" src="{{ vich_uploader_asset(serie, 'imageFile') }}" alt="Affiche du film"></li>
+							</a>
+						</div>
+					</div>
+					<div class="search-serie-item2">
+						<div>
+							<a href="{{ path('app_admin_serie_show', {'id': serie.id}) }}" class="a-serie-titre">
+								<li class="search-serie-titre">
+									<i>
+										<b>Titre français :</b>
+										{{ serie.titreFrancais }}
+									</i>
+								</li>
+							</a>
+						</div>
+						<div>
+							<li class="search-serie-createur">
+								<b>Réalisateur(s) :</b>
+								{% for artiste in serie.createur %}
+									{{ artiste.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-serie-genre">
+								<b>Genre(s) :</b>
+								{% for Genre in serie.Genres %}
+									{{ Genre.nom }}
+								{% endfor %}
+							</li>
+						</div>
+						<div>
+							<li class="search-serie-duree">
+								<b>Durée</b>
+								{{ serie.duree ? serie.duree|date('H:i:s') : '' }}
+							</li>
+						</div>
+						<div>
+							<li class="search-serie-date">
+								<b>Sortie :</b>
+								{{ serie.dateDiffusionFrance ? serie.dateDiffusionFrance|date('Y-m-d') : '' }}</li>
+						</div>
+					</div>
+					<div class="search-serie-item3">
+						<li class="search-serie-synopsis">
+							<p>
+								<b>Synposis :</b>
+							</p>
+							{{ serie.synopsis }}</li>
+					</div>
+				</div>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>
+
+{% if albums | length > 0 %}
+	<h3>Albums</h3>
+	<ul>
+		{% for album in albums %}
+			<li>
+				<a href="{{ path('app_admin_album_show', {'id': album.id}) }}">
+					{{ album.titreFrancais }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endif %}
+{% endblock %}{% endblock %}

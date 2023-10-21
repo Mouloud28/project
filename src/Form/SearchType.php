@@ -15,8 +15,10 @@ class SearchType extends AbstractType
         $builder
             ->add('search', TextType::class, [
                     'attr' => [
-                        'placeholder' => 'Recherche via un mot clé...'
-                    ]
+                        'placeholder' => 'Recherche via un mot clé...',
+                        'class' => 'custom-placeholder'
+                    ],
+                    'row_attr' => ['class' => 'mx-5 my-3'],
                 ]);
     }
 

@@ -1,3 +1,5 @@
+/* Global */
+
 * {
 	box-sizing: border-box;
 }
@@ -11,18 +13,76 @@ html {
 
 body{
     background-color: rgba(178, 196, 171);
-
     margin: auto;
 	line-height: 1.2;
 	font-family: arial, sans-serif;
 }
 
-.input{
-    background-color: rgba(217, 217, 217);
+.flex-container-navbar{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 1400px;
+    max-width: 1400px;
 }
 
-::placeholder{
-    font-family: inherit;
+.flex-navbar1{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    align-self: flex-end;
+    width: 100px;
+    border-radius: 50px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+
+.flex-navbar2{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    align-self: flex-end;
+    width: 100px;
+    border-radius: 50px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 20px;
+    margin-top: 100px;
+}
+
+.flex-navbar3{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    align-self: flex-end;
+    width: 100px;
+    border-radius: 50px;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+
+.flex-item-navbar1{
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.flex-item-navbar2{
+    font-weight: bold;
+    background-color: rgba(44, 47, 62);
+    color: white;
+    text-decoration: none;
+}
+
+.flex-item-navbar3{
+    font-weight: bold;
+    background-color: rgba(44, 47, 62);
+    color: white;
+    text-decoration: none;
+}
+
+.input{
+    background-color: rgba(217, 217, 217);
 }
 
 ::data-placeholder{
@@ -57,6 +117,915 @@ th, td{
     height : 35px !important;
 }
 
+.ajouter{
+    background-color: rgba(44, 47, 62);
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    color: white;
+
+}
+
+.supprimer{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    border: none;
+}
+
+.fiche-modifier-supprimer{
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-fiche-modifier-supprimer{
+    background-color: rgba(44, 47, 62);
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    margin: auto;
+    color: white;
+}
+
+.item-h1-livres-fontawsome1{
+    margin-top: 5px;
+    margin-left: 400px;
+}
+
+.item-h1-livres-fontawsome2{
+    margin-top: 5px;
+    margin-right: 400px;
+}
+
+.item-h1-films-fontawsome1{
+    margin-top: 5px;
+    margin-left: 400px;
+}
+
+.item-h1-films-fontawsome2{
+    margin-top: 5px;
+    margin-right: 400px;
+}
+
+.item-h1-series-fontawsome1{
+    margin-top: 5px;
+    margin-left: 350px;
+}
+
+.item-h1-series-fontawsome2{
+    margin-top: 5px;
+    margin-right: 350px;
+}
+
+.item-h1-albums-fontawsome1{
+    margin-top: 5px;
+    margin-left: 350px;
+}
+
+.item-h1-albums-fontawsome2{
+    margin-top: 5px;
+    margin-right: 350px;
+}
+
+/* Connexion */
+
+.connexion-page{
+    background-color: rgba(217, 217, 217);
+    width: 500px;
+    height: 450px;
+    border-radius: 20px;
+    margin: auto;
+}
+
+.connexion{
+    width: 350px;
+    margin: auto;
+}
+
+#inputEmail{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#inputEmail::placeholder{
+    color: white;
+    font-weight: bold;
+}
+
+#inputPassword{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+#inputPassword::placeholder{
+    color: white;
+    font-weight: bold;
+}
+
+.h1-connexion{
+    text-align: center;
+    margin: auto;
+    justify-content: center;
+}
+
+.h4-connexion{
+    text-align: center;
+    padding-top: 30px;
+    font-weight: bold;
+}
+
+.btn-connexion{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    width: 350px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.btn-inscription{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    width: 350px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.a-inscription{
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+/* Inscription */
+
+.inscription-page{
+    background-color: rgba(217, 217, 217);
+    width: 500px;
+    height: 450px;
+    border-radius: 20px;
+    margin: auto;
+}
+
+.inscription{
+    width: 350px;
+    margin: auto;
+}
+
+.classEmail{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.classEmail::placeholder{
+    color: white;
+    font-weight: bold;
+}
+
+.classPassword{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.classPassword::placeholder{
+    color: white;
+    font-weight: bold;
+}
+
+.h4-inscription{
+    text-align: center;
+    padding-top: 30px;
+    font-weight: bold;   
+}
+
+.btn-inscription{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    width: 350px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.agreeTerms{
+    font-weight: bold;
+}
+
+/* Admin */
+
+.a-admin{
+    text-decoration: none;
+}
+
+.h1-admin1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+    margin: 0 auto;
+}
+
+.h1-admin2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.h1-admin1-item1{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius : 20px;
+    width: 600px;
+    height: 300px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1-admin1-item2{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius : 20px;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1-admin2-item1{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius : 20px;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1-admin2-item2{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius : 20px;
+    width: 600px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.h1-admin3{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border: 2px solid black;
+    border-radius : 20px;
+    width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Accueil */
+
+.a-accueil{
+    text-decoration: none;
+    color: white;
+}
+
+.h1-accueil{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 1400px;
+    margin: 0 auto;
+    padding-top: 10px;
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+.carousel-container1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    vertical-align: middle;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    width: 1400px;
+}
+
+.carousel-container2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    vertical-align: middle;
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 1400px;
+}
+
+.carousel-main-item{
+    border: 2px solid black;
+    border-radius: 20px;
+}
+
+.carousel-img-width{
+    width: 250px;
+    height: 340px;
+}
+
+.h3-accueil{
+    background-color: rgba(217, 217, 217);
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 1400px;
+}
+
+.h4-titres-accueil{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 20px;
+    margin: auto;
+    width: 1400px;
+}
+
+.h4-livres-accueil{
+    width: 250px;
+}
+
+.h4-films-accueil{
+    width: 250px;
+}
+
+.h4-series-accueil{
+    width: 250px;
+}
+
+.h4-albums-accueil{
+    width: 250px;
+}
+
+/* Search */
+
+.btn-svg{
+    background-color: rgba(217, 217, 217);
+}
+
+#search_search{
+    background-color: rgba(44, 47, 62);
+    color: white;
+    font-weight: bold;
+}
+
+.search-global{
+    margin-right : 100px;
+    margin-top : 100px;
+}
+
+.search-bar{
+    width: 600px;
+}
+
+.search{
+    width: 300px;
+    margin-bottom: 100px;
+}
+
+.custom-placeholder::placeholder{
+    font-family: inherit;
+    font-weight: bold;
+    color: white;
+}
+
+.h1-résultats-search{
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+    margin: auto;
+    flex-direction: column;
+}
+
+/* Search pour les livres */
+
+.search-livre{
+    margin-top: 100px;
+}
+
+.ul-search-livre{
+    margin-top: 100px;
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+}
+
+.ul-search-livre li{
+    list-style-type: none;
+}
+
+.h3-search-livre{
+    background-color: rgba(217, 217, 217);
+    padding-top: 10px;
+    width: 1400px;
+    margin-left: 60px;
+    border-radius: 10px;
+    border: 2px black solid;
+    text-align: center;
+}
+
+.search-livre-item1{
+    border-radius: 20px;
+    width: 150px;
+}
+
+.search-livre-item2{
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-livre-item3{
+    width: 60%;
+    text-align: justify;
+}
+
+.a-livre-titre{
+    color: black;
+    text-decoration: none;
+}
+
+.search-livre-couverture{
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 150px;
+    height: 250px;
+}
+
+.search-livre-titre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-livre-auteur{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-livre-genre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-livre-editeur{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-livre-date{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-livre-synopsis{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 250px;
+}
+
+/* Search pour les films */
+
+.search-film{
+    margin-top : 100px;
+}
+
+.ul-search-film{
+    margin-top: 100px;
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+}
+
+.ul-search-film li{
+    list-style-type: none;
+}
+
+.h3-search-film{
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    padding-top: 10px;
+    margin-left: 60px;
+    border-radius: 10px;
+    border: 2px black solid;
+    text-align: center;
+}
+
+.search-film-item1{
+    border-radius: 20px;
+    width: 150px;
+}
+
+.search-film-item2{
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-film-item3{
+    width: 60%;
+    text-align: justify;
+}
+
+.a-film-titre{
+    color: black;
+    text-decoration: none;
+}
+
+.search-film-affiche{
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 150px;
+    height: 250px;
+}
+
+.search-film-titre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-film-realisateur{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-film-genre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-film-duree{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-film-date{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-film-synopsis{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 250px;
+}
+
+/* Search pour les séries */
+
+.search-serie{
+    margin-top : 100px;
+}
+
+.ul-search-serie{
+    margin-top: 100px;
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+}
+
+.ul-search-serie li{
+    list-style-type: none;
+}
+
+.h3-search-serie{
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    padding-top: 10px;
+    margin-left: 60px;
+    border-radius: 10px;
+    border: 2px black solid;
+    text-align: center;
+}
+
+.search-serie-item1{
+    border-radius: 20px;
+    width: 150px;
+}
+
+.search-serie-item2{
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-serie-item3{
+    width: 60%;
+    text-align: justify;
+}
+
+.a-serie-titre{
+    color: black;
+    text-decoration: none;
+}
+
+.search-serie-affiche{
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 150px;
+    height: 250px;
+}
+
+.search-serie-titre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-serie-createur{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-serie-genre{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-serie-duree{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-serie-date{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-serie-synopsis{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 250px;
+}
+
+/* Search pour les albums */
+
+/* Search pour les artistes */
+
+.search-artiste{
+    margin-top : 100px;
+}
+
+.ul-search-artiste{
+    margin-top: 100px;
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 1400px;
+}
+
+.ul-search-artiste li{
+    list-style-type: none;
+}
+
+.h3-search-artiste{
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    padding-top: 10px;
+    margin-left: 60px;
+    border-radius: 10px;
+    border: 2px black solid;
+    text-align: center;
+}
+
+.search-artiste-item1{
+    border-radius: 20px;
+    width: 150px;
+}
+
+.search-artiste-item2{
+    width: 20%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-artiste-item3{
+    width: 60%;
+    text-align: justify;
+}
+
+.a-artiste-nom{
+    color: black;
+    text-decoration: none;
+}
+
+.search-artiste-photo{
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 150px;
+    height: 250px;
+}
+
+.search-artiste-nom{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-artiste-date-naissance{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-artiste-activite{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-artiste-ville{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-artiste-pays{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.search-artiste-oeuvres{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 250px;
+}
+
+.search-artiste-oeuvres-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
 /* Artistes */
 
 #artiste_date_naissance_day {
@@ -72,6 +1041,32 @@ th, td{
 #artiste_date_naissance_year {
     background-color: rgba(217, 217, 217);
     border-radius: 5px;
+}
+
+.span-artistes{
+    font-weight: bold;
+}
+
+.flex-container-artistes{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.flex-item-artiste1{
+    margin-left: 60px;
+    margin-top: 25px;
+}
+
+.flex-item-artiste2{
+    margin-right: 55px;
+    margin-top: 20px;
+}
+
+.h1-artistes{
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    margin-left: 58px;
 }
 
 .btn-ajouter-artiste{
@@ -153,6 +1148,38 @@ th, td{
     border-radius: 5px;
 }
 
+.span-livres{
+    font-weight: bold;
+}
+
+.flex-container-livres1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    max-width: 1400px;
+}
+
+.flex-container-livres2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+}
+
+.h1-livres{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    margin-left: 58px;
+}
+
 .btn-ajouter-livre{
     background-color: rgba(44, 47, 62);
     color: white;
@@ -213,6 +1240,48 @@ th, td{
 #film_date_sortie_pays_origine_year {
     background-color: rgba(217, 217, 217);
     border-radius: 5px;
+}
+
+.span-films{
+    font-weight: bold;
+}
+
+.flex-container-films1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    max-width: 1400px;
+}
+
+.flex-container-films2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+}
+
+/* .flex-item-film1{
+    margin-left: 65px;
+    margin-top: 25px;
+}
+
+.flex-item-film2{
+    margin-right: 65px;
+    margin-top: 20px;
+} */
+
+.h1-films{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    margin-left: 65px;
 }
 
 .btn-ajouter-film{
@@ -281,6 +1350,48 @@ th, td{
     border-radius: 5px;
 }
 
+.span-series{
+    font-weight: bold;
+}
+
+.flex-container-series1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    max-width: 1400px;
+}
+
+.flex-container-series2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+}
+
+/* .flex-item-serie1{
+    margin-left: 65px;
+    margin-top: 25px;
+}
+
+.flex-item-serie2{
+    margin-right: 65px;
+    margin-top: 20px;
+} */
+
+.h1-series{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    margin-left: 65px;
+}
+
 .btn-ajouter-serie{
     background-color: rgba(44, 47, 62);
     color: white;
@@ -341,6 +1452,48 @@ th, td{
 #album_date_sortie_pays_origine_year {
     background-color: rgba(217, 217, 217);
     border-radius: 5px;
+}
+
+.span-albums{
+    font-weight: bold;
+}
+
+.flex-container-albums1{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    max-width: 1400px;
+}
+
+.flex-container-albums2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1400px;
+}
+
+.flex-item-album1{
+    margin-left: 65px;
+    margin-top: 25px;
+}
+
+.flex-item-album2{
+    margin-right: 65px;
+    margin-top: 20px;
+}
+
+.h1-albums{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgba(217, 217, 217);
+    width: 1400px;
+    margin-left: 65px;
 }
 
 .btn-ajouter-album{
@@ -496,4 +1649,40 @@ th, td{
 .footer-star .p-star {
 	margin: 0;
 	padding: 20px;
+}
+
+.total_votes {
+    background: #eaeaea;
+    top: 58px;
+    left: 0;
+    padding: 5px;
+    position:   absolute;  
+} 
+.movie_choice {
+    font: 10px verdana, sans-serif;
+    margin: 0 auto 40px auto;
+    width: 180px;
+}
+
+.stars {
+    border:     1px solid #CCC;
+    overflow:   visible;
+    padding:    10px;
+    position:   relative;
+    width:      180px;
+    height:     32px;
+}
+
+.ratings_stars {
+    background: no-repeat;
+    float:      left;
+    height:     28px;
+    padding:    2px;
+    width:      32px;
+}
+.ratings_vote {
+    background: no-repeat;
+}
+.ratings_over {
+    background: no-repeat;
 }

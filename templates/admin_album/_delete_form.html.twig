@@ -1,4 +1,6 @@
-<form method="post" action="{{ path('app_admin_album_delete', {'id': album.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ album.id) }}">
-    <button class="btn">Delete</button>
-</form>
+<div class="fiche-modifier-supprimer my-2 rounded text-center">
+	<form method="post" action="{{ path('app_admin_album_delete', {'id': album.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+		<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ album.id) }}">
+		<button class="btn-fiche-modifier-supprimer rounded text-center text-white fw-bold">Supprimer</button>
+	</form>
+</div>

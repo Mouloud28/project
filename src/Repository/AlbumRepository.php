@@ -56,34 +56,16 @@ class AlbumRepository extends ServiceEntityRepository
 
     public function findBySearch(Search $search)
     {
-        $results = []; // Initialisation de la variable $results comme un tableau vide
-
         $queryBuilder = $this->createQueryBuilder('al')
             ->where('al.titre_francais LIKE :titre_francais')
             ->setParameter('titre_francais', "%{$search->getSearch()}%")
+
+            ->join("al.compositeur", "c")
+            ->orWhere("c.nom LIKE :nom_compositeur")
+            ->setParameter('nom_compositeur', "%{$search->getSearch()}%")
+
             ->addOrderBy('al.updatedAt', 'DESC');
 
-        if (!empty($search->getSearch())) {
-            $queryBuilder
-                ->andWhere('al.titre_francais LIKE :search')
-                ->setParameter('search', "%{$search->getSearch()}%");
-        }
-
-        $query = $queryBuilder->getQuery();
-
-        // Utilisation de la variable locale $results pour stocker les résultats
-        $results = $query->getResult();
-
-        // Pagination
-        $page = $search->getPage();
-        $perPage = 10; // Nombre d'éléments par page
-
-        // Calcul de l'offset
-        $offset = ($page - 1) * $perPage;
-
-        // Extraction des résultats pour la page actuelle
-        $paginatedResults = array_slice($results, $offset, $perPage);
-
-        return $paginatedResults;
+        return $queryBuilder -> getQuery() -> getResult();
     }
 }

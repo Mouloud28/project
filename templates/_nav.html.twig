@@ -1,0 +1,30 @@
+<div class="flex-container-navbar">
+
+	<div><a href="{{ path('app_front') }}"><img src="{{ asset('images/Logo/Logo1.png')}}" alt="Logo"></a></div>
+
+	<div>
+		<div class="search-global">{{ render(controller('App\\Controller\\SearchController::renderSearchForm' )) }}</div>
+	</div>
+
+	<div>
+
+		{% if app.user %}
+			{# connecté #}
+			<div class="flex-navbar1">
+				<a class="flex-item-navbar1" href="{{ path('app_logout') }}">Déconnexion</a>
+			</div>
+
+		{% else %}
+			{# non connecté #}
+
+			<div class="flex-navbar2">
+				<a class="flex-item-navbar3" href="{{ path('app_login') }}">Connexion</a>
+			</div>
+
+			<div class="flex-navbar3">
+				<a class="flex-item-navbar2" href="{{ path('app_register') }}">Inscription</a>
+			</div>
+		{% endif %}
+	</div>
+
+</div>

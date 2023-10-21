@@ -67,7 +67,7 @@ class Serie
     private Collection $article;
 
     #[ORM\ManyToOne(inversedBy: 'serie')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Categorie $categorie = null;
 
     #[ORM\ManyToOne(inversedBy: 'serie')]
@@ -123,6 +123,11 @@ class Serie
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->titre_francais;
     }
 
     public function getTitreFrancais(): ?string

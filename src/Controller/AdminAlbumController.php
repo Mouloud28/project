@@ -8,6 +8,7 @@ use App\Form\AlbumType;
 use App\Form\SearchType;
 use App\Repository\AlbumRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminAlbumController extends AbstractController
 {
     #[Route('/', name: 'app_admin_album_index', methods: ['GET'])]
-    public function index(AlbumRepository $albumRepository, Request $request): Response
+    public function index(AlbumRepository $albumRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -25,16 +26,30 @@ class AdminAlbumController extends AbstractController
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $search->getPage($request -> query -> getInt('page', 1));
-            $albums = $albumRepository -> findBySearch($search);
+
+            $pagination = $paginator->paginate(
+                $albumRepository -> findBySearch($search), /* query NOT result */
+                $request->query->getInt('album', 1), /*page number*/
+                10,  /*limit per page*/
+                ["pageParameterName" => "album"]
+            );
 
             return $this->render('admin_album/index.html.twig', [
                 'form' => $form->createView(),
-                'albums' => $albums
+                'albums' => $pagination
             ]);
         }
+
+        $pagination = $paginator->paginate(
+            $albumRepository -> findAll(), /* query NOT result */
+            $request->query->getInt('album', 1), /*page number*/
+            10,  /*limit per page*/
+            ["pageParameterName" => "album"]
+        );
+
         return $this->render('admin_album/index.html.twig', [
-            'form' => $form -> createView(),
-            'albums' => $albumRepository->findAll(),
+            'form' => $form->createView(),
+            'albums' => $pagination
         ]);
     }
 

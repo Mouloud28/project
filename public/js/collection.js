@@ -135,3 +135,35 @@ function onStarClick(event) {
 		etoile.removeClass('stargrey');
 	}
 }
+
+$('.ratings_stars').hover(
+  // Handles the mouseover
+  function() {
+      $(this).prevAll().andSelf().addClass('ratings_over');
+      $(this).nextAll().removeClass('ratings_vote'); 
+  },
+  // Handles the mouseout
+  function() {
+      $(this).prevAll().andSelf().removeClass('ratings_over');
+      set_votes($(this).parent());
+  }
+);
+
+$('.stars').each(function(i) {
+  var widget = this;
+  var out_data = {
+      widget_id : $(widget).attr('id'),
+      fetch: 1
+  };
+  $.post(
+      'ratings.php',
+      out_data,
+      function(INFO) {
+          $(widget).data( 'fsr', INFO );
+          set_votes(widget);
+      },
+      'json'
+  );
+});
+
+// $('#one_of_your_widgets).data('fsr').widget_id;

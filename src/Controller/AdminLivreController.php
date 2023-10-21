@@ -8,6 +8,7 @@ use App\Form\LivreType;
 use App\Form\SearchType;
 use App\Repository\LivreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminLivreController extends AbstractController
 {
     #[Route('/', name: 'app_admin_livre_index', methods: ['GET'])]
-    public function index(LivreRepository $livreRepository, Request $request): Response
+    public function index(LivreRepository $livreRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -25,17 +26,30 @@ class AdminLivreController extends AbstractController
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $search->getPage($request -> query -> getInt('page', 1));
-            $livres = $livreRepository -> findBySearch($search);
+
+            $pagination = $paginator->paginate(
+                $livreRepository -> findBySearch($search), /* query NOT result */
+                $request->query->getInt('livre', 1), /*page number*/
+                10,  /*limit per page*/
+                ["pageParameterName" => "livre"]
+            );
 
             return $this->render('admin_livre/index.html.twig', [
                 'form' => $form->createView(),
-                'livres' => $livres
+                'livres' => $pagination
             ]);
         }
 
+        $pagination = $paginator->paginate(
+            $livreRepository -> findAll(), /* query NOT result */
+            $request->query->getInt('livre', 1), /*page number*/
+            10,  /*limit per page*/
+            ["pageParameterName" => "livre"]
+        );
+
         return $this->render('admin_livre/index.html.twig', [
             'form' => $form->createView(),
-            'livres' => $livreRepository->findAll(),
+            'livres' => $pagination
         ]);
     }
 

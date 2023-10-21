@@ -8,6 +8,7 @@ use App\Form\SerieType;
 use App\Form\SearchType;
 use App\Repository\SerieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminSerieController extends AbstractController
 {
     #[Route('/', name: 'app_admin_serie_index', methods: ['GET'])]
-    public function index(SerieRepository $serieRepository, Request $request): Response
+    public function index(SerieRepository $serieRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -25,16 +26,30 @@ class AdminSerieController extends AbstractController
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $search->getPage($request -> query -> getInt('page', 1));
-            $series = $serieRepository -> findBySearch($search);
+
+            $pagination = $paginator->paginate(
+                $serieRepository -> findBySearch($search), /* query NOT result */
+                $request->query->getInt('serie', 1), /*page number*/
+                10,  /*limit per page*/
+                ["pageParameterName" => "serie"]
+            );
 
             return $this->render('admin_serie/index.html.twig', [
                 'form' => $form->createView(),
-                'series' => $series
+                'series' => $pagination
             ]);
         }
+
+        $pagination = $paginator->paginate(
+            $serieRepository -> findAll(), /* query NOT result */
+            $request->query->getInt('serie', 1), /*page number*/
+            10,  /*limit per page*/
+            ["pageParameterName" => "serie"]
+        );
+
         return $this->render('admin_serie/index.html.twig', [
-            'form' => $form -> createView(),
-            'series' => $serieRepository->findAll(),
+            'form' => $form->createView(),
+            'series' => $pagination
         ]);
     }
 

@@ -60,35 +60,13 @@ class ArtisteRepository extends ServiceEntityRepository
 
     public function findBySearch(Search $search)
     {
-        $results = []; // Initialisation de la variable $results comme un tableau vide
 
         $queryBuilder = $this->createQueryBuilder('a')
             ->where('a.nom LIKE :nom')
             ->setParameter('nom', "%{$search->getSearch()}%")
             ->addOrderBy('a.updatedAt', 'DESC');
-
-        if (!empty($search->getSearch())) {
-            $queryBuilder
-                ->andWhere('a.nom LIKE :search')
-                ->setParameter('search', "%{$search->getSearch()}%");
-        }
-
-        $query = $queryBuilder->getQuery();
-
         // Utilisation de la variable locale $results pour stocker les résultats
-        $results = $query->getResult();
-
-        // Pagination
-        $page = $search->getPage();
-        $perPage = 10; // Nombre d'éléments par page
-
-        // Calcul de l'offset
-        $offset = ($page - 1) * $perPage;
-
-        // Extraction des résultats pour la page actuelle
-        $paginatedResults = array_slice($results, $offset, $perPage);
-
-        return $paginatedResults;
+        return $queryBuilder -> getQuery() -> getResult();
     }
 
     // public function findBySearch(Search $search): PaginationInterface

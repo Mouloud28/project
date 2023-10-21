@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin{% endblock %}
+
+{% block body %}
+
+	<h1>
+		<div class="h1-admin1">
+			<a href="{{ path('app_admin_livre_index') }}" class="a-admin">
+				<div class="h1-admin1-item1">
+					<h2>Gestion des livres</h2>
+				</div>
+			</a>
+			<a href="{{ path('app_admin_film_index') }}" class="a-admin">
+				<div class="h1-admin1-item2">
+					<h2>Gestion des films</h2>
+				</div>
+			</a>
+		</div>
+
+		<div class="h1-admin2">
+			<a href="{{ path('app_admin_serie_index') }}" class="a-admin">
+				<div class="h1-admin2-item1">
+					<h2>Gestion des séries</h2>
+				</div>
+			</a>
+			<a href="{{ path('app_admin_album_index') }}" class="a-admin">
+				<div class="h1-admin2-item2">
+					<h2>Gestion des albums</h2>
+				</div>
+			</a>
+		</div>
+
+		<a href="{{ path('app_admin_artiste_index') }}" class="a-admin">
+			<div class="h1-admin3">
+				<h2>Gestion des artistes</h2>
+			</div>
+		</a>
+	</h1>
+
+{% endblock %}

@@ -1,20 +1,186 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FrontController!{% endblock %}
+{% block title %}Résultats
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+	<h1>
+		<div class="h1-accueil">
+			<div>
+				<h2>Ajouter une oeuvre</h2>
+			</div>
+			<a href="{{ path('app_admin_artiste_new') }}" class="a-accueil">
+				<div>
+					<h2>Ajouter un artiste</h2>
+				</div>
+			</a>
+			<div>
+				<h2>Ajouter un article</h2>
+			</div>
+			<a href="{{ path('app_admin') }}" class="a-accueil">
+				<div>
+					<h2>Admin</h2>
+				</div>
+			</a>
+		</div>
+	</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/cisco/Documents/DOCUMENTS UTILES A LA FORMATION/COURS/PROJET/project/src/Controller/FrontController.php'|file_link(0) }}">src/Controller/FrontController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/cisco/Documents/DOCUMENTS UTILES A LA FORMATION/COURS/PROJET/project/templates/front/index.html.twig'|file_link(0) }}">templates/front/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<div>
+		<h3 class="h3-accueil rounded text-center">Actualités culturelles</h3>
+	</div>
+
+	<div class="h4-titres-accueil">
+		<div class="h4-livres-accueil">
+			<h4>Livres</h4>
+		</div>
+		<div class="h4-films-accueil">
+			<h4>Films</h4>
+		</div>
+		<div class="h4-series-accueil">
+			<h4>Séries</h4>
+		</div>
+		<div class="h4-albums-accueil">
+			<h4>Albums</h4>
+		</div>
+	</div>
+
+	<div class="carousel-container1">
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Livres/le-tour-du-monde-en-80-jours-4-6519a447714b2728384765.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Livres/l-ile-au-tresor-3-6519d2beeacef859717027.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Livres/simetierre-2-6519e27a9dadf524489876.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Films/Indiana Jones et le cadran de la destinée.jpg" class="carousel-img-width d-block" alt="image">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Films/Le garçon et le héron.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Films/Oppenheimer.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Series/Better Call Saul.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Series/Sur écoute.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Series/twin-peaks-65271b045eac9986736235.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Albums/Album - Joe Hisaishi.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Albums/Metallica - Album.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Albums/space-oddity-65282f3d0857c835871330.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="h3-accueil rounded text-center">
+		<h3>Prochaines sorties culturelles</h3>
+	</div>
+
+	<div class="h4-titres-accueil">
+		<div class="h4-livres-accueil">
+			<h4>Livres</h4>
+		</div>
+		<div class="h4-films-accueil">
+			<h4>Films</h4>
+		</div>
+		<div class="h4-series-accueil">
+			<h4>Séries</h4>
+		</div>
+		<div class="h4-albums-accueil">
+			<h4>Albums</h4>
+		</div>
+	</div>
+
+	<div class="carousel-container2">
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Livres/le-tour-du-monde-en-80-jours-4-6519a447714b2728384765.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Livres/l-ile-au-tresor-3-6519d2beeacef859717027.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Livres/simetierre-2-6519e27a9dadf524489876.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Films/Indiana Jones et le cadran de la destinée.jpg" class="carousel-img-width d-block" alt="image">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Films/Le garçon et le héron.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Films/Oppenheimer.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Series/Better Call Saul.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Series/Sur écoute.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Series/twin-peaks-65271b045eac9986736235.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+		<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner carousel-main-item">
+				<div class="carousel-item active">
+					<img src="../images/Albums/Album - Joe Hisaishi.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Albums/Metallica - Album.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+				<div class="carousel-item">
+					<img src="../images/Albums/space-oddity-65282f3d0857c835871330.jpg" class="carousel-img-width d-block" alt="...">
+				</div>
+			</div>
+		</div>
+
+	</div>
 {% endblock %}

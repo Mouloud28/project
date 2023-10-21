@@ -8,6 +8,7 @@ use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminFilmController extends AbstractController
 {
     #[Route('/', name: 'app_admin_film_index', methods: ['GET'])]
-    public function index(FilmRepository $filmRepository, Request $request): Response
+    public function index(FilmRepository $filmRepository, Request $request, PaginatorInterface $paginator): Response
     {
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search);
@@ -25,16 +26,30 @@ class AdminFilmController extends AbstractController
         $form -> handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $search->getPage($request -> query -> getInt('page', 1));
-            $films = $filmRepository -> findBySearch($search);
+
+            $pagination = $paginator->paginate(
+                $filmRepository -> findBySearch($search), /* query NOT result */
+                $request->query->getInt('film', 1), /*page number*/
+                10,  /*limit per page*/
+                ["pageParameterName" => "film"]
+            );
 
             return $this->render('admin_film/index.html.twig', [
                 'form' => $form->createView(),
-                'films' => $films
+                'films' => $pagination
             ]);
         }
+
+        $pagination = $paginator->paginate(
+            $filmRepository -> findAll(), /* query NOT result */
+            $request->query->getInt('film', 1), /*page number*/
+            10,  /*limit per page*/
+            ["pageParameterName" => "film"]
+        );
+
         return $this->render('admin_film/index.html.twig', [
-            'form' => $form -> createView(),
-            'films' => $filmRepository->findAll(),
+            'form' => $form->createView(),
+            'films' => $pagination
         ]);
     }
 
