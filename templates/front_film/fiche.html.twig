@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontFilmController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="front-film-item">
+		<h2 class="front-film-fiche-on">Fiche technique</h2>
+		<h2 class="front-film-news">News</h2>
+		<h2 class="front-film-forum">Forum</h2>
+	</div>
+
+	<h1 class="front-film-fiche-titre">
+		<i>{{film.titreFrancais}}</i>
+	</h1>
+
+	<div class="front-film-fiche-technique-corps">
+		<div class="front-film-fiche-informations">
+			<div class="front-film-informations-item1">
+				<div>
+					<img src="{{ vich_uploader_asset(film, 'imageFile') }}" alt="film" class="img-front-film">
+				</div>
+			</div>
+
+			<div class="front-film-informations-item2">
+
+				<div>
+					<h2>Informations générales</h2>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Titre original :</b>
+						{{film.titreOriginal}}
+					</p>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Genre(s) :</b>
+						{% for Genre in film.Genres %}
+							{{ Genre.nom }}
+						{% endfor %}
+					</p>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Date de sortie (Pays d'origine) :</b>
+						{% set formattedDate = film.DateSortiePaysOrigine ? "Le " ~ film.DateSortiePaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+					</p>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Date de sortie (France) :</b>
+						{% set formattedDate = film.DateSortieFrance ? "Le " ~ film.DateSortieFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+					</p>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Pays d'origine :</b>
+						{{film.PaysOrigine}}
+					</p>
+				</div>
+
+				<div class="front-film-informations-item2-properties">
+					<p>
+						<b>Langue d'origine :</b>
+						{{film.langue.nom}}
+					</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="front-film-fiche-auteur">
+			<div>
+				<h2>Auteur(s)</h2>
+			</div>
+			<div>
+				{% for artiste in film.realisateur %}
+					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-film">
+				{% endfor %}
+			</div>
+			<h4 class="front-film-fiche-auteur-nom">
+				{% for artiste in film.realisateur %}
+					{{artiste.nom}}
+				{% endfor %}
+			</h4>
+		</div>
+	</div>
+
+{% endblock %}

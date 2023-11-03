@@ -52,11 +52,11 @@
 			</tr>
 			<tr>
 				<th>Date_sortie_france</th>
-				<td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('Y-m-d') : '' }}</td>
+				<td>{{ film.dateSortieFrance ? film.dateSortieFrance|date('d F Y') : ''}}</td>
 			</tr>
 			<tr>
 				<th>Date_sortie_pays_origine</th>
-				<td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('Y-m-d') : '' }}</td>
+				<td>{{ film.dateSortiePaysOrigine ? film.dateSortiePaysOrigine|date('d F Y') : ''|trans }}</td>
 			</tr>
 
 			<tr>
@@ -78,46 +78,54 @@
 				<th>Producteur(s)</th>
 				<td>
 					{% if film.producteur %}
-							{% for artiste in film.producteur %}
-								{{ artiste.nom }}
-							{% endfor %}
-						{% else %}
-							<span class="text-danger fst-italic">N.R</span>
-						{% endif %}
+						{% for artiste in film.producteur %}
+							{{ artiste.nom }}
+						{% endfor %}
+					{% else %}
+						<span class="text-danger fst-italic">N.R</span>
+					{% endif %}
 				</td>
 			</tr>
 
 			<tr>
 				<th>Casting</th>
 				<td>
-				
-				{% if film.casting %}
+
+					{% if film.casting %}
 						{% for artiste in film.casting %}
 							{{ artiste.nom }}
 						{% endfor %}
 					{% else %}
 						<span class="text-danger fst-italic">N.R</span>
 					{% endif %}
-				
+
 				</td>
 			</tr>
 
 			<tr>
 				<th>Compositeur</th>
-				<td>{% if film.compositeur %}
+				<td>
+					{% if film.compositeur %}
 						{% for artiste in film.compositeur %}
 							{{ artiste.nom }}
 						{% endfor %}
 					{% else %}
 						<span class="text-danger fst-italic">N.R</span>
-					{% endif %}</td>
+					{% endif %}
+				</td>
 			</tr>
-
 
 			<tr>
 				<th>Bandes_annonces_teasers</th>
 				<td>
-					<video src="{{ vich_uploader_asset(film, 'imageFile2') }}" controls></video>
+					{% for bandeAnnonceTeaser in film.bandesAnnoncesTeasers %}
+						<div class="bande-annonce">
+							<h3>{{ bandeAnnonceTeaser.titre }}</h3>
+							<video src="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile') }}" controls></video>
+						</div>
+					{% endfor %}
+
+
 				</td>
 			</tr>
 		</tbody>

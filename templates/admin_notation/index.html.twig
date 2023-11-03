@@ -6,33 +6,60 @@
 {% block body %}
 	<h1>Notation index</h1>
 
-	<header class="header-star container-star">
-		<h1 class="h1-star">Notation avec des étoiles</h1>
-	</header>
+	{# <header class="header-star container-star">
+						<h1 class="h1-star">Notation avec des étoiles</h1>
+					</header>
+				
+					<main class="main-star container-star">
+						<h3 class="h3-star">Cliquez sur une étoile pour donner une note</h3>
+						<div id="r1" class="stars">
+							<i class="star stargrey fas fa-star star_1 ratings_stars" data-index="0"></i>
+							<i class="star stargrey fas fa-star star_2 ratings_stars" data-index="1"></i>
+							<i class="star stargrey fas fa-star star_3 ratings_stars" data-index="2"></i>
+							<i class="star stargrey fas fa-star star_4 ratings_stars" data-index="3"></i>
+							<i class="star stargrey fas fa-star star_5 ratings_stars" data-index="4"></i>
+							<i class="star stargrey fas fa-star star_6 ratings_stars" data-index="5"></i>
+							<i class="star stargrey fas fa-star star_7 ratings_stars" data-index="6"></i>
+							<i class="star stargrey fas fa-star star_8 ratings_stars" data-index="7"></i>
+							<i class="star stargrey fas fa-star star_9 ratings_stars" data-index="8"></i>
+							<i class="star stargrey fas fa-star star_10 ratings_stars" data-index="9"></i>
+							<div class="total_votes">Votes</div>
+						</div>
+					</main>
+				
+				
+					<footer class="footer-star container-star">
+						<p class="p-star">
+							Copyright ©2019
+						</p>
+					</footer> #}
 
-	<main class="main-star container-star">
-		<h3 class="h3-star">Cliquez sur une étoile pour donner une note</h3>
-		<div id="r1" class="stars">
-			<i class="star stargrey fas fa-star star_1 ratings_stars" data-index="0"></i>
-			<i class="star stargrey fas fa-star star_2 ratings_stars" data-index="1"></i>
-			<i class="star stargrey fas fa-star star_3 ratings_stars" data-index="2"></i>
-			<i class="star stargrey fas fa-star star_4 ratings_stars" data-index="3"></i>
-			<i class="star stargrey fas fa-star star_5 ratings_stars" data-index="4"></i>
-			<i class="star stargrey fas fa-star star_6 ratings_stars" data-index="5"></i>
-			<i class="star stargrey fas fa-star star_7 ratings_stars" data-index="6"></i>
-			<i class="star stargrey fas fa-star star_8 ratings_stars" data-index="7"></i>
-			<i class="star stargrey fas fa-star star_9 ratings_stars" data-index="8"></i>
-			<i class="star stargrey fas fa-star star_10 ratings_stars" data-index="9"></i>
-			<div class="total_votes">Votes</div>
+	<form action="" method="post">
+
+	{# http://127.0.0.1:8000/admin/notation/?titre=C%27est+bien&comment=Test&note=4 #}
+
+		<div>
+			<label for="titre">Titre</label>
+			<input type="text" name="titre">
 		</div>
-	</main>
 
+		<div>
+			<label for="commentaire">Commentaire</label>
+			<textarea name="comment" id="commentaire"></textarea>
+		</div>
 
-	<footer class="footer-star container-star">
-		<p class="p-star">
-			Copyright ©2019
-		</p>
-	</footer>
+		<div class="stars">
+			<i class="lar la-star" data-value="1"></i>
+			<i class="lar la-star" data-value="2"></i>
+			<i class="lar la-star" data-value="3"></i>
+			<i class="lar la-star" data-value="4"></i>
+			<i class="lar la-star" data-value="5"></i>
+		</div>
+
+		<input type="hidden" name="note" id="note" value="0">
+		<button type="submit">Valider</button>
+
+	</form>
 
 	<a href="{{ path('app_admin_notation_new') }}">Create new</a>
 {% endblock %}

@@ -22,7 +22,7 @@ class Categorie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $logo = null;
 
     #[Vich\UploadableField(mapping: 'categories', fileNameProperty: 'logo')]
@@ -44,7 +44,7 @@ class Categorie
     private Collection $album;
 
     #[ORM\ManyToOne(inversedBy: 'categorie')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Forum $forum = null;
 
     public function __construct()
@@ -58,6 +58,11 @@ class Categorie
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 
     public function getNom(): ?string
@@ -77,7 +82,7 @@ class Categorie
         return $this->logo;
     }
 
-    public function setLogo(string $logo): static
+    public function setLogo(string $logo = null): static
     {
         $this->logo = $logo;
 

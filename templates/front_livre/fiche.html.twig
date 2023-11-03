@@ -1,0 +1,151 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontLivreController!
+{% endblock %}
+
+{% block body %}
+
+	<div class="front-livre-item">
+		<h2 class="front-livre-fiche-on">Fiche technique</h2>
+		<h2 class="front-livre-news">News</h2>
+		<h2 class="front-livre-forum">Forum</h2>
+	</div>
+
+	<h1 class="front-livre-fiche-titre">
+		<i>{{livre.titreFrancais}}</i>
+	</h1>
+
+	<div class="front-livre-fiche-technique-corps">
+		<div class="front-livre-fiche-informations">
+			<div class="front-livre-informations-item1">
+				<div>
+					<img src="{{ vich_uploader_asset(livre, 'imageFile') }}" alt="livre" class="img-front-livre">
+				</div>
+			</div>
+
+			<div class="front-livre-informations-item2">
+
+				<div>
+					<h2>Informations générales</h2>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Titre original :</b>
+						{{livre.titreOriginal}}
+					</p>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Genre(s) :</b>
+						{% for Genre in livre.Genres %}
+							{{ Genre.nom }}
+						{% endfor %}
+					</p>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Date de parution (Pays d'origine) :</b>
+						{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+					</p>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Date de parution (France) :</b>
+						{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+					</p>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Pays d'origine :</b>
+						{{livre.PaysOrigine}}
+					</p>
+				</div>
+
+				<div class="front-livre-informations-item2-properties">
+					<p>
+						<b>Langue d'origine :</b>
+						{{livre.langue.nom}}
+					</p>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="front-livre-fiche-auteur">
+			<div>
+				<h2>Auteur(s)</h2>
+			</div>
+			<div>
+				{% for artiste in livre.auteur %}
+					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-livre">
+				{% endfor %}
+			</div>
+			<h4 class="front-livre-fiche-auteur-nom">
+				{% for artiste in livre.auteur %}
+					{{artiste.nom}}
+				{% endfor %}
+			</h4>
+		</div>
+		<hr>
+		<div class="front-livre-fiche-version-originale">
+			<div>
+				<h2>Version originale</h2>
+			</div>
+
+			<div>
+				<p>
+					<b>Editeur :
+					</b>
+					{% for EditeurPaysOrigine in livre.EditeurPaysOrigine %}
+						{{ EditeurPaysOrigine.nom }}
+					{% endfor %}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>ISBN :
+					</b>
+					{{livre.ISBN}}
+				</p>
+			</div>
+		</div>
+		{% if livre.langue.nom != ('Français') %}
+			<hr>
+			<div class="front-livre-fiche-version-francaise">
+				<div>
+					<h2>Version française</h2>
+				</div>
+				<div>
+					<p>
+						<b>Traducteur :
+						</b>
+						{% for traducteur in livre.traducteur %}
+							{{ traducteur.nom }}
+						{% endfor %}
+					</p>
+					<p>
+						<b>Editeur :
+						</b>
+						{% for EditeurFrance in livre.EditeurFrance %}
+							{{ EditeurFrance.nom }}
+						{% endfor %}
+					</p>
+				</div>
+
+				<div>
+					<p>
+						<b>ISBN :
+						</b>
+						{{livre.ISBNFrance}}
+					</p>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock %}

@@ -24,9 +24,13 @@ class Langue
     #[ORM\OneToMany(mappedBy: 'langue', targetEntity: Livre::class)]
     private Collection $livre;
 
+    #[ORM\OneToMany(mappedBy: 'langue', targetEntity: Film::class)]
+    private Collection $films;
+
     public function __construct()
     {
         $this->livre = new ArrayCollection();
+        $this->films = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,4 +91,35 @@ class Langue
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFilms(): Collection
+    {
+        return $this->films;
+    }
+
+    public function addFilm(Film $film): static
+    {
+        if (!$this->films->contains($film)) {
+            $this->films->add($film);
+            $film->setLangue($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilm(Film $film): static
+    {
+        if ($this->films->removeElement($film)) {
+            // set the owning side to null (unless already changed)
+            if ($film->getLangue() === $this) {
+                $film->setLangue(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

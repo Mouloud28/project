@@ -8,7 +8,7 @@
 
 	<table class="table table-responsive table-stripped">
 		<tbody>
- 
+
 			<tr>
 				<th class="th-show-livre">Id</th>
 				<td>{{ livre.id }}</td>
@@ -75,7 +75,9 @@
 
 <tr>
 	<th class="th-show-livre">Date de publication (France)</th>
-	<td>{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</td>
+	<td>{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{% set translatedMonth = formattedDate|replace({'F': 'F'|trans}) %}
+		{{ translatedMonth }}
+	</td>
 </tr>
 
 <tr>
@@ -85,8 +87,11 @@
 		{% if livre.PaysOrigine is same as ('France') %}
 			<p>-</p>
 		{% else %}
-			{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}</td>
-	{% endif %}
+			{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+
+		{% endif %}
+	</td>
+
 </tr></tbody></table><h3>Version originale</h3><table class="table"><tbody>
 
 <tr>

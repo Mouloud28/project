@@ -2,6 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Film;
+use App\Entity\Album;
+use App\Entity\Livre;
+use App\Entity\Serie;
 use App\Entity\Notation;
 use App\Form\NotationType;
 use App\Repository\NotationRepository;
@@ -95,5 +99,59 @@ class AdminNotationController extends AbstractController
     // Réponse JSON pour confirmer la notation
     return new JsonResponse(['success' => true]);
 }
+
+#[Route('/noter/{type}/{id}', name: 'notation_create', methods: ['POST'])]
+public function createNotation(Request $request, EntityManagerInterface $entityManager, $type, $id)
+    {
+        // Récupérer l'utilisateur connecté
+        $user = $this->getUser();
+
+        // Créer un nouvel objet Notation
+        $notation = new Notation();
+
+        // Traiter la soumission du formulaire
+        $form = $this->createForm(NotationType::class, $notation);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Associer la notation à l'œuvre et à l'utilisateur
+            $notation->setUser($user);
+
+            // Récupérez l'œuvre correspondante en fonction du type
+            // $entityManager = [$this->getDoctrine()->getManager()];
+            $work = null;
+
+            if ($type === 'Livre') {
+                $work = $entityManager->getRepository(Livre::class)->find($id);
+                $notation->setLivre($work);
+            } elseif ($type === 'Film') {
+                $work = $entityManager->getRepository(Film::class)->find($id);
+                $notation->setFilm($work);
+            } elseif ($type === 'Serie') {
+                $work = $entityManager->getRepository(Serie::class)->find($id);
+                $notation->setSerie($work);
+            } elseif ($type === 'Album') {
+                $work = $entityManager->getRepository(Album::class)->find($id);
+                $notation->setAlbum($work);
+            }
+
+            if (!$work) {
+                return $this->redirectToRoute('confirmation_page');
+            }
+
+            // Associez l'œuvre à la notation
+
+            // Enregistrez la notation en base de données
+            $entityManager->persist($notation);
+            $entityManager->flush();
+
+            // Redirection vers une page de confirmation
+            return $this->redirectToRoute('confirmation_page');
+        }
+
+        return $this->render('notation/create.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 
 }

@@ -48,11 +48,11 @@ class Film
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date_sortie_pays_origine = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $bandes_annonces_teasers = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $bandes_annonces_teasers = null;
 
-    #[Vich\UploadableField(mapping: 'films', fileNameProperty: 'bandes_annonces_teasers')]
-    private ?File $imageFile2 = null;
+    // #[Vich\UploadableField(mapping: 'films', fileNameProperty: 'bandes_annonces_teasers')]
+    // private ?File $imageFile2 = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -100,6 +100,12 @@ class Film
     #[ORM\ManyToMany(targetEntity: Artiste::class, inversedBy: 'films')]
     private Collection $artistes;
 
+    #[ORM\ManyToOne(inversedBy: 'films')]
+    private ?Langue $langue = null;
+
+    #[ORM\OneToMany(mappedBy: 'film', targetEntity: BandesAnnoncesTeasers::class, orphanRemoval: true, cascade:['persist', 'remove'])]
+    private Collection $bandesAnnoncesTeasers;
+
     public function __construct()
     {
         $this->article = new ArrayCollection();
@@ -112,6 +118,7 @@ class Film
         $this->casting = new ArrayCollection();
         $this->compositeur = new ArrayCollection();
         $this->artistes = new ArrayCollection();
+        $this->bandesAnnoncesTeasers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -245,42 +252,8 @@ class Film
         return $this;
     }
 
-    public function getBandesAnnoncesTeasers(): ?string
-    {
-        return $this->bandes_annonces_teasers;
-    }
 
-    public function setBandesAnnoncesTeasers(string $bandes_annonces_teasers = null): static
-    {
-        $this->bandes_annonces_teasers = $bandes_annonces_teasers;
 
-        return $this;
-    }
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
-     */
-    public function setImageFile2(?File $imageFile2 = null): void
-    {
-        $this->imageFile2 = $imageFile2;
-
-        if (null !== $imageFile2) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
-
-    public function getImageFile2(): ?File
-    {
-        return $this->imageFile2;
-    }
 
     public function getUpdatedAt(): ?\DateTimeImmutable
     {
@@ -575,6 +548,48 @@ class Film
     public function removeArtiste(Artiste $artiste): static
     {
         $this->artistes->removeElement($artiste);
+
+        return $this;
+    }
+
+    public function getLangue(): ?Langue
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(?Langue $langue): static
+    {
+        $this->langue = $langue;
+
+        return $this;
+    }
+
+        /**
+     * Get the value of bandesAnnoncesTeasers
+     */ 
+    public function getBandesAnnoncesTeasers()
+    {
+        return $this->bandesAnnoncesTeasers;
+    }
+
+    public function addBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if (!$this->bandesAnnoncesTeasers->contains($bandesAnnoncesTeaser)) {
+            $this->bandesAnnoncesTeasers->add($bandesAnnoncesTeaser);
+            $bandesAnnoncesTeaser->setFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBandesAnnoncesTeaser(BandesAnnoncesTeasers $bandesAnnoncesTeaser): static
+    {
+        if ($this->bandesAnnoncesTeasers->removeElement($bandesAnnoncesTeaser)) {
+            // set the owning side to null (unless already changed)
+            if ($bandesAnnoncesTeaser->getFilm() === $this) {
+                $bandesAnnoncesTeaser->setFilm(null);
+            }
+        }
 
         return $this;
     }

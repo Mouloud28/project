@@ -7,6 +7,7 @@ use App\Entity\Search;
 use App\Form\FilmType;
 use App\Form\SearchType;
 use App\Repository\FilmRepository;
+use App\Entity\BandesAnnoncesTeasers;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;

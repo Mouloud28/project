@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Film;
 use App\Entity\Forum;
 use App\Entity\Genre;
+use App\Entity\Langue;
 use App\Entity\Artiste;
+use App\Form\BandesAnnoncesTeasersType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -16,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FilmType extends AbstractType
 {
@@ -92,6 +95,24 @@ class FilmType extends AbstractType
             ])
 
             ->remove('affiche')
+
+            ->add('langue', EntityType::class, [
+                'class' => Langue::class,
+                'choice_label' => 'nom',
+                'label' => 'Langue d\'origine',
+                'label_attr' => ['class' => 'fw-bold'],
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez la langue originale du film.',
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner la langue originale du film.'
+                    ])
+                ]
+            ])
 
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
@@ -275,20 +296,29 @@ class FilmType extends AbstractType
                 ]
             ])
 
-            ->add('imageFile2', FileType::class, [
+            // ->add('imageFile2', FileType::class, [
+            //     'label' => 'Bandes-annonce(s) et teaser(s)',
+            //     'label_attr' => ['class' => 'fw-bold mx-5 my-3'],
+            //     'attr' => [
+            //         'class' => 'input',
+            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //     ],
+            //     'row_attr' => ['class' => 'mx-5 my-3'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //         ])
+            //     ]
+            // ])
+
+            ->add('bandesAnnoncesTeasers', CollectionType::class, [
                 'label' => 'Bandes-annonce(s) et teaser(s)',
                 'label_attr' => ['class' => 'fw-bold mx-5 my-3'],
-                'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-                ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-                    ])
-                ]
-            ])
+                'entry_type' => BandesAnnoncesTeasersType::class,
+                'allow_add'=> true,
+                'allow_delete' => true,
+                'by_reference' => false
+                ])  
 
             ->add('forum', EntityType::class, [
                 'class' => Forum::class,

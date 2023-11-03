@@ -1,0 +1,121 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{film.titreFrancais}}
+{% endblock %}
+
+{% block body %}
+
+	<div class="front-film-item">
+		<a href="{{ path('app_front_fiche_film', {'id': film.id}) }}" class="a-front-film-fiche">
+			<h2 class="front-film-fiche">Fiche technique</h2>
+		</a>
+		<h2 class="front-film-news">News</h2>
+		<h2 class="front-film-forum">Forum</h2>
+	</div>
+
+	<div class="front-film">
+
+		<div class="front-film-item1">
+			<div>
+				<img src="{{ vich_uploader_asset(film, 'imageFile') }}" alt="" class="img-front-film">
+			</div>
+		</div>
+
+		<div class="front-film-item2">
+			<div>
+				<h1>
+					<i>{{ film.titreFrancais }}</i>
+				</h1>
+			</div>
+
+			<div>
+				<p>
+					<b>Titre original :</b>
+					{{film.titreOriginal}}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Réalisateur(s) :</b>
+					{% for artiste in film.realisateur %}
+						{{ artiste.nom }}
+					{% endfor %}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Genre(s) :</b>
+					{% for Genre in film.Genres %}
+						{{ Genre.nom }}
+					{% endfor %}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Date de parution (France) :</b>
+					{% set formattedDate = film.DateSortieFrance ? "Le " ~ film.DateSortieFrance|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Pays d'origine :</b>
+					{{film.PaysOrigine}}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Langue d'origine :</b>
+					{{film.langue.nom}}
+				</p>
+			</div>
+
+			<div>
+				<p>
+					<b>Moynne générale des abonnés :</b>
+				</p>
+				<p>Test</p>
+			</p>
+		</div>
+
+		<div>
+			<p>
+				<b>Votre note :</b>
+			</p>
+			<p>Test</p>
+		</div>
+
+		<div>
+			<p>
+				<b>Votre critique :</b>
+			</p>
+		</div>
+	</div>
+
+</div>
+
+<div class="front-film-synopsis">
+	<h2>Synopsis :</h2>
+	<p>{{film.synopsis}}</p>
+</div>
+
+<div class="front-film-ba-teasers">
+	<h2>Bandes-annonces et teasers</h2>
+</div>
+
+<div class="div-video-front-film">
+	{% for bandeAnnonceTeaser in film.bandesAnnoncesTeasers %}
+		<video poster="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile') }}" controls class="video-front-film">
+			<source src="{{ vich_uploader_asset(bandeAnnonceTeaser, 'video') }}" type="video/mp4">
+		</video>
+	{% endfor %}
+</div>
+
+<div class="front-film-critiques">
+	<h2>Critiques récentes</h2>
+</div>{% endblock %}

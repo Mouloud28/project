@@ -3,6 +3,7 @@
 {{ form_row(form.titre_original) }}
 {{ form_row(form.realisateur) }}
 {{ form_row(form.imageFile) }}
+{{form_row(form.langue)}}
 {{ form_row(form.genres) }}
 {{ form_row(form.duree) }}
 {{ form_row(form.synopsis) }}
@@ -14,21 +15,25 @@
 {{ form_row(form.casting) }}
 {{ form_row(form.compositeur) }}
 
-{{form_label(form.imageFile2)}}
+{# {{form_label(form.imageFile2)}} #}
 
-<ul class="bandesAnnoncesTeasers" data-index="{{ form.imageFile2|length > 0 ? form.imageFile2|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.imageFile2)|e('html_attr') }}"></ul>
+<ul class="bandesAnnoncesTeasers" data-index="{{ form.bandesAnnoncesTeasers|length > 0 ? form.bandesAnnoncesTeasers|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.bandesAnnoncesTeasers.vars.prototype)|e('html_attr') }}">
 
-{# <ul class="bandesAnnoncesTeasers" data-index="{{ form.imageFile2|length > 0 ? form.imageFile2|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.imageFile2.vars.prototype)|e('html_attr') }}"></ul> #}
+	{% for bandesAnnoncesTeaser in form.bandesAnnoncesTeasers %}
+		<li>
+			{{ bandesAnnoncesTeaser.vars.data.video }}
+			{{ form_widget(bandesAnnoncesTeaser) }}
+		</li>
+	{% endfor %}
 
-{% for tag in form.imageFile2 %}
-	<li>{{ form_widget(bandeAnnonceTeaser) }}</li>
-{% endfor %}
+</ul>
 
 <button type="button" class="add_item_link form-control mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
+
+{# <ul class="bandesAnnoncesTeasers" data-index="{{ form.imageFile2|length > 0 ? form.imageFile2|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.imageFile2.vars.prototype)|e('html_attr') }}"></ul> #}
 
 {{ form_row(form.forum) }}
 
 <button class="btn-ajouter-film form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter le film') }}</button>
 
 {{ form_end(form) }}
-

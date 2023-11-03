@@ -154,7 +154,9 @@ class LivreType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Renseignez la date de publication française du livre.'
                 ],
-                'format' => 'dd/MM/yyyy',
+                'format' => 'dd/MM/yyyy', // Format en français
+                'html5' => false, // Désactive le support HTML5 pour le format de date
+                'widget' => 'single_text', // Utilise un widget de type texte
                 'years' => range(0000, date('Y')),
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,
@@ -164,6 +166,7 @@ class LivreType extends AbstractType
                     ])
                 ]
             ])
+
 
             ->add('date_publication_pays_origine', DateType::class, [
                 'label' => 'Date de publication (Pays d\'origine)',

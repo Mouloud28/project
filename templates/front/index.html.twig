@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Résultats
+{% block title %}Accueil
 {% endblock %}
 
 {% block body %}
 
 	<h1>
 		<div class="h1-accueil">
-			<div>
-				<h2>Ajouter une oeuvre</h2>
-			</div>
+			<a href="{{ path('app_creation') }}" class="a-accueil">
+				<div>
+					<h2>Ajouter une oeuvre</h2>
+				</div>
+			</a>
 			<a href="{{ path('app_admin_artiste_new') }}" class="a-accueil">
 				<div>
 					<h2>Ajouter un artiste</h2>
