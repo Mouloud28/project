@@ -16,6 +16,7 @@ body {
     margin: auto;
     line-height: 1.2;
     font-family: 'Times New Roman', Times, serif;
+    overflow-x: hidden;
 }
 
 .flex-container-navbar {
@@ -952,6 +953,17 @@ th, td {
     text-align: justify;
 }
 
+.search-artiste-presentation{
+    border: 2px solid black;
+    background-color: rgba(217, 217, 217);
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 250px;
+}
+
 .a-artiste-nom {
     color: black;
     text-decoration: none;
@@ -1040,6 +1052,12 @@ th, td {
 .img-front-livre{
     width: 290px;
     height: 430px;
+    border-radius: 20px;
+}
+
+.img-front-livre-artiste{
+    width: 200px;
+    height: 300px;
     border-radius: 20px;
 }
 
@@ -1158,12 +1176,13 @@ th, td {
 .front-livre-informations-item1{
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .front-livre-informations-item2{
     margin-top: 50px;
     margin-bottom: 20px;
-    margin-right: 250px;
+    margin-right: 220px;
 }
 
 .front-livre-informations-item2-properties{
@@ -1175,7 +1194,7 @@ th, td {
 }
 
 .front-livre-fiche-auteur-nom{
-    width: 290px;
+    width: 200px;
     text-align: center;
     margin-top: 10px;
 }
@@ -1201,6 +1220,22 @@ th, td {
     width: 290px;
     height: 430px;
     border-radius: 20px;
+}
+
+.img-front-film-artiste1{
+    width: 200px;
+    height: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.img-front-film-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
 }
 
 .front-film-item {
@@ -1279,7 +1314,7 @@ th, td {
     border-radius: 20px;
 }
 
-.front-film-ba-teasers{
+.front-film-ba-teasers {
     text-align: center;
     margin: 20px auto;
     padding-top: 5px;
@@ -1289,7 +1324,7 @@ th, td {
     border-radius: 20px;
 }
 
-.front-film-critiques{
+.front-film-critiques {
     text-align: center;
     margin: 20px auto;
     padding-top: 5px;
@@ -1299,7 +1334,7 @@ th, td {
     border-radius: 20px;
 }
 
-.div-video-front-film{
+.div-video-front-film {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -1308,14 +1343,14 @@ th, td {
 }
 
 .video-front-film{
-    width: 290px;
+    width: 300px;
     height: 250px;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 20px;
 }
 
-/* Front - Livre - Accueil */
+/* Front - Film - Accueil */
 
-.front-film-fiche-titre{
+.front-film-fiche-titre {
     text-align: center;
     margin: 20px auto;
     padding-top: 5px;
@@ -1354,25 +1389,43 @@ th, td {
     margin-top: 35px;
 }
 
-.front-film-fiche-auteur{
-    margin-left: 27px;
+.front-film-fiche-realisateur{
+    margin-left: 50px;
 }
 
-.front-film-fiche-auteur-nom{
-    width: 290px;
+.front-film-fiche-realisateur-nom{
+    width: 200px;
     text-align: center;
     margin-top: 10px;
 }
 
-.front-film-fiche-version-originale{
-    margin-left: 27px;
-    padding-top: 5px;
-    padding-bottom: 5px;
+.front-film-fiche-casting{
+    margin-left: 50px;
 }
 
-.front-film-fiche-version-francaise{
-    margin-left: 27px;
-    padding-bottom: 20px;
+.front-film-fiche-scenariste{
+    margin-left: 50px;
+}
+
+.front-film-fiche-producteur{
+    margin-left: 50px;
+}
+
+.front-film-fiche-compositeur{
+    margin-left: 50px;
+    padding-bottom: 10px;
+}
+
+.front-film-fiche-casting-flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.front-film-fiche-casting-nom{
+    width: 290px;
+    text-align: center;
+    margin-top: 10px;
 }
 
 /* Admin - Artistes */
@@ -1388,6 +1441,21 @@ th, td {
 }
 
 #artiste_date_naissance_year {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#artiste_date_deces_day {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#artiste_date_deces_month {
+    background-color: rgba(217, 217, 217);
+    border-radius: 5px;
+}
+
+#artiste_date_deces_year {
     background-color: rgba(217, 217, 217);
     border-radius: 5px;
 }

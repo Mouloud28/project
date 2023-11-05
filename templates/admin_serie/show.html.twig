@@ -45,7 +45,16 @@
             </tr>
             <tr>
                 <th>Bandes_annonces_teasers</th>
-                <td>{{ serie.bandesAnnoncesTeasers }}</td>
+                <td>
+                
+                {% for bandeAnnonceTeaser in serie.bandesAnnoncesTeasers %}
+						<div class="bande-annonce">
+							<h3>{{ bandeAnnonceTeaser.titre }}</h3>
+							<video src="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile') }}" controls></video>
+						</div>
+					{% endfor %}
+                
+                </td>
             </tr>
             <tr>
                 <th>Nombre_saisons</th>

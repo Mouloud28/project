@@ -155,8 +155,6 @@ class LivreType extends AbstractType
                     'placeholder' => 'Renseignez la date de publication française du livre.'
                 ],
                 'format' => 'dd/MM/yyyy', // Format en français
-                'html5' => false, // Désactive le support HTML5 pour le format de date
-                'widget' => 'single_text', // Utilise un widget de type texte
                 'years' => range(0000, date('Y')),
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => true,

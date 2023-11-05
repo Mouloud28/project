@@ -32,7 +32,7 @@
 			<div>
 				<p>
 					<b>Titre original :</b>
-					{{film.titreOriginal}}
+					<i>{{film.titreOriginal}}</i>
 				</p>
 			</div>
 
@@ -110,9 +110,7 @@
 
 <div class="div-video-front-film">
 	{% for bandeAnnonceTeaser in film.bandesAnnoncesTeasers %}
-		<video poster="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile') }}" controls class="video-front-film">
-			<source src="{{ vich_uploader_asset(bandeAnnonceTeaser, 'video') }}" type="video/mp4">
-		</video>
+		<video src="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile') }}" poster="{{ vich_uploader_asset(bandeAnnonceTeaser, 'imageFile2') }}" controls type="video/mp4" class="video-front-film"></video>
 	{% endfor %}
 </div>
 

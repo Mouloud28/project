@@ -16,11 +16,11 @@
                 <td>{{ artiste.nom }}</td>
             </tr>
             <tr>
-                <th>Date_naissance</th>
-                <td>{{ artiste.dateNaissance ? artiste.dateNaissance|date('Y-m-d') : '' }}</td>
+                <th>Date de naissance</th>
+                <td>{{ artiste.dateNaissance ? "Le "  ~ artiste.dateNaissance|format_datetime(locale='fr',pattern="dd MMMM YYYY") : '' }}</td>
             </tr>
             <tr>
-                <th>Pays_origine</th>
+                <th>Pays d'origine</th>
                 <td>{{ artiste.paysOrigine }}</td>
             </tr>
             <tr>

@@ -29,7 +29,7 @@
 			<div>
 				<p>
 					<b>Titre original :</b>
-					{{livre.titreOriginal}}
+					<i>{{livre.titreOriginal}}</i>
 				</p>
 			</div>
 
@@ -54,7 +54,7 @@
 			<div>
 				<p>
 					<b>Date de parution (France) :</b>
-					{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+					{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
 				</p>
 			</div>
 

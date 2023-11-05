@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ArtisteType extends AbstractType
@@ -29,7 +30,7 @@ class ArtisteType extends AbstractType
                     'class' => 'input',
                     'placeholder' => 'Tapez le nom de l\'artiste.'
                 ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -44,11 +45,26 @@ class ArtisteType extends AbstractType
                 'format' => 'dd/MM/yyyy',
                 'years' => range(0000, date('Y')),
                 'attr' => ['class' => 'custom-date-input'],
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez saisir une date de naissance'
+                    ])
+                ]
+            ])
+
+            ->add('date_deces', DateType::class, [
+                'label' => 'Date de décès',
+                'attr' => ['class' => 'input'],
+                'format' => 'dd/MM/yyyy',
+                'years' => range(0000, date('Y')),
+                'attr' => ['class' => 'custom-date-input'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une date de décès'
                     ])
                 ]
             ])
@@ -59,7 +75,7 @@ class ArtisteType extends AbstractType
                     'class' => 'input',
                     'placeholder' => 'Sélectionnez un pays.'
                 ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -75,7 +91,7 @@ class ArtisteType extends AbstractType
                 'label' => 'Ville d\'origine',
                 'expanded' => false,
                 'placeholder' => 'Sélectionnez une ville.',
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -91,7 +107,7 @@ class ArtisteType extends AbstractType
                     'enctype' => 'multipart/form-data'
                 ],
                 'required' => false,
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -112,7 +128,7 @@ class ArtisteType extends AbstractType
                 ],
                 'expanded' => false,
                 'multiple' => true,
-                'row_attr' => ['class' => 'mx-5 my-3'],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
@@ -315,6 +331,21 @@ class ArtisteType extends AbstractType
                 'multiple' => true,
                 'row_attr' => ['class' => 'mx-5 my-3'],
                 'required' => false
+            ])
+
+            ->add('presentation', TextareaType::class, [
+                'label' => 'Présentation générale',
+                'attr' => [
+                    'class' => 'input',
+                    'placeholder' => 'Renseignez une présentation de l\'artiste.'
+                ],
+                'row_attr' => ['class' => 'mx-5 my-3 fw-bold'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez saisir une présentation de l\'artiste'
+                    ])
+                ]
             ])
 
             ->remove('updatedAt');

@@ -312,7 +312,7 @@ class FilmType extends AbstractType
             // ])
 
             ->add('bandesAnnoncesTeasers', CollectionType::class, [
-                'label' => 'Bandes-annonce(s) et teaser(s)',
+                'label' => false,
                 'label_attr' => ['class' => 'fw-bold mx-5 my-3'],
                 'entry_type' => BandesAnnoncesTeasersType::class,
                 'allow_add'=> true,

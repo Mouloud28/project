@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class SerieType extends AbstractType
 {
@@ -276,20 +277,29 @@ class SerieType extends AbstractType
                 ]
             ])
 
-            ->add('imageFile2', FileType::class, [
-                'label' => 'Bandes-annonce(s) et teaser(s)',
-                'label_attr' => ['class' => 'fw-bold'],
-                'attr' => [
-                    'class' => 'input',
-                    'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-                ],
-                'row_attr' => ['class' => 'mx-5 my-3'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
-                    ])
-                ]
-            ])
+            // ->add('imageFile2', FileType::class, [
+            //     'label' => 'Bandes-annonce(s) et teaser(s)',
+            //     'label_attr' => ['class' => 'fw-bold'],
+            //     'attr' => [
+            //         'class' => 'input',
+            //         'placeholder' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //     ],
+            //     'row_attr' => ['class' => 'mx-5 my-3'],
+            //     'constraints' => [
+            //         new NotBlank([
+            //             'message' => 'Sélectionnez un(e) ou plusieur(s) bande(s)-annonce(s) / teaser(s).'
+            //         ])
+            //     ]
+            // ])
+
+            ->add('bandesAnnoncesTeasers', CollectionType::class, [
+                'label' => false,
+                'label_attr' => ['class' => 'fw-bold mx-5 my-3'],
+                'entry_type' => BandesAnnoncesTeasersType::class,
+                'allow_add'=> true,
+                'allow_delete' => true,
+                'by_reference' => false
+                ])  
 
             ->add('nombre_saisons', NumberType::class, [
                 'label' => 'Nombre de saisons',

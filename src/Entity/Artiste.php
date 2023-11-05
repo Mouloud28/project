@@ -96,6 +96,12 @@ class Artiste
     #[ORM\ManyToMany(targetEntity: Album::class, mappedBy: 'producteur')]
     private Collection $producteurs_albums;
 
+    #[ORM\Column(length: 255)]
+    private ?string $presentation = null;
+
+    #[ORM\Column(type: Types::DATE_IMMUTABLE, nullable: true)]
+    private ?\DateTimeImmutable $date_deces = null;
+
     public function __construct()
     {
         $this->metiers = new ArrayCollection();
@@ -707,6 +713,30 @@ class Artiste
         if ($this->producteurs_albums->removeElement($producteursAlbum)) {
             $producteursAlbum->removeProducteur($this);
         }
+
+        return $this;
+    }
+
+    public function getPresentation(): ?string
+    {
+        return $this->presentation;
+    }
+
+    public function setPresentation(string $presentation): static
+    {
+        $this->presentation = $presentation;
+
+        return $this;
+    }
+
+    public function getDateDeces(): ?\DateTimeImmutable
+    {
+        return $this->date_deces;
+    }
+
+    public function setDateDeces(?\DateTimeImmutable $date_deces): static
+    {
+        $this->date_deces = $date_deces;
 
         return $this;
     }

@@ -15,7 +15,7 @@
 {{ form_row(form.casting) }}
 {{ form_row(form.compositeur) }}
 
-{# {{form_label(form.imageFile2)}} #}
+<label for="" class="fw-bold mx-5 my-3">Bandes-annonce(s) et teaser(s)</label>
 
 <ul class="bandesAnnoncesTeasers" data-index="{{ form.bandesAnnoncesTeasers|length > 0 ? form.bandesAnnoncesTeasers|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.bandesAnnoncesTeasers.vars.prototype)|e('html_attr') }}">
 
@@ -28,9 +28,7 @@
 
 </ul>
 
-<button type="button" class="add_item_link form-control mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers">Ajouter une bande-annonce ou un teaser</button>
-
-{# <ul class="bandesAnnoncesTeasers" data-index="{{ form.imageFile2|length > 0 ? form.imageFile2|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.imageFile2.vars.prototype)|e('html_attr') }}"></ul> #}
+<button type="button" class="add_item_link form-control mx-5 my-3 btn" data-collection-holder-class="bandesAnnoncesTeasers"><b>Ajouter une bande-annonce ou un teaser</b></button>
 
 {{ form_row(form.forum) }}
 

@@ -32,7 +32,7 @@
 				<div class="front-film-informations-item2-properties">
 					<p>
 						<b>Titre original :</b>
-						{{film.titreOriginal}}
+						<i>{{film.titreOriginal}}</i>
 					</p>
 				</div>
 
@@ -48,14 +48,14 @@
 				<div class="front-film-informations-item2-properties">
 					<p>
 						<b>Date de sortie (Pays d'origine) :</b>
-						{% set formattedDate = film.DateSortiePaysOrigine ? "Le " ~ film.DateSortiePaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+						{% set formattedDate = film.DateSortiePaysOrigine ? "Le " ~ film.DateSortiePaysOrigine|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
 					</p>
 				</div>
 
 				<div class="front-film-informations-item2-properties">
 					<p>
 						<b>Date de sortie (France) :</b>
-						{% set formattedDate = film.DateSortieFrance ? "Le " ~ film.DateSortieFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+						{% set formattedDate = film.DateSortieFrance ? "Le " ~ film.DateSortieFrance|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
 					</p>
 				</div>
 
@@ -75,21 +75,72 @@
 			</div>
 		</div>
 		<hr>
-		<div class="front-film-fiche-auteur">
+		<div class="front-film-fiche-realisateur">
 			<div>
-				<h2>Auteur(s)</h2>
+				<h2>Réalisateur(s)</h2>
 			</div>
 			<div>
 				{% for artiste in film.realisateur %}
-					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-film">
+					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-film-artiste1">
 				{% endfor %}
 			</div>
-			<h4 class="front-film-fiche-auteur-nom">
+			<p class="front-film-fiche-realisateur-nom">
 				{% for artiste in film.realisateur %}
 					{{artiste.nom}}
 				{% endfor %}
-			</h4>
+			</p>
+		</div>
+		<hr>
+		<div class="front-film-fiche-scenariste">
+			<h2>Scénariste(s)</h2>
+			<p>
+				<b>Ecrit par :</b>
+				{% for artiste in film.scenariste %}
+					{{artiste.nom}}
+				{% endfor %}
+			</p>
+		</div>
+		<hr>
+		<div class="front-film-fiche-producteur">
+			<h2>Producteur(s)</h2>
+			<p>
+				<b>Produit par :</b>
+				{% for artiste in film.producteur %}
+					{{artiste.nom}}
+				{% endfor %}
+			</p>
+		</div>
+		<hr>
+		<div>
+			<div class="front-film-fiche-casting">
+				<h2>Casting</h2>
+			</div>
+			<div class="front-film-fiche-casting-flex">
+				<div class="row">
+					{% for artiste in film.casting %}
+						<div class="col">
+							<div class="img-front-film-container">
+								<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-film-artiste1">
+								<p class="front-film-fiche-casting-nom">{{ artiste.nom }}</p>
+							</div>
+						</div>
+						{% if loop.index % 3 == 0 %}
+						</div>
+						<div class="row">
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="front-film-fiche-compositeur">
+			<h2>Compositeur(s)</h2>
+			<p>
+				<b>Composé par :</b>
+				{% for artiste in film.compositeur %}
+					{{artiste.nom}}
+				{% endfor %}
+			</p>
 		</div>
 	</div>
-
-{% endblock %}
+</div>{% endblock %}

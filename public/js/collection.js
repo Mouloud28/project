@@ -8,112 +8,18 @@ $(document).ready(function () {
   });
 });
 
-// Films
-
-// const addbandeAnnonceTeaserFormDeleteLink = (item) => {
-//   const removeFormButton = document.createElement("button");
-//   removeFormButton.innerText = "Supprimer la vidéo";
-//   removeFormButton.classList.add("mt-2", "mb-2", "form-control");
-
-//   item.append(removeFormButton);
-
-//   removeFormButton.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     // remove the li for the tag form
-//     item.remove();
-//   });
-// };
-
-// const addFormToCollection = (e) => {
-//   const collectionHolder = document.querySelector(
-//     "." + e.currentTarget.dataset.collectionHolderClass
-//   );
-
-//   const item = document.createElement("li");
-
-//   item.innerHTML = collectionHolder.dataset.prototype.replace(
-//     /__name__/g,
-//     collectionHolder.dataset.index
-//   );
-
-//   addbandeAnnonceTeaserFormDeleteLink(item);
-//   collectionHolder.appendChild(item);
-
-//   collectionHolder.dataset.index++;
-// };
-
-// document.querySelectorAll(".add_item_link").forEach((btn) => {
-//   btn.addEventListener("click", addFormToCollection);
-// });
-
-// document
-//   .querySelectorAll("ul.bandesAnnoncesTeasers li")
-//   .forEach((bandeAnnonceTeaser) => {
-//     addbandeAnnonceTeaserFormDeleteLink(bandeAnnonceTeaser);
-//   });
-
-// ---------------------------------------------------
-
-// const addbandeAnnonceTeaserFormDeleteLink = (item) => {
-//   const removeFormButton = document.createElement("button");
-//   removeFormButton.innerText = "Supprimer la vidéo";
-//   removeFormButton.classList.add("mt-2", "mb-2", "form-control");
-
-//   item.append(removeFormButton);
-
-//   removeFormButton.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     // remove the li for the tag form
-//     item.remove();
-//   });
-// };
-
-// const addFormToCollection = (e) => {
-//   const collectionHolder = document.querySelector(
-//     "." + e.currentTarget.dataset.collectionHolderClass
-//   );
-
-//   const item = document.createElement("li");
-
-//   item.innerHTML = collectionHolder.dataset.prototype.replace(
-//     /__name__/g,
-//     collectionHolder.dataset.index
-//   );
-
-//   addbandeAnnonceTeaserFormDeleteLink(item);
-//   collectionHolder.appendChild(item);
-
-//   collectionHolder.dataset.index++;
-
-//   // Add the JavaScript code here to generate unique field names
-//   var index = collectionHolder.dataset.index;
-//   var prototype = collectionHolder.dataset.prototype;
-
-//   // Modify the prototype to generate unique field names
-//   var newForm = prototype.replace(/__name__/g, index);
-
-//   // Add the new form to the collection
-//   collectionHolder.appendChild(newForm);
-// };
-
-// document.querySelectorAll(".add_item_link").forEach((btn) => {
-//   btn.addEventListener("click", addFormToCollection);
-// });
-
-// document
-//   .querySelectorAll("ul.bandesAnnoncesTeasers li")
-//   .forEach((bandeAnnonceTeaser) => {
-//     addbandeAnnonceTeaserFormDeleteLink(bandeAnnonceTeaser);
-//   });
-
-// --------------
-
 // Fonction pour ajouter un bouton "Supprimer" à une bande-annonce
 const addbandeAnnonceTeaserFormDeleteLink = (item) => {
   if (!item.querySelector(".delete-button")) { // Vérifie si le bouton "Supprimer" n'existe pas déjà
     const removeFormButton = document.createElement("button");
     removeFormButton.innerText = "Supprimer la vidéo";
     removeFormButton.classList.add("mt-2", "mb-2", "form-control", "delete-button");
+
+    // Définir la largeur du bouton
+    removeFormButton.style.width = "200px"; // Remplacez la valeur par la largeur souhaitée en pixels
+    removeFormButton.style.marginLeft = "50px"; // Padding-left souhaité en pixels
+    removeFormButton.style.backgroundColor = "rgba(217, 217, 217)"; // Définir une couleur de fond
+    removeFormButton.style.fontWeight = "bold"; // Définir une couleur de fond
 
     item.append(removeFormButton);
 
@@ -163,49 +69,6 @@ document.querySelectorAll(".add_item_link").forEach((btn) => {
 document.querySelectorAll("ul.bandesAnnoncesTeasers li").forEach((bandeAnnonceTeaser) => {
   addbandeAnnonceTeaserFormDeleteLink(bandeAnnonceTeaser);
 });
-
-// Séries
-
-const addbandeAnnonceTeaserFormDeleteLink2 = (item) => {
-  const removeFormButton = document.createElement("button");
-  removeFormButton.innerText = "Supprimer la vidéo";
-
-  item.append(removeFormButton);
-
-  removeFormButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    // remove the li for the tag form
-    item.remove();
-  });
-};
-
-const addFormToCollection2 = (e) => {
-  const collectionHolder = document.querySelector(
-    "." + e.currentTarget.dataset.collectionHolderClass
-  );
-
-  const item = document.createElement("li");
-
-  item.innerHTML = collectionHolder.dataset.prototype.replace(
-    /__name__/g,
-    collectionHolder.dataset.index
-  );
-
-  addbandeAnnonceTeaserFormDeleteLink2(item);
-  collectionHolder.appendChild(item);
-
-  collectionHolder.dataset.index++;
-};
-
-document.querySelectorAll(".add_item_link").forEach((btn) => {
-  btn.addEventListener("click", addFormToCollection);
-});
-
-document
-  .querySelectorAll("ul.bandesAnnoncesTeasers li")
-  .forEach((bandeAnnonceTeaser) => {
-    addbandeAnnonceTeaserFormDeleteLink(bandeAnnonceTeaser);
-  });
 
 // // Notation
 

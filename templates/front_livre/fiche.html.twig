@@ -32,7 +32,7 @@
 				<div class="front-livre-informations-item2-properties">
 					<p>
 						<b>Titre original :</b>
-						{{livre.titreOriginal}}
+						<i>{{livre.titreOriginal}}</i>
 					</p>
 				</div>
 
@@ -48,14 +48,14 @@
 				<div class="front-livre-informations-item2-properties">
 					<p>
 						<b>Date de parution (Pays d'origine) :</b>
-						{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+						{% set formattedDate = livre.DatePublicationPaysOrigine ? "Le " ~ livre.DatePublicationPaysOrigine|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
 					</p>
 				</div>
 
 				<div class="front-livre-informations-item2-properties">
 					<p>
 						<b>Date de parution (France) :</b>
-						{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|date('d F Y', null, 'fr') : '' %}{{ formattedDate }}
+						{% set formattedDate = livre.DatePublicationFrance ? "Le " ~ livre.DatePublicationFrance|format_datetime(locale='fr',pattern="EEEE dd MMMM YYYY") : '' %}{{ formattedDate }}
 					</p>
 				</div>
 
@@ -81,14 +81,16 @@
 			</div>
 			<div>
 				{% for artiste in livre.auteur %}
-					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-livre">
+					<img src="{{ vich_uploader_asset(artiste, 'imageFile') }}" alt="artiste" class="img-front-livre-artiste">
 				{% endfor %}
 			</div>
-			<h4 class="front-livre-fiche-auteur-nom">
-				{% for artiste in livre.auteur %}
-					{{artiste.nom}}
-				{% endfor %}
-			</h4>
+			<div class="front-livre-fiche-auteur-nom">
+				<h4>
+					{% for artiste in livre.auteur %}
+						{{artiste.nom}}
+					{% endfor %}
+				</h4>
+			</div>
 		</div>
 		<hr>
 		<div class="front-livre-fiche-version-originale">

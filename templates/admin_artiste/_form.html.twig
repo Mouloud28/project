@@ -2,6 +2,7 @@
 
 {{form_row(form.nom)}}
 {{form_row(form.date_naissance)}}
+{{form_row(form.date_deces)}}
 {{form_row(form.pays_origine)}}
 {{form_row(form.ville)}}
 {{form_row(form.imageFile)}}
@@ -32,6 +33,8 @@
 
 {{form_row(form.compositeurs_albums)}}
 {{form_row(form.producteurs_albums)}}
+
+{{form_row(form.presentation)}}
 
 <button class="btn-ajouter-artiste form-control mx-5 my-3 btn fw-bold">{{ button_label|default('Ajouter l\'artiste') }}</button>
 

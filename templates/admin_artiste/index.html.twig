@@ -36,7 +36,7 @@
 						<span class="span-index">{{ artiste.nom }}</span>
 					</td>
 					<td>
-						<span class="span-index">{{ artiste.dateNaissance ? artiste.dateNaissance|date('d-m-Y') : '' }}</span>
+						<span class="span-index">{{ artiste.dateNaissance ? "Le "  ~ artiste.dateNaissance|format_datetime(locale='fr',pattern="dd MMMM YYYY") : '' }}</span>
 					</td>
 					<td>
 						{% if artiste.metiers %}
