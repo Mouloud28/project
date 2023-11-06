@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FrontUserController!
+{% endblock %}
+
+{% block body %}
+
+	<h1>Vos informations personnelles
+		{{app.user.pseudo}}</h1>
+
+	<div>
+
+		{% for message in app.flashes('message') %}
+
+			{{message}}
+
+		{% endfor %}
+
+	</div>
+
+	<div>Nom :</div>
+	<div>{{app.user.nom}}</div>
+	<div>Prénom :</div>
+	<div>{{app.user.prenom}}</div>
+	<div>Email :</div>
+	<div>{{app.user.email}}</div>
+	<div>Pseudo :</div>
+	<div>{{app.user.pseudo}}</div>
+
+	<button>
+		<a href="{{path('app_front_user_edit')}}">Modifier le profil</a>
+	</button>
+	<button><a href="{{path('app_front_password_edit')}}">Modifier le mot de passe</a></button>
+
+{% endblock %}
